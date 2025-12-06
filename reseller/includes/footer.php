@@ -17,6 +17,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="/reseller/assets/js/sb-admin-2.js"></script>
     <script src="/reseller/assets/js/jquery.validate.min.js"></script>
+    
 
 </body>
 

@@ -1,16 +1,7 @@
-<php
-if ($_SESSION['admin_type'] !== 'user')
-{
-   
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit('401 Unauthorized');
-}
-
-
-
-?>
-<!DOCTYPE html>
-<html lang="en">
+<php if ($_SESSION['admin_type'] !=='user' ) { header('HTTP/1.1 401 Unauthorized', true, 401); exit('401 Unauthorized');
+    } ?>
+    <!DOCTYPE html>
+    <html lang="en">
 
     <head>
 
@@ -19,11 +10,11 @@ if ($_SESSION['admin_type'] !== 'user')
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        
+
         <title>AH Auth Reseller Panel</title>
-        
+
         <!-- Bootstrap Core CSS -->
-        <link  rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 
         <!-- MetisMenu CSS -->
         <link href="assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -32,6 +23,7 @@ if ($_SESSION['admin_type'] !== 'user')
         <link href="assets/css/sb-admin-2.css" rel="stylesheet">
         <!-- Custom Fonts -->
         <link href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -72,7 +64,9 @@ if ($_SESSION['admin_type'] !== 'user')
                             <ul class="dropdown-menu dropdown-user">
                                 <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                                 </li>
-                                <li><a href="edit_main.php?admin_user_id=<?php echo $_SESSION['admin_id']; ?>&operation=edit"><i class="fa fa-gear fa-fw"></i> Change Password</a>
+                                <li><a
+                                        href="edit_main.php?admin_user_id=<?php echo $_SESSION['admin_id']; ?>&operation=edit"><i
+                                            class="fa fa-gear fa-fw"></i> Change Password</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -90,37 +84,37 @@ if ($_SESSION['admin_type'] !== 'user')
                                 <li>
                                     <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                                 </li>
-                                
-		
-                                   
-                                    <ul class="nav nav-second-level">
-                                       
-                                    
-                                    </ul>
-                                    
+
+
+
+                                <ul class="nav nav-second-level">
+
+
+                                </ul>
+
                                 <li>
-                                            <a href="transfer_credit.php"><i class="fa fa-signal"></i>Refil Credit</a>
+                                    <a href="transfer_credit.php"><i class="fa fa-signal"></i>Refil Credit</a>
                                 </li>
-										
+
                                 <li>
-                                            <a href="history_refil.php"><i class="fa fa-signal"></i>Unpaid Credit</a>
+                                    <a href="history_refil.php"><i class="fa fa-signal"></i>Unpaid Credit</a>
                                 </li>
-									 <li>
-                                            <a href="paid_refil.php"><i class="fa fa-signal"></i>Paid Credit</a>
-                                </li>	
-                                 <li>
-                                            <a href="individual_job.php"><i class="fa fa-signal"></i> Check History</a>
+                                <li>
+                                    <a href="paid_refil.php"><i class="fa fa-signal"></i>Paid Credit</a>
                                 </li>
-										
-                               
-                               
+                                <li>
+                                    <a href="individual_job.php"><i class="fa fa-signal"></i> Check History</a>
+                                </li>
+
+
+
                             </ul>
                         </div>
                         <!-- /.sidebar-collapse -->
                     </div>
                     <!-- /.navbar-static-side -->
                 </nav>
-            <?php endif;?>
+            <?php endif; ?>
             <!-- The End of the Header -->
-            
+
             <?php include('updaters.php') ?>
