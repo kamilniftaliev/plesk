@@ -10,11 +10,42 @@ $users = new Users();
 //echo $_SESSION['admin_type'];
 if ($_SESSION['admin_type'] !== 'admin')
 {
-   
+
     header('HTTP/1.1 401 Unauthorized', true, 401);
     exit('401 Unauthorized');
 }
 
+// Function to generate random string for API key
+function generateRandomString($length = 8) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+
+    return $randomString;
+}
+
+// Handle API key regeneration
+$regenerate_id = filter_input(INPUT_GET, 'regenerate_id', FILTER_VALIDATE_INT);
+if ($regenerate_id) {
+    $new_apikey = "AH-TOOL-" . generateRandomString(8);
+
+    $db = getDbInstance();
+    $db->where('id', $regenerate_id);
+    $stat = $db->update('user', ['apikey' => $new_apikey]);
+
+    if ($stat) {
+        $_SESSION['success'] = "API Key regenerated successfully!";
+    } else {
+        $_SESSION['failure'] = "Failed to regenerate API Key: " . $db->getLastError();
+    }
+
+    header('Location: reseller.php');
+    exit;
+}
 
 $search_string = filter_input(INPUT_GET, 'search_string');
 $filter_col = filter_input(INPUT_GET, 'filter_col');
@@ -114,9 +145,19 @@ include BASE_PATH.'/includes/admin_header.php';
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo htmlspecialchars($row['username']); ?></td>
                 <td><?php echo htmlspecialchars($row['status']); ?></td>
-                <td><?php echo htmlspecialchars($row['apikey']); ?></td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-family: monospace; font-size: 13px;"><?php echo htmlspecialchars($row['apikey']); ?></span>
+                        <a href="reseller.php?regenerate_id=<?php echo $row['id']; ?>"
+                           class="btn btn-warning btn-xs"
+                           onclick="return confirm('Are you sure you want to regenerate the API key for <?php echo htmlspecialchars($row['username']); ?>?');"
+                           title="Regenerate API Key">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                    </div>
+                </td>
                  <td><?php echo htmlspecialchars($row['status']); ?></td>
-               
+
                 <td>
                     <a href="edit_reseller.php?admin_user_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
                     <a href="#" class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id']; ?>"><i class="glyphicon glyphicon-trash"></i></a>
