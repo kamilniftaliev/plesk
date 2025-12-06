@@ -1,0 +1,40 @@
+-1002383474691nnArray
+(
+    [update_id] => 375456164
+    [message] => Array
+        (
+            [message_id] => 25244
+            [from] => Array
+                (
+                    [id] => 7515579921
+                    [is_bot] => 
+                    [first_name] => Ikh
+                    [last_name] => As
+                    [username] => AyangMbebTool
+                    [language_code] => en
+                )
+
+            [chat] => Array
+                (
+                    [id] => -1002383474691
+                    [title] => Ayang Mbeb TooL
+                    [type] => supergroup
+                )
+
+            [date] => 1735102416
+            [text] => /help
+            [entities] => Array
+                (
+                    [0] => Array
+                        (
+                            [offset] => 0
+                            [length] => 5
+                            [type] => bot_command
+                        )
+
+                )
+
+        )
+
+)
+nn

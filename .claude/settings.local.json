@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mysql --version:*)",
+      "Bash(sudo systemctl status:*)",
+      "Bash(systemctl status:*)",
+      "Bash(sudo systemctl start:*)",
+      "Bash(mysql:*)",
+      "Bash(sudo -n systemctl start:*)",
+      "Bash(chmod:*)",
+      "Bash(bash:*)",
+      "Bash(php:*)",
+      "Bash(dos2unix:*)",
+      "Bash(sudo mysql:*)",
+      "Bash(wget:*)",
+      "Bash(curl:*)",
+      "Bash(date:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
