@@ -66,7 +66,7 @@ include BASE_PATH . '/includes/login_header.php';
 				</div>
 				<div class="form-group">
 					<label class="control-label">Second Password</label>
-					<input type="text" name="second_password" class="form-control" required="required">
+					<input type="password" name="second_password" class="form-control" required="required">
 				</div>
 				<div class="checkbox">
 					<label>

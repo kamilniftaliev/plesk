@@ -4,7 +4,7 @@
 
 //if user is Not Logged in, redirect to login.php page.
 if (!isset($_SESSION['user_logged_in'])) {
-	header('Location:dashboard/login.php');
+	header('Location:/dashboard/login.php');
 }
 
 ?>

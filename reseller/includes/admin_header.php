@@ -76,7 +76,7 @@ if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
                                         class="fa fa-gear fa-fw"></i> Change Password</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="/reseller/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->

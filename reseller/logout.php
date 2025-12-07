@@ -42,7 +42,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 session_destroy();
 
 // Redirect to login page
-header('Location:./login.php');
+header('Location:login.php');
 exit;
 
 ?>
