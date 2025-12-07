@@ -72,6 +72,38 @@ $total_pages = $db->totalPages;
 
 include BASE_PATH . '/includes/admin_header.php';
 ?>
+<style>
+    @media (prefers-color-scheme: dark) {
+
+        /* Style selects and date inputs that don't have form-control class */
+        select:not(.form-control),
+        input[type="date"]:not(.form-control),
+        input[type="text"]:not(.form-control),
+        input[type="submit"]:not(.btn) {
+            background-color: #1e293b !important;
+            border-color: #374151 !important;
+            color: #f1f5f9 !important;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #374151;
+        }
+
+        select:not(.form-control):focus,
+        input[type="date"]:not(.form-control):focus,
+        input[type="text"]:not(.form-control):focus {
+            background-color: #1e293b !important;
+            border-color: #60a5fa !important;
+            color: #f1f5f9 !important;
+            outline: none;
+        }
+
+        /* Keep red and green backgrounds as-is */
+        td[style*="background-color:green"],
+        td[style*="background-color:red"] {
+            /* These will keep their inline styles */
+        }
+    }
+</style>
 <!-- Main container -->
 <div id="page-wrapper">
     <div class="row">
@@ -193,12 +225,14 @@ include BASE_PATH . '/includes/admin_header.php';
                     <?php
                     if (htmlspecialchars($row['status']) == 'done') {
                         ?>
-                        <td style="background-color:green;color:white;"> <?php echo 'done'; ?> </td>
-                    <?php
+                        <td style="background-color:green !important;color:white !important;"> <?php echo 'done'; ?> </td>
+                        <?php
                     } else {
                         ?>
-                        <td style="background-color:red;color:white;"><?php echo htmlspecialchars($row['status']); ?> </td>
-                    <?php
+                        <td style="background-color:red !important;color:white !important;">
+                            <?php echo htmlspecialchars($row['status']); ?>
+                        </td>
+                        <?php
                     }
                     // }
                     ?>
