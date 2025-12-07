@@ -23,14 +23,14 @@ if ($_SESSION['admin_type'] !== 'admin')
 
 $statusUser = $_SESSION['admin_type'];
 $admin_user_id =  $_SESSION['admin_id'];
-$name = $_SESSION['name'];
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : '';
 $db = getDbInstance();
 $db->where('id', $admin_user_id);
 $row = $db->get('user');
 $res = $row[0]['username'];
 $cre = $row[0]['credit'];
 
-$name = strtolower($name);     
+$name = $name ? strtolower($name) : '';     
     
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 

@@ -135,9 +135,9 @@ include BASE_PATH.'/includes/admin_header.php';
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($rows as $row): 
-            
-            if ($_SESSION['name'] !== $row['username'])
+            <?php foreach ($rows as $row):
+
+            if (!isset($_SESSION['name']) || $_SESSION['name'] !== $row['username'])
             {
             ?>
             

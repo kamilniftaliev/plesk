@@ -147,10 +147,10 @@ include BASE_PATH.'/includes/admin_header.php';
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo htmlspecialchars($row['iduser']); ?></td>
                 <td><?php echo htmlspecialchars($row['name']); ?></td>
-                <td><?php 
+                <td><?php
                   $blobkey = $row['configblob'];
-               echo $blobkey; //substr($blobkey, 0, 50);
-               
+                  echo (strlen($blobkey) > 10) ? substr($blobkey, 0, 10) . '...' : $blobkey;
+
                 if ($row['serviceid'] == "1") { ?></td>
                 <td><?php echo "EDL"; } ?></td>
                 <?php 
