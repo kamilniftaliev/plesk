@@ -1,8 +1,5 @@
 <?php
-if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit('401 Unauthorized');
-}
+require_once './includes/auth_validate.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,8 +1,8 @@
 <?php
 if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'user') {
 
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit('401 Unauthorized');
+    header('Location:/reseller/login.php');
+    exit();
 }
 
 

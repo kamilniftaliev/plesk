@@ -10,8 +10,8 @@ $users = new Users();
 //echo $_SESSION['admin_type'];
 if ($_SESSION['admin_type'] !== 'admin') {
 
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit('401 Unauthorized');
+    header('Location:/dashboard/login.php');
+    exit();
 }
 
 // Function to generate random string for API key

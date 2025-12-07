@@ -8,8 +8,8 @@ require_once BASE_PATH . '/lib/Costumers/Costumers.php';
 $costumers = new Costumers();
 if ($_SESSION['admin_type'] !== 'admin') {
 
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit('401 Unauthorized');
+    header('Location:/dashboard/login.php');
+    exit();
 }
 
 

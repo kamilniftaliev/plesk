@@ -1,18 +1,17 @@
 <?php
 session_start();
 require_once 'config/config.php';
-require_once BASE_PATH.'/includes/auth_validate.php';
+require_once BASE_PATH . '/includes/auth_validate.php';
 
 // Users class
-require_once BASE_PATH.'/lib/Users/Users.php';
+require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
 
 // Only super admin is allowed to access this page
-if ($_SESSION['admin_type'] !== 'super')
-{
+if ($_SESSION['admin_type'] !== 'super') {
     // Show permission denied message
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit('401 Unauthorized');
+    header('Location:/dashboard/login.php');
+    exit();
 }
 
 // Get Input data from query string
@@ -26,35 +25,30 @@ $pagelimit = 20;
 
 // Get current page.
 $page = filter_input(INPUT_GET, 'page');
-if (!$page)
-{
+if (!$page) {
     $page = 1;
 }
 
 // If filter types are not selected we show latest added data first
-if (!$filter_col)
-{
+if (!$filter_col) {
     $filter_col = 'saleid';
 }
-if (!$order_by)
-{
+if (!$order_by) {
     $order_by = 'Desc';
 }
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('saleid', 'username', 'credit' ,'input','cost','api','orderid','status','datetime');
+$select = array('saleid', 'username', 'credit', 'input', 'cost', 'api', 'orderid', 'status', 'datetime');
 
 //Start building query according to input parameters.
 // If search string
-if ($search_string)
-{
+if ($search_string) {
     $db->where('usernamename', '%' . $search_string . '%', 'like');
 }
 
 //If order by option selected
-if ($order_by)
-{
+if ($order_by) {
     $db->orderBy($filter_col, $order_by);
 }
 
@@ -65,7 +59,7 @@ $db->pageLimit = $pagelimit;
 $rows = $db->arraybuilder()->paginate('Sales', $page, $select);
 $total_pages = $db->totalPages;
 
-include BASE_PATH.'/includes/header.php';
+include BASE_PATH . '/includes/header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">
@@ -73,20 +67,19 @@ include BASE_PATH.'/includes/header.php';
         <div class="col-lg-6">
             <h1 class="page-header">Xiaomi AzeGsm Reseller Sold Records From DHRU</h1>
         </div>
-        
+
     </div>
-    <?php include BASE_PATH.'/includes/flash_messages.php'; ?>
+    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
 
     <?php
-    if (isset($del_stat) && $del_stat == 1)
-    {
+    if (isset($del_stat) && $del_stat == 1) {
         echo '<div class="alert alert-info">Successfully deleted</div>';
     }
     ?>
-    
+
     <!-- Filters -->
-    
-  
+
+
     <!-- //Filters -->
 
     <!-- Table -->
@@ -96,7 +89,7 @@ include BASE_PATH.'/includes/header.php';
                 <th width="10%">Sale ID</th>
                 <th width="15%">Reseller Name</th>
                 <th width="10%">Reseller Credit</th>
-				<th width="20%">Sold To</th>
+                <th width="20%">Sold To</th>
                 <th width="8%">Order QNT</th>
                 <th width="7%">Order ID</th>
                 <th width="20%">Order status</th>
@@ -105,19 +98,19 @@ include BASE_PATH.'/includes/header.php';
         </thead>
         <tbody>
             <?php foreach ($rows as $row): ?>
-            <tr>
-                <td><?php echo $row['saleid']; ?></td>
-                <td><?php echo htmlspecialchars($row['username']); ?></td>
-                <td><?php echo htmlspecialchars($row['credit']); ?></td>
-                <td><?php echo htmlspecialchars($row['input']); ?></td>
-				<td><?php echo htmlspecialchars($row['cost']); ?></td>
-				<td><?php echo htmlspecialchars($row['orderid']); ?></td>
-				<td><?php echo htmlspecialchars($row['status']); ?></td>
-				<td><?php echo htmlspecialchars($row['datetime']); ?></td>
-            </tr>
-            <!-- Delete Confirmation Modal -->
-            
-            <!-- //Delete Confirmation Modal -->
+                <tr>
+                    <td><?php echo $row['saleid']; ?></td>
+                    <td><?php echo htmlspecialchars($row['username']); ?></td>
+                    <td><?php echo htmlspecialchars($row['credit']); ?></td>
+                    <td><?php echo htmlspecialchars($row['input']); ?></td>
+                    <td><?php echo htmlspecialchars($row['cost']); ?></td>
+                    <td><?php echo htmlspecialchars($row['orderid']); ?></td>
+                    <td><?php echo htmlspecialchars($row['status']); ?></td>
+                    <td><?php echo htmlspecialchars($row['datetime']); ?></td>
+                </tr>
+                <!-- Delete Confirmation Modal -->
+
+                <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -148,4 +141,4 @@ include BASE_PATH.'/includes/header.php';
     <!-- //Pagination -->
 </div>
 <!-- //Main container -->
-<?php include BASE_PATH.'/includes/footer.php'; ?>
+<?php include BASE_PATH . '/includes/footer.php'; ?>
