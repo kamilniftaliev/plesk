@@ -33,6 +33,16 @@
         <![endif]-->
         <script src="/dashboard/assets/js/jquery.min.js" type="text/javascript"></script>
 
+        <style>
+            #page-wrapper {
+                padding: 1.5rem !important;
+            }
+            #page-wrapper .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        </style>
+
     </head>
 
     <body>
