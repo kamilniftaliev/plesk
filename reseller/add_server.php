@@ -58,8 +58,8 @@ require_once 'includes/admin_header.php';
 
     <?php include_once 'includes/flash_messages.php'; ?>
     <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">Add SERVER</h2>
+        <div class="row">
+            <h1 class="page-header">Add SERVER</h1>
         </div>
 
     </div>

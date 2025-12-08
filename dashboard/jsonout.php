@@ -1,6 +1,7 @@
 <?php
 require_once './config/config.php';
 require("auth.php");
+session_name('DASHBOARD_SESSION');
 session_start();
 error_reporting(E_ERROR | E_PARSE);
 
@@ -16,7 +17,7 @@ error_reporting(E_ERROR | E_PARSE);
 //Get DB instance. function is defined in config.php
 $db = getDbInstance();
 
-if ( $_SESSION['user_logged_in'] === TRUE){
+if ( $_SESSION['dashboard_user_logged_in'] === TRUE){
 	$s = 'SELECT * FROM spdevices';
 
 

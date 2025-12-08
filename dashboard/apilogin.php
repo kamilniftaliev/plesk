@@ -1,5 +1,6 @@
 <?php
 require_once './config/config.php';
+session_name('DASHBOARD_SESSION');
 session_start();
 require("auth.php");
 error_reporting(E_ERROR | E_PARSE);
@@ -30,7 +31,7 @@ if ($query === 'login'){
 		
 		if (password_verify($passwd, $db_password)) {
 
-			$_SESSION['user_logged_in'] = TRUE;
+			$_SESSION['dashboard_user_logged_in'] = TRUE;
 			$_SESSION['admin_type'] = $row[0]['admin_type'];
 			
 			//Auth Success

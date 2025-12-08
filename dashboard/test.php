@@ -1,4 +1,5 @@
 <?php
+session_name('DASHBOARD_SESSION');
 session_start();
 include 'konak.php';
 require_once './config/config.php';

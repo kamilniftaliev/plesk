@@ -1,5 +1,6 @@
 <?php
 require_once './config/config.php';
+session_name('DASHBOARD_SESSION');
 session_start();
 session_destroy();
 

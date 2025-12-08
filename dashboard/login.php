@@ -1,10 +1,11 @@
 <?php
+session_name('DASHBOARD_SESSION');
 session_start();
 $sekarang = date('Y-m-d H:i:s');
 require_once 'config/config.php';
 $token = bin2hex(openssl_random_pseudo_bytes(16));
 
-if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === TRUE) {
+if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] === TRUE) {
 	header('Location:index.php');
 }
 
@@ -31,7 +32,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 				exit;
 			}
 
-			$_SESSION['user_logged_in'] = TRUE;
+			$_SESSION['dashboard_user_logged_in'] = TRUE;
 			$_SESSION['admin_type'] = $row['status'];
 			$_SESSION['admin_id'] = $row['id'];
 			header('Location:index.php');

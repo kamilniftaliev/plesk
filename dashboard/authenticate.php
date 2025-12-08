@@ -3,6 +3,7 @@
 
 
 require_once './config/config.php';
+session_name('DASHBOARD_SESSION');
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$username = filter_input(INPUT_POST, 'username');
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		if (password_verify($passwd, $db_password)) {
 
-			$_SESSION['user_logged_in'] = TRUE;
+			$_SESSION['dashboard_user_logged_in'] = TRUE;
 			$_SESSION['name'] = $row[0]['username'];
 			$_SESSION['admin_id'] = $row[0]['id'];
 			$_SESSION['admin_type'] = $row[0]['status'];

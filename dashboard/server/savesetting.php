@@ -1,6 +1,7 @@
 <?php
 
 require_once 'konak.php';
+session_name('DASHBOARD_SESSION');
 session_start();
 
  // sid: sid,

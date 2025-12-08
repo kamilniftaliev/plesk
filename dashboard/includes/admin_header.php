@@ -1,9 +1,3 @@
-<?php
-// if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
-//     header('HTTP/1.1 401 Unauthorized', true, 401);
-//     exit('401 Unauthorized');
-// }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,11 +29,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script src="/dashboard/assets/js/jquery.min.js" type="text/javascript"></script>
 
     <style>
@@ -103,7 +92,12 @@
             }
 
             /* Headings */
-            h1, h2, h3, h4, h5, h6,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
             .page-header {
                 color: #f1f5f9 !important;
             }
@@ -141,27 +135,27 @@
                 border-color: #374151 !important;
             }
 
-            .table > thead > tr > th {
+            .table>thead>tr>th {
                 background-color: #1e293b !important;
                 color: #f1f5f9 !important;
                 border-color: #374151 !important;
             }
 
-            .table > tbody > tr > td {
+            .table>tbody>tr>td {
                 background-color: #1e293b !important;
                 color: #f1f5f9 !important;
                 border-color: #374151 !important;
             }
 
-            .table-striped > tbody > tr:nth-of-type(odd) {
+            .table-striped>tbody>tr:nth-of-type(odd) {
                 background-color: #1e293b !important;
             }
 
-            .table-striped > tbody > tr:nth-of-type(even) {
+            .table-striped>tbody>tr:nth-of-type(even) {
                 background-color: #0f172a !important;
             }
 
-            .table-hover > tbody > tr:hover {
+            .table-hover>tbody>tr:hover {
                 background-color: #334155 !important;
             }
 
@@ -277,20 +271,20 @@
             }
 
             /* Pagination */
-            .pagination > li > a,
-            .pagination > li > span {
+            .pagination>li>a,
+            .pagination>li>span {
                 background-color: #1e293b !important;
                 border-color: #374151 !important;
                 color: #f1f5f9 !important;
             }
 
-            .pagination > li > a:hover {
+            .pagination>li>a:hover {
                 background-color: #334155 !important;
                 border-color: #374151 !important;
                 color: #ffffff !important;
             }
 
-            .pagination > .active > a {
+            .pagination>.active>a {
                 background-color: #3b82f6 !important;
                 border-color: #3b82f6 !important;
                 color: #ffffff !important;
@@ -302,7 +296,7 @@
                 color: #f1f5f9 !important;
             }
 
-            .breadcrumb > li > a {
+            .breadcrumb>li>a {
                 color: #60a5fa !important;
             }
 
@@ -357,18 +351,18 @@
                 border-color: #374151 !important;
             }
 
-            .nav-tabs > li > a {
+            .nav-tabs>li>a {
                 color: #f1f5f9 !important;
                 background-color: #1e293b !important;
                 border-color: #374151 !important;
             }
 
-            .nav-tabs > li > a:hover {
+            .nav-tabs>li>a:hover {
                 background-color: #334155 !important;
                 border-color: #374151 !important;
             }
 
-            .nav-tabs > li.active > a {
+            .nav-tabs>li.active>a {
                 background-color: #0f172a !important;
                 border-color: #374151 #374151 transparent !important;
                 color: #f1f5f9 !important;
@@ -380,11 +374,11 @@
                 border-color: #374151 !important;
             }
 
-            .dropdown-menu > li > a {
+            .dropdown-menu>li>a {
                 color: #f1f5f9 !important;
             }
 
-            .dropdown-menu > li > a:hover {
+            .dropdown-menu>li>a:hover {
                 background-color: #334155 !important;
                 color: #ffffff !important;
             }
@@ -479,7 +473,12 @@
             }
 
             /* Additional text elements */
-            p, span, div, td, th, li {
+            p,
+            span,
+            div,
+            td,
+            th,
+            li {
                 color: inherit;
             }
 
@@ -631,11 +630,11 @@
                 border-color: #374151 !important;
             }
 
-            .navbar-default .navbar-nav > li > a {
+            .navbar-default .navbar-nav>li>a {
                 color: #f1f5f9 !important;
             }
 
-            .navbar-default .navbar-nav > li > a:hover {
+            .navbar-default .navbar-nav>li>a:hover {
                 background-color: #334155 !important;
                 color: #ffffff !important;
             }
@@ -659,9 +658,9 @@
     </style>
 </head>
 
-<body class="bg-gray-50">
+<body>
 
-    <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true): ?>
+    <?php if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] == true): ?>
         <!-- Modern Sidebar -->
         <div class="modern-sidebar">
             <!-- Logo -->
@@ -737,7 +736,7 @@
 
                 <!-- Refill Credit (Active) -->
                 <a href="/dashboard/transfer_credit.php"
-                    class="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-white text-blue-700 dark:text-slate-800 rounded-lg mb-1">
+                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
@@ -787,7 +786,7 @@
                 <div id="user-menu"
                     class="hidden absolute bottom-28 left-4 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <a href="#"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100  transition-colors border-b border-gray-200 dark:border-gray-700">
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors border-b border-gray-200 dark:border-gray-700">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -795,7 +794,7 @@
                         <span class="font-medium">User Profile</span>
                     </a>
                     <a href="edit_main.php?admin_user_id=<?php echo $_SESSION['admin_id']; ?>&operation=edit"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100  transition-colors border-b border-gray-200 dark:border-gray-700">
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors border-b border-gray-200 dark:border-gray-700">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z">
@@ -804,7 +803,7 @@
                         <span class="font-medium">Change Password</span>
                     </a>
                     <a href="/dashboard/logout.php"
-                        class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-gray-100  transition-colors">
+                        class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
