@@ -21,13 +21,6 @@ $tanggal = filter_input(INPUT_GET, 'tanggal');
 $paid = filter_input(INPUT_GET, 'paid');
 
 
-$pagelimit = 100;
-
-
-$page = filter_input(INPUT_GET, 'page');
-if (!$page) {
-    $page = 1;
-}
 if (!$search_string) {
     $search_string = $admin_user_id;
 }
@@ -62,12 +55,9 @@ if ($search_string) {
 
 
 $db->orderBy("id", "desc");
-$db->pageLimit = $pagelimit;
 
-$rows = $db->arraybuilder()->paginate('data', $page, $select);
-$total_pages = $db->totalPages;
-
-
+// Get all rows for DataTables client-side processing
+$rows = $db->get('data', null, implode(',', $select));
 
 
 if ($_SESSION['admin_type'] == 'user') {
@@ -83,6 +73,191 @@ if ($_SESSION['admin_type'] == 'reseller') {
 
 
 ?>
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap.min.css">
+
+<style>
+    @media (prefers-color-scheme: dark) {
+
+        /* DataTables dark mode styling */
+        .dataTables_wrapper {
+            color: #f1f5f9 !important;
+        }
+
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            color: #f1f5f9 !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: #f1f5f9 !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            color: #6b7280 !important;
+        }
+
+        table.dataTable thead th {
+            border-bottom: 1px solid #374151 !important;
+        }
+
+        table.dataTable.no-footer {
+            border-bottom: 1px solid #374151 !important;
+        }
+    }
+
+    /* Modern table styling */
+    #individualJobTable {
+        width: 100% !important;
+    }
+
+    #individualJobTable thead th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        text-align: center !important;
+        user-select: none;
+    }
+
+    /* Column names row - sortable */
+    .column-names th {
+        cursor: pointer !important;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        #individualJobTable thead th {
+            background-color: #1e293b;
+        }
+    }
+
+    #individualJobTable tbody td {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+
+    #individualJobTable thead th.sorting:after,
+    #individualJobTable thead th.sorting_asc:after,
+    #individualJobTable thead th.sorting_desc:after {
+        opacity: 0.3;
+    }
+
+    #individualJobTable thead th.sorting_asc:after,
+    #individualJobTable thead th.sorting_desc:after {
+        opacity: 1;
+    }
+
+    /* Filter row styling */
+    .filter-row th {
+        background-color: #ffffff !important;
+        padding: 8px !important;
+        border-top: 2px solid #dee2e6;
+        cursor: default !important;
+    }
+
+    .filter-row th:after {
+        display: none !important;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .filter-row th {
+            background-color: #0f172a !important;
+            border-top: 2px solid #374151;
+        }
+    }
+
+    .filter-row input,
+    .filter-row select {
+        width: 100%;
+        padding: 6px 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+        .filter-row input,
+        .filter-row select {
+            background-color: #1e293b !important;
+            border-color: #374151 !important;
+            color: #f1f5f9 !important;
+        }
+    }
+
+    .filter-row input:focus,
+    .filter-row select:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+
+    /* Column names row - draggable */
+    .column-names th {
+        position: relative;
+        cursor: move;
+    }
+
+    .column-names th.no-sort {
+        cursor: default;
+    }
+
+    /* Column resize handle */
+    .column-names th .resize-handle {
+        position: absolute;
+        top: 0;
+        right: -3px;
+        width: 6px;
+        height: 100%;
+        cursor: col-resize;
+        z-index: 10;
+        background: transparent;
+    }
+
+    .column-names th .resize-handle:hover {
+        background-color: #3b82f6;
+    }
+
+    /* Prevent text selection during resize */
+    .resizing {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    /* Column resizer */
+    .dataTables_wrapper table {
+        border-collapse: collapse;
+    }
+
+    th.dt-orderable-asc,
+    th.dt-orderable-desc {
+        cursor: pointer;
+    }
+
+    /* Responsive improvements */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        padding: 10px 0;
+    }
+
+    .filter-row th:after,
+    .filter-row th:before {
+        display: none !important;
+    }
+
+    /* Status colors */
+    @media (prefers-color-scheme: dark) {
+
+        td[style*="background-color:green"],
+        td[style*="background-color:red"] {
+            /* Keep inline styles */
+        }
+    }
+</style>
+
 <!-- Main container -->
 <div id="page-wrapper">
     <div class="row">
@@ -97,11 +272,6 @@ if ($_SESSION['admin_type'] == 'reseller') {
     ?>
 
     <!-- Filters -->
-
-    <!-- Filters -->
-
-    <!-- Table -->
-
     <div class="well text-center filter-form">
         <form class="form form-inline" action="">
             <label for="input_search">Search</label>
@@ -130,107 +300,332 @@ if ($_SESSION['admin_type'] == 'reseller') {
     </div>
 
 
-    <table class="table table-striped table-bordered table-condensed">
-        <thead>
-            <tr>
-                <th width="5%">ID</th>
-                <th width="8%">id user</th>
-                <th width="20%">configblob</th>
-                <th width="8%">Auth Type</th>
-                <th width="7%">Server Id</th>
-                <th width="8%">Response</th>
-                <th width="8%">cost</th>
-                <th width="20%">Time</th>
-                <th width="8%">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($rows as $row):
-                // if ($row['sid'] === $serverid) {
-                ?>
-                <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo htmlspecialchars($row['iduser']); ?></td>
-                    <td><?php
-                    $blobkey = $row['configblob'];
-                    echo substr($blobkey, 0, 10);
-
-                    if ($row['serviceid'] == "1") { ?></td>
-                        <td><?php echo "EDL";
-                    } ?></td>
-                    <?php
-                    if ($row['serviceid'] == "2") { ?></td>
-                        <td><?php echo "FRP";
-                    } ?></td>
-                    <?php
-                    if ($row['serviceid'] == "4") { ?></td>
-                        <td><?php echo "MTK";
-                    } ?></td>
-
-
-                    <td><?php echo "Server " . $row['serverid']; ?></td>
-
-                    <td>Hidden</td>
-                    <td><?php echo $row['cost']; ?></td>
-                    <?php
-                    $dateTime = new DateTime($row['tgl']);
-                    $timestamp = $dateTime->getTimestamp();
-                    $dhakaTimeZone = new DateTimeZone('Asia/jakarta');
-                    $dateTimeDhaka = new DateTime();
-                    $dateTimeDhaka->setTimestamp($timestamp);
-                    $dateTimeDhaka->setTimezone($dhakaTimeZone);
-                    $convertedDate = date('F j, Y h:i A', $timestamp);
-
-                    ?>
-                    <td>
-                        <?php echo $dateTimeDhaka->format('F j, Y h:i A'); ?>
-
-                    </td>
-                    <?php
-                    if (htmlspecialchars($row['status']) == 'done') {
-                        ?>
-                        <td style="background-color:green;color:white;"> <?php echo 'done'; ?> </td>
-                    <?php
-                    } else {
-                        ?>
-                        <td style="background-color:red;color:white;"><?php echo htmlspecialchars($row['status']); ?> </td>
-                    <?php
-                    }
-                    // }
-                    ?>
-
+    <div class="table-responsive">
+        <table id="individualJobTable" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr class="column-names">
+                    <th draggable="true">ID<span class="resize-handle"></span></th>
+                    <th draggable="true">ID User<span class="resize-handle"></span></th>
+                    <th draggable="true">Configblob<span class="resize-handle"></span></th>
+                    <th draggable="true">Auth Type<span class="resize-handle"></span></th>
+                    <th draggable="true">Server ID<span class="resize-handle"></span></th>
+                    <th draggable="true">Response<span class="resize-handle"></span></th>
+                    <th draggable="true">Cost<span class="resize-handle"></span></th>
+                    <th draggable="true">Time<span class="resize-handle"></span></th>
+                    <th draggable="true">Status<span class="resize-handle"></span></th>
                 </tr>
-                <!-- Delete Confirmation Modal -->
+                <tr class="filter-row">
+                    <th><input type="number" class="column-filter" data-column="0" placeholder="Filter ID..."></th>
+                    <th><input type="text" class="column-filter" data-column="1" placeholder="Filter user..."></th>
+                    <th><input type="text" class="column-filter" data-column="2" placeholder="Filter configblob..."></th>
+                    <th>
+                        <select class="column-filter" data-column="3">
+                            <option value="">All Types</option>
+                            <option value="EDL">EDL</option>
+                            <option value="FRP">FRP</option>
+                            <option value="MTK">MTK</option>
+                        </select>
+                    </th>
+                    <th><input type="text" class="column-filter" data-column="4" placeholder="Filter server..."></th>
+                    <th></th>
+                    <th><input type="number" class="column-filter" data-column="6" placeholder="Filter cost..."></th>
+                    <th><input type="text" class="column-filter" data-column="7" placeholder="Filter time..."></th>
+                    <th>
+                        <select class="column-filter" data-column="8">
+                            <option value="">All Status</option>
+                            <option value="done">done</option>
+                        </select>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo htmlspecialchars($row['iduser']); ?></td>
+                        <td><?php
+                        $blobkey = $row['configblob'];
+                        echo substr($blobkey, 0, 10);
 
-                <!-- //Delete Confirmation Modal -->
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <!-- //Table -->
+                        if ($row['serviceid'] == "1") { ?></td>
+                            <td><?php echo "EDL";
+                        } ?></td>
+                        <?php
+                        if ($row['serviceid'] == "2") { ?></td>
+                            <td><?php echo "FRP";
+                        } ?></td>
+                        <?php
+                        if ($row['serviceid'] == "4") { ?></td>
+                            <td><?php echo "MTK";
+                        } ?></td>
 
-    <!-- Pagination -->
-    <div class="text-center">
-        <?php
-        if (!empty($_GET)) {
-            // We must unset $_GET[page] if previously built by http_build_query function
-            unset($_GET['page']);
-            // To keep the query sting parameters intact while navigating to next/prev page,
-            $http_query = "?" . http_build_query($_GET);
-        } else {
-            $http_query = "?";
-        }
-        // Show pagination links
-        if ($total_pages > 1) {
-            echo '<ul class="pagination text-center">';
-            for ($i = 1; $i <= $total_pages; $i++) {
-                ($page == $i) ? $li_class = ' class="active"' : $li_class = '';
-                echo '<li' . $li_class . '><a href="individual_job.php' . $http_query . '&page=' . $i . '">' . $i . '</a></li>';
-            }
-            echo '</ul>';
-        }
-        ?>
+
+                        <td><?php echo "Server " . $row['serverid']; ?></td>
+
+                        <td>Hidden</td>
+                        <td><?php echo $row['cost']; ?></td>
+                        <?php
+                        $dateTime = new DateTime($row['tgl']);
+                        $timestamp = $dateTime->getTimestamp();
+                        $dhakaTimeZone = new DateTimeZone('Asia/jakarta');
+                        $dateTimeDhaka = new DateTime();
+                        $dateTimeDhaka->setTimestamp($timestamp);
+                        $dateTimeDhaka->setTimezone($dhakaTimeZone);
+                        $convertedDate = date('F j, Y h:i A', $timestamp);
+
+                        ?>
+                        <td>
+                            <?php echo $dateTimeDhaka->format('F j, Y h:i A'); ?>
+
+                        </td>
+                        <?php
+                        if (htmlspecialchars($row['status']) == 'done') {
+                            ?>
+                            <td style="background-color:green;color:white;"> <?php echo 'done'; ?> </td>
+                        <?php
+                        } else {
+                            ?>
+                            <td style="background-color:red;color:white;"><?php echo htmlspecialchars($row['status']); ?> </td>
+                        <?php
+                        }
+                        ?>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
-    <!-- //Pagination -->
+    <!-- //Table -->
 </div>
 <!-- //Main container -->
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable with all features
+        var table = $('#individualJobTable').DataTable({
+            colReorder: false,
+            responsive: true,
+            pageLength: 25,
+            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            columnDefs: [
+                {
+                    targets: 0,
+                    width: '5%',
+                    orderable: true,
+                    type: 'num'
+                },
+                {
+                    targets: 1,
+                    width: '8%',
+                    orderable: true
+                },
+                {
+                    targets: 2,
+                    width: '20%',
+                    orderable: true
+                },
+                {
+                    targets: 3,
+                    width: '8%',
+                    orderable: true
+                },
+                {
+                    targets: 4,
+                    width: '7%',
+                    orderable: true
+                },
+                {
+                    targets: 5,
+                    width: '8%',
+                    orderable: true
+                },
+                {
+                    targets: 6,
+                    width: '8%',
+                    orderable: true,
+                    type: 'num'
+                },
+                {
+                    targets: 7,
+                    width: '20%',
+                    orderable: true
+                },
+                {
+                    targets: 8,
+                    width: '8%',
+                    orderable: true
+                }
+            ],
+            order: [[0, 'desc']],
+            dom: '<"row"<"col-sm-6"l><"col-sm-6"f>>rtip',
+            language: {
+                search: "Search:",
+                lengthMenu: "Show _MENU_ entries",
+                info: "Showing _START_ to _END_ of _TOTAL_ records",
+                infoEmpty: "Showing 0 to 0 of 0 records",
+                infoFiltered: "(filtered from _MAX_ total records)",
+                paginate: {
+                    first: "First",
+                    last: "Last",
+                    next: "Next",
+                    previous: "Previous"
+                }
+            }
+        });
+
+        // Column header sorting
+        $('.column-names th:not(.no-sort)').on('click', function (e) {
+            var columnIndex = $(this).index();
+            var currentOrder = table.order();
+
+            if (currentOrder.length > 0 && currentOrder[0][0] === columnIndex) {
+                var newDirection = currentOrder[0][1] === 'asc' ? 'desc' : 'asc';
+                table.order([columnIndex, newDirection]).draw();
+            } else {
+                table.order([columnIndex, 'asc']).draw();
+            }
+        });
+
+        // Prevent sorting on filter row
+        $('.filter-row th').on('click', function (e) {
+            e.stopPropagation();
+        });
+
+        $('.filter-row input, .filter-row select, .filter-row label').on('click', function (e) {
+            e.stopPropagation();
+        });
+
+        // Custom column filters
+        $('.column-filter').on('keyup change', function () {
+            var columnIndex = $(this).data('column');
+            var searchValue = this.value;
+
+            table.column(columnIndex).search(searchValue).draw();
+        });
+
+        // ========== Column Resizing ==========
+        let isResizing = false;
+        let currentColumn = null;
+        let startX = 0;
+        let startWidth = 0;
+
+        $('.column-names th .resize-handle').on('mousedown', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            isResizing = true;
+            currentColumn = $(this).parent();
+            startX = e.pageX;
+            startWidth = currentColumn.outerWidth();
+
+            $('body').addClass('resizing');
+        });
+
+        $(document).on('mousemove', function (e) {
+            if (!isResizing) return;
+
+            const diff = e.pageX - startX;
+            const newWidth = startWidth + diff;
+
+            if (newWidth > 50) {
+                currentColumn.css('width', newWidth + 'px');
+
+                const columnIndex = currentColumn.index();
+                $('.filter-row th').eq(columnIndex).css('width', newWidth + 'px');
+            }
+        });
+
+        $(document).on('mouseup', function () {
+            if (isResizing) {
+                isResizing = false;
+                currentColumn = null;
+                $('body').removeClass('resizing');
+            }
+        });
+
+        // ========== Column Reordering ==========
+        let draggedColumn = null;
+        let draggedIndex = -1;
+
+        $('.column-names th[draggable="true"]').on('dragstart', function (e) {
+            if ($(e.target).hasClass('resize-handle')) {
+                e.preventDefault();
+                return false;
+            }
+
+            draggedColumn = $(this);
+            draggedIndex = draggedColumn.index();
+            e.originalEvent.dataTransfer.effectAllowed = 'move';
+            $(this).css('opacity', '0.5');
+        });
+
+        $('.column-names th').on('dragover', function (e) {
+            if (!draggedColumn) return;
+
+            e.preventDefault();
+            e.originalEvent.dataTransfer.dropEffect = 'move';
+
+            const dropIndex = $(this).index();
+            if (dropIndex !== draggedIndex) {
+                $(this).css('border-left', '2px solid #3b82f6');
+            }
+        });
+
+        $('.column-names th').on('dragleave', function () {
+            $(this).css('border-left', '');
+        });
+
+        $('.column-names th').on('drop', function (e) {
+            e.preventDefault();
+
+            if (!draggedColumn) return;
+
+            const dropIndex = $(this).index();
+
+            if (dropIndex !== draggedIndex) {
+                if (dropIndex < draggedIndex) {
+                    $(this).before(draggedColumn);
+                } else {
+                    $(this).after(draggedColumn);
+                }
+
+                const draggedFilter = $('.filter-row th').eq(draggedIndex);
+                const dropFilter = $('.filter-row th').eq(dropIndex);
+
+                if (dropIndex < draggedIndex) {
+                    dropFilter.before(draggedFilter);
+                } else {
+                    dropFilter.after(draggedFilter);
+                }
+
+                $('#individualJobTable tbody tr').each(function () {
+                    const draggedCell = $(this).find('td').eq(draggedIndex);
+                    const dropCell = $(this).find('td').eq(dropIndex);
+
+                    if (dropIndex < draggedIndex) {
+                        dropCell.before(draggedCell);
+                    } else {
+                        dropCell.after(draggedCell);
+                    }
+                });
+            }
+
+            $(this).css('border-left', '');
+        });
+
+        $('.column-names th').on('dragend', function () {
+            $(this).css('opacity', '1');
+            $('.column-names th').css('border-left', '');
+            draggedColumn = null;
+            draggedIndex = -1;
+        });
+    });
+</script>
+
 <?php include BASE_PATH . '/includes/footer.php'; ?>
