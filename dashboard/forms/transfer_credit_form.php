@@ -129,6 +129,49 @@
 .modern-button-wrapper {
     padding-top: 1rem;
 }
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .modern-card {
+        background-color: #1e293b;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    }
+
+    .modern-icon-badge {
+        background-color: #1e40af;
+    }
+
+    .modern-icon-badge svg {
+        color: #93c5fd;
+    }
+
+    .modern-title {
+        color: #f1f5f9;
+    }
+
+    .modern-label {
+        color: #f1f5f9;
+    }
+
+    .modern-input {
+        background-color: #0f172a;
+        border-color: #374151;
+        color: #f1f5f9;
+    }
+
+    .modern-input:focus {
+        border-color: #3B82F6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .modern-input::placeholder {
+        color: #6b7280;
+    }
+
+    .modern-input-icon svg {
+        color: #9ca3af;
+    }
+}
 </style>
 
 <div class="modern-form-container">

@@ -465,10 +465,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
 <div id="page-wrapper">
 
     <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">Reseller Panel</h2>
-        </div>
-
+        <h1 class="page-header">Reseller Panel</h1>
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
     <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">

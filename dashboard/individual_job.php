@@ -3,13 +3,13 @@ include "/include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once 'config/config.php';
-require_once BASE_PATH.'/includes/auth_validate.php';
+require_once BASE_PATH . '/includes/auth_validate.php';
 
 
-require_once BASE_PATH.'/lib/Users/Users.php';
+require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
 
-$admin_user_id =  $_SESSION['admin_id'];
+$admin_user_id = $_SESSION['admin_id'];
 $search_string = filter_input(INPUT_GET, 'search_string');
 $filter_col = filter_input(INPUT_GET, 'filter_col');
 
@@ -26,33 +26,37 @@ $pagelimit = 100;
 
 $page = filter_input(INPUT_GET, 'page');
 if (!$page) {
-	$page = 1;
+    $page = 1;
 }
 if (!$search_string) {
-	$search_string = $admin_user_id;
+    $search_string = $admin_user_id;
 }
 if (!$serviceid) {
-	$serviceid = '';
+    $serviceid = '';
 }
 
 if (!$filter_col) {
-	$filter_col = 'id';
+    $filter_col = 'id';
 }
 
 
 $db = getDbInstance();
-$select = array('id','name', 'iduser', 'configblob' ,'serviceid', 'tgl','status','serverid','cost');
+$select = array('id', 'name', 'iduser', 'configblob', 'serviceid', 'tgl', 'status', 'serverid', 'cost');
 
 
-if ($search_string)
-{   $where3 = "";
-    if($paid == 0) { $where3 = "cost=0"; }else { $where3 = "cost!=0";}
-    
-    
+if ($search_string) {
+    $where3 = "";
+    if ($paid == 0) {
+        $where3 = "cost=0";
+    } else {
+        $where3 = "cost!=0";
+    }
 
-    $where2 = "tgl >='" .$tanggal ."'";
+
+
+    $where2 = "tgl >='" . $tanggal . "'";
     $db->where('iduser', $admin_user_id)->where('serviceid', $serviceid)->where($where3)->where($where2);
-    
+
 }
 
 
@@ -74,7 +78,7 @@ if ($_SESSION['admin_type'] == 'admin') {
 }
 if ($_SESSION['admin_type'] == 'reseller') {
     require_once 'includes/reseller_header.php';
-}	
+}
 
 
 
@@ -82,54 +86,50 @@ if ($_SESSION['admin_type'] == 'reseller') {
 <!-- Main container -->
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-6">
-            <h1 class="page-header">Job Auth History</h1>
-        </div>
-        
+        <h1 class="page-header">Job Auth History</h1>
     </div>
-    <?php include BASE_PATH.'/includes/flash_messages.php'; ?>
+    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
 
     <?php
-    if (isset($del_stat) && $del_stat == 1)
-    {
+    if (isset($del_stat) && $del_stat == 1) {
         echo '<div class="alert alert-info">Successfully deleted</div>';
     }
     ?>
-    
+
     <!-- Filters -->
-    
-  <!-- Filters -->
-   
+
+    <!-- Filters -->
+
     <!-- Table -->
-    
-        <div class="well text-center filter-form">
+
+    <div class="well text-center filter-form">
         <form class="form form-inline" action="">
             <label for="input_search">Search</label>
-    
-            
-            <select name="serviceid" id="serviceid">
-                    <option value="1">flash</option>
-                    <option value="6">mtk5</option>
-                    <option value="2">frp</option>
-                    <option value="4">fdl</option>
-                   
-            </select>
-            
 
-            
-            
-             <input type="date" id="tanggal"  name="tanggal">
+
+            <select name="serviceid" id="serviceid">
+                <option value="1">flash</option>
+                <option value="6">mtk5</option>
+                <option value="2">frp</option>
+                <option value="4">fdl</option>
+
+            </select>
+
+
+
+
+            <input type="date" id="tanggal" name="tanggal">
             <select name="paid" id="paid">
-                    <option value="1">paid</option>
-                    <option value="0">free</option>
-                
-                   
+                <option value="1">paid</option>
+                <option value="0">free</option>
+
+
             </select>
             <input type="submit" value="Go" class="btn btn-primary">
         </form>
     </div>
-    
-    
+
+
     <table class="table table-striped table-bordered table-condensed">
         <thead>
             <tr>
@@ -140,69 +140,69 @@ if ($_SESSION['admin_type'] == 'reseller') {
                 <th width="7%">Server Id</th>
                 <th width="8%">Response</th>
                 <th width="8%">cost</th>
-				<th width="20%">Time</th>
+                <th width="20%">Time</th>
                 <th width="8%">Status</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($rows as $row): 
-            // if ($row['sid'] === $serverid) {
-            ?>
-            <tr>
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo htmlspecialchars($row['iduser']); ?></td>
-                <td><?php 
-                  $blobkey = $row['configblob'];
-               echo substr($blobkey, 0, 10);
-               
-                if ($row['serviceid'] == "1") { ?></td>
-                <td><?php echo "EDL"; } ?></td>
-                <?php 
-               if ($row['serviceid'] == "2") { ?></td>
-                <td><?php echo "FRP"; } ?></td>
-                <?php 
-                if ($row['serviceid'] == "4") { ?></td>
-                <td><?php echo "MTK"; } ?></td>
-                
-                
-                <td><?php echo "Server ". $row['serverid']; ?></td>
-                
-                <td>Hidden</td>
-                 <td><?php echo $row['cost']; ?></td>
-                <?php 
-                $dateTime = new DateTime($row['tgl']);
-$timestamp = $dateTime->getTimestamp();
-$dhakaTimeZone = new DateTimeZone('Asia/jakarta');
-$dateTimeDhaka = new DateTime();
-$dateTimeDhaka->setTimestamp($timestamp);
-$dateTimeDhaka->setTimezone($dhakaTimeZone);
-$convertedDate = date('F j, Y h:i A', $timestamp);
-                
+            <?php foreach ($rows as $row):
+                // if ($row['sid'] === $serverid) {
                 ?>
-                <td>
-                    <?php echo $dateTimeDhaka->format('F j, Y h:i A'); ?>
-                    
-                </td>
-				<?php 
-				 if (htmlspecialchars($row['status']) == 'done')
-				 {
-					 ?>
-				<td style="background-color:green;color:white;"> <?php  echo 'done'; ?> </td>
-				 <?php 
-				 }
-			    else
-				{
-					?>
-					<td style="background-color:red;color:white;"><?php  echo htmlspecialchars($row['status']); ?> </td>
-	            <?php 
-				}
-            // }
-				?>
-				
-            </tr>
-            <!-- Delete Confirmation Modal -->
-            
-            <!-- //Delete Confirmation Modal -->
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo htmlspecialchars($row['iduser']); ?></td>
+                    <td><?php
+                    $blobkey = $row['configblob'];
+                    echo substr($blobkey, 0, 10);
+
+                    if ($row['serviceid'] == "1") { ?></td>
+                        <td><?php echo "EDL";
+                    } ?></td>
+                    <?php
+                    if ($row['serviceid'] == "2") { ?></td>
+                        <td><?php echo "FRP";
+                    } ?></td>
+                    <?php
+                    if ($row['serviceid'] == "4") { ?></td>
+                        <td><?php echo "MTK";
+                    } ?></td>
+
+
+                    <td><?php echo "Server " . $row['serverid']; ?></td>
+
+                    <td>Hidden</td>
+                    <td><?php echo $row['cost']; ?></td>
+                    <?php
+                    $dateTime = new DateTime($row['tgl']);
+                    $timestamp = $dateTime->getTimestamp();
+                    $dhakaTimeZone = new DateTimeZone('Asia/jakarta');
+                    $dateTimeDhaka = new DateTime();
+                    $dateTimeDhaka->setTimestamp($timestamp);
+                    $dateTimeDhaka->setTimezone($dhakaTimeZone);
+                    $convertedDate = date('F j, Y h:i A', $timestamp);
+
+                    ?>
+                    <td>
+                        <?php echo $dateTimeDhaka->format('F j, Y h:i A'); ?>
+
+                    </td>
+                    <?php
+                    if (htmlspecialchars($row['status']) == 'done') {
+                        ?>
+                        <td style="background-color:green;color:white;"> <?php echo 'done'; ?> </td>
+                    <?php
+                    } else {
+                        ?>
+                        <td style="background-color:red;color:white;"><?php echo htmlspecialchars($row['status']); ?> </td>
+                    <?php
+                    }
+                    // }
+                    ?>
+
+                </tr>
+                <!-- Delete Confirmation Modal -->
+
+                <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -233,4 +233,4 @@ $convertedDate = date('F j, Y h:i A', $timestamp);
     <!-- //Pagination -->
 </div>
 <!-- //Main container -->
-<?php include BASE_PATH.'/includes/footer.php'; ?>
+<?php include BASE_PATH . '/includes/footer.php'; ?>

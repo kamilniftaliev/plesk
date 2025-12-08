@@ -71,10 +71,7 @@ include BASE_PATH . '/includes/admin_header.php';
 
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-6">
-            <h1 class="page-header">AZEGSM Reseller Sold Records</h1>
-        </div>
-
+        <h1 class="page-header">AZEGSM Reseller Sold Records</h1>
     </div>
     <?php include BASE_PATH . '/includes/flash_messages.php';
     ?>
