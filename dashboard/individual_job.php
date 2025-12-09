@@ -317,7 +317,8 @@ if ($_SESSION['admin_type'] == 'reseller') {
                 <tr class="filter-row">
                     <th><input type="number" class="column-filter" data-column="0" placeholder="Filter ID..."></th>
                     <th><input type="text" class="column-filter" data-column="1" placeholder="Filter user..."></th>
-                    <th><input type="text" class="column-filter" data-column="2" placeholder="Filter configblob..."></th>
+                    <th><input type="text" class="column-filter" data-column="2" placeholder="Filter configblob...">
+                    </th>
                     <th>
                         <select class="column-filter" data-column="3">
                             <option value="">All Types</option>
@@ -382,11 +383,11 @@ if ($_SESSION['admin_type'] == 'reseller') {
                         if (htmlspecialchars($row['status']) == 'done') {
                             ?>
                             <td style="background-color:green;color:white;"> <?php echo 'done'; ?> </td>
-                        <?php
+                            <?php
                         } else {
                             ?>
                             <td style="background-color:red;color:white;"><?php echo htmlspecialchars($row['status']); ?> </td>
-                        <?php
+                            <?php
                         }
                         ?>
 
@@ -410,7 +411,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
         // Initialize DataTable with all features
         var table = $('#individualJobTable').DataTable({
             colReorder: false,
-            responsive: true,
+            responsive: false,
             pageLength: 25,
             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             columnDefs: [

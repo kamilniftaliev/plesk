@@ -227,8 +227,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					// Failed to send via any method
 					unset($_SESSION['otp_pending']);
 					unset($_SESSION['otp_code']);
-					$_SESSION['login_failure'] = "Failed to send verification code. Please try again or contact administrator.";
-					header('Location: login.php');
+					// $_SESSION['login_failure'] = "Failed to send verification code. Please try again or contact administrator.";
+					$_SESSION['login_failure'] = $telegram_sent;
+					// header('Location: login.php');
 					exit;
 				}
 			}
@@ -257,7 +258,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  * @param string $username Username
  * @return bool True if message sent successfully, false otherwise
  */
-function sendTelegramOTP($chat_id, $otp_code, $username) {
+function sendTelegramOTP($chat_id, $otp_code, $username)
+{
 	// Check if Telegram is enabled and configured
 	if (!defined('TELEGRAM_BOT_ENABLED') || !TELEGRAM_BOT_ENABLED) {
 		return false;
@@ -286,23 +288,54 @@ function sendTelegramOTP($chat_id, $otp_code, $username) {
 		'parse_mode' => 'HTML'
 	];
 
-	// Send request using cURL
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+	// Try cURL first if available, otherwise use file_get_contents
+	if (function_exists('curl_init')) {
+		// Send request using cURL
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
-	$response = curl_exec($ch);
-	$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	curl_close($ch);
+		$response = curl_exec($ch);
+		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
 
-	// Check if request was successful
-	if ($http_code === 200) {
-		$result = json_decode($response, true);
-		return isset($result['ok']) && $result['ok'] === true;
+		// Check if request was successful
+		if ($http_code === 200) {
+			$result = json_decode($response, true);
+			return isset($result['ok']) && $result['ok'] === true;
+		} else {
+			return false;
+		}
+	} else {
+		// Fallback to file_get_contents with stream context
+		$options = [
+			'http' => [
+				'method' => 'POST',
+				'header' => 'Content-Type: application/x-www-form-urlencoded',
+				'content' => http_build_query($post_data),
+				'timeout' => 10,
+				'ignore_errors' => true
+			],
+			'ssl' => [
+				'verify_peer' => true,
+				'verify_peer_name' => true
+			]
+		];
+
+		$context = stream_context_create($options);
+		$response = @file_get_contents($url, false, $context);
+
+		// Check if request was successful
+		if ($response !== false) {
+			$result = json_decode($response, true);
+			if (isset($result['ok']) && $result['ok'] === true) {
+				return true;
+			}
+		}
 	}
 
 	return false;
@@ -316,7 +349,8 @@ function sendTelegramOTP($chat_id, $otp_code, $username) {
  * @param string $username Username
  * @return bool True if email sent successfully, false otherwise
  */
-function sendOTPEmail($email, $otp_code, $username) {
+function sendOTPEmail($email, $otp_code, $username)
+{
 	$subject = "Your Login Verification Code";
 
 	$message = "

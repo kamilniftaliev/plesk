@@ -17,7 +17,7 @@ require_once BASE_PATH . '/helpers/helpers.php';
 | Set to TRUE for local development (OTP will be displayed on screen)
 | Set to FALSE for production (OTP will be sent via email/Telegram)
  */
-define('DEV_MODE', true); // Change to false in production
+define('DEV_MODE', value: true); // Change to false in production
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +26,8 @@ define('DEV_MODE', true); // Change to false in production
 | Configure your Telegram Bot for OTP delivery
 | Get your bot token from @BotFather on Telegram
  */
-define('TELEGRAM_BOT_TOKEN', 'YOUR_BOT_TOKEN_HERE'); // Get from @BotFather
-define('TELEGRAM_BOT_ENABLED', false); // Set to true to enable Telegram OTP
+define('TELEGRAM_BOT_TOKEN', '7195967730:AAG8Q8FQkPdaHWGblLDDkZMKT4MkX3wp1c4'); // Get from @BotFather
+define('TELEGRAM_BOT_ENABLED', true); // Set to true to enable Telegram OTP
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +43,7 @@ define('DB_NAME', "u676821063_new2");
 /**
  * Get instance of DB object
  */
-function getDbInstance() {
+function getDbInstance()
+{
 	return new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 }

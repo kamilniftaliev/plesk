@@ -397,7 +397,7 @@ include BASE_PATH . '/includes/admin_header.php';
         // Initialize DataTable with all features
         var table = $('#bayarTable').DataTable({
             colReorder: false,
-            responsive: true,
+            responsive: false,
             pageLength: 25,
             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             columnDefs: [

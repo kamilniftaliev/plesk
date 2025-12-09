@@ -403,7 +403,7 @@ include BASE_PATH . '/includes/admin_header.php';
             // ordering: false,
 
             // Enable responsive design
-            responsive: true,
+            responsive: false,
 
             // Page length options
             pageLength: 25,

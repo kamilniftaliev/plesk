@@ -98,56 +98,56 @@ include BASE_PATH . '/includes/admin_header.php';
 </style>
 <div id="page-" class="col-md-4 col-md-offset-4">
 	<?php if (!$otp_mode): ?>
-	<!-- Login Form -->
-	<form class="form loginform" method="POST" action="authenticate.php">
-		<div class="login-panel panel panel-default">
-			<div class="panel-heading">Please Sign in</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<label class="control-label">username</label>
-					<input type="text" name="username" class="form-control" required="required">
-				</div>
-				<div class="form-group">
-					<label class="control-label">password</label>
-					<input type="password" name="passwd" class="form-control" required="required">
-				</div>
-				<div class="checkbox">
-					<label>
-						<input name="remember" type="checkbox" value="1">Remember Me
-					</label>
-				</div>
-				<?php if (isset($_SESSION['login_failure'])): ?>
-					<div class="alert alert-danger alert-dismissable fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<?php
-						echo $_SESSION['login_failure'];
-						unset($_SESSION['login_failure']);
-						?>
+		<!-- Login Form -->
+		<form class="form loginform" method="POST" action="authenticate.php">
+			<div class="login-panel panel panel-default">
+				<div class="panel-heading">Please Sign in</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="control-label">username</label>
+						<input type="text" name="username" class="form-control" required="required">
 					</div>
-				<?php endif; ?>
-				<button type="submit" class="btn btn-success loginField">Login</button>
-				<a href="../forgot/index.php">Forgot Password</a>
-
-			</div>
-		</div>
-	</form>
-	<?php else: ?>
-	<!-- OTP Verification Form -->
-	<form class="form loginform" method="POST" action="authenticate.php">
-		<div class="login-panel panel panel-default">
-			<div class="panel-heading">Verify OTP</div>
-			<div class="panel-body">
-				<div class="otp-info">
-					<strong>Security Check</strong><br>
-					<?php if (defined('DEV_MODE') && DEV_MODE === true && isset($_SESSION['otp_dev_display'])): ?>
-						<span style="color: #d32f2f; font-weight: bold;">🔧 DEVELOPMENT MODE</span><br>
-						Your verification code is:<br>
-						<div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; margin: 10px 0; color: #2563eb;">
-							<?php echo htmlspecialchars($_SESSION['otp_dev_display']); ?>
-						</div>
-						<small style="color: #666;">
-							(In production, this would be sent to:
+					<div class="form-group">
+						<label class="control-label">password</label>
+						<input type="password" name="passwd" class="form-control" required="required">
+					</div>
+					<div class="checkbox">
+						<label>
+							<input name="remember" type="checkbox" value="1">Remember Me
+						</label>
+					</div>
+					<?php if (isset($_SESSION['login_failure'])): ?>
+						<div class="alert alert-danger alert-dismissable fade in">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 							<?php
+							echo $_SESSION['login_failure'];
+							unset($_SESSION['login_failure']);
+							?>
+						</div>
+					<?php endif; ?>
+					<button type="submit" class="btn btn-success loginField">Login</button>
+					<a href="../forgot/index.php">Forgot Password</a>
+
+				</div>
+			</div>
+		</form>
+	<?php else: ?>
+		<!-- OTP Verification Form -->
+		<form class="form loginform" method="POST" action="authenticate.php">
+			<div class="login-panel panel panel-default">
+				<div class="panel-heading">Verify OTP</div>
+				<div class="panel-body">
+					<div class="otp-info">
+						<strong>Security Check</strong><br>
+						<?php if (defined('DEV_MODE') && DEV_MODE === true && isset($_SESSION['otp_dev_display'])): ?>
+							<span style="color: #d32f2f; font-weight: bold;">🔧 DEVELOPMENT MODE</span><br>
+							Your verification code is:<br>
+							<div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; margin: 10px 0; color: #2563eb;">
+								<?php echo htmlspecialchars($_SESSION['otp_dev_display']); ?>
+							</div>
+							<small style="color: #666;">
+								(In production, this would be sent to:
+								<?php
 								$delivery_methods = [];
 								if (!empty($_SESSION['otp_email'])) {
 									$delivery_methods[] = 'Email: ' . htmlspecialchars($_SESSION['otp_email']);
@@ -156,93 +156,86 @@ include BASE_PATH . '/includes/admin_header.php';
 									$delivery_methods[] = 'Telegram (Chat ID: ' . htmlspecialchars($_SESSION['otp_telegram_chat_id']) . ')';
 								}
 								echo implode(' and ', $delivery_methods);
-							?>)
-						</small>
-					<?php else: ?>
-						A 4-digit verification code has been sent to:
-						<div style="margin-top: 10px;">
-							<?php if (!empty($_SESSION['otp_email'])): ?>
-								<div style="margin: 5px 0;">
-									📧 <strong>Email:</strong> <?php echo htmlspecialchars($_SESSION['otp_email']); ?>
-								</div>
-							<?php endif; ?>
-							<?php if (!empty($_SESSION['otp_telegram_chat_id'])): ?>
-								<div style="margin: 5px 0;">
-									💬 <strong>Telegram:</strong> Check your Telegram app
-								</div>
-							<?php endif; ?>
+								?>)
+							</small>
+						<?php else: ?>
+							A 4-digit verification code has been sent to:
+							<div style="margin-top: 10px;">
+								<?php if (!empty($_SESSION['otp_email'])): ?>
+									<div style="margin: 5px 0;">
+										📧 <strong>Email:</strong> <?php echo htmlspecialchars($_SESSION['otp_email']); ?>
+									</div>
+								<?php endif; ?>
+								<?php if (!empty($_SESSION['otp_telegram_chat_id'])): ?>
+									<div style="margin: 5px 0;">
+										💬 <strong>Telegram:</strong> Check your Telegram app
+									</div>
+								<?php endif; ?>
+							</div>
+						<?php endif; ?>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Enter 4-Digit Code</label>
+						<input type="text" name="otp_code" class="form-control otp-input" maxlength="4" pattern="\d{4}"
+							placeholder="0000" required="required" autocomplete="off" autofocus>
+						<input type="hidden" name="verify_otp" value="1">
+					</div>
+
+					<?php if (isset($_SESSION['otp_failure'])): ?>
+						<div class="alert alert-danger alert-dismissable fade in">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<?php
+							echo $_SESSION['otp_failure'];
+							unset($_SESSION['otp_failure']);
+							?>
 						</div>
 					<?php endif; ?>
-				</div>
 
-				<div class="form-group">
-					<label class="control-label">Enter 4-Digit Code</label>
-					<input type="text"
-						   name="otp_code"
-						   class="form-control otp-input"
-						   maxlength="4"
-						   pattern="\d{4}"
-						   placeholder="0000"
-						   required="required"
-						   autocomplete="off"
-						   autofocus>
-					<input type="hidden" name="verify_otp" value="1">
-				</div>
+					<?php if (isset($_SESSION['otp_success'])): ?>
+						<div class="alert alert-success alert-dismissable fade in">
+							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<?php
+							echo $_SESSION['otp_success'];
+							unset($_SESSION['otp_success']);
+							?>
+						</div>
+					<?php endif; ?>
 
-				<?php if (isset($_SESSION['otp_failure'])): ?>
-					<div class="alert alert-danger alert-dismissable fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<?php
-						echo $_SESSION['otp_failure'];
-						unset($_SESSION['otp_failure']);
-						?>
+					<button type="submit" class="btn btn-success btn-block">Verify Code</button>
+
+					<div style="text-align: center; margin-top: 15px;">
+						<a href="authenticate.php?resend_otp=1" class="resend-otp-link">Resend Code</a>
+						&nbsp;|&nbsp;
+						<a href="authenticate.php?cancel_otp=1" class="resend-otp-link">Cancel</a>
 					</div>
-				<?php endif; ?>
-
-				<?php if (isset($_SESSION['otp_success'])): ?>
-					<div class="alert alert-success alert-dismissable fade in">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<?php
-						echo $_SESSION['otp_success'];
-						unset($_SESSION['otp_success']);
-						?>
-					</div>
-				<?php endif; ?>
-
-				<button type="submit" class="btn btn-success btn-block">Verify Code</button>
-
-				<div style="text-align: center; margin-top: 15px;">
-					<a href="authenticate.php?resend_otp=1" class="resend-otp-link">Resend Code</a>
-					&nbsp;|&nbsp;
-					<a href="authenticate.php?cancel_otp=1" class="resend-otp-link">Cancel</a>
 				</div>
 			</div>
-		</div>
-	</form>
+		</form>
 	<?php endif; ?>
 </div>
 
 <script>
-// Auto-submit OTP form when 4 digits are entered
-<?php if ($otp_mode): ?>
-document.addEventListener('DOMContentLoaded', function() {
-	var otpInput = document.querySelector('input[name="otp_code"]');
-	if (otpInput) {
-		otpInput.addEventListener('input', function(e) {
-			// Only allow digits
-			this.value = this.value.replace(/[^0-9]/g, '');
+	// Auto-submit OTP form when 4 digits are entered
+	<?php if ($otp_mode): ?>
+		document.addEventListener('DOMContentLoaded', function () {
+			var otpInput = document.querySelector('input[name="otp_code"]');
+			if (otpInput) {
+				otpInput.addEventListener('input', function (e) {
+					// Only allow digits
+					this.value = this.value.replace(/[^0-9]/g, '');
 
-			// Auto-submit when 4 digits are entered
-			if (this.value.length === 4) {
-				// Optional: add a small delay for better UX
-				setTimeout(function() {
-					document.querySelector('.loginform').submit();
-				}, 300);
+					// Auto-submit when 4 digits are entered
+					if (this.value.length === 4) {
+						// Optional: add a small delay for better UX
+						setTimeout(function () {
+							document.querySelector('.loginform').submit();
+						}, 300);
+					}
+				});
 			}
 		});
-	}
-});
-<?php endif; ?>
+	<?php endif; ?>
 </script>
 
 <?php include BASE_PATH . '/includes/footer.php'; ?>
