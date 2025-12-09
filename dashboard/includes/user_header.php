@@ -77,7 +77,7 @@ if ($_SESSION['admin_type'] !== 'user') {
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <li><a href="edit_profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
                             <li><a href="edit_main.php?admin_user_id=<?php echo $_SESSION['admin_id']; ?>&operation=edit"><i
                                         class="fa fa-gear fa-fw"></i> Change Password</a>

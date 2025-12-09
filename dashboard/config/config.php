@@ -17,7 +17,7 @@ require_once BASE_PATH . '/helpers/helpers.php';
 | Set to TRUE for local development (OTP will be displayed on screen)
 | Set to FALSE for production (OTP will be sent via email/Telegram)
  */
-define('DEV_MODE', value: true); // Change to false in production
+define('DEV_MODE', value: false); // Change to false in production
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,8 @@ define('DEV_MODE', value: true); // Change to false in production
 | Configure your Telegram Bot for OTP delivery
 | Get your bot token from @BotFather on Telegram
  */
-define('TELEGRAM_BOT_TOKEN', '7195967730:AAG8Q8FQkPdaHWGblLDDkZMKT4MkX3wp1c4'); // Get from @BotFather
+define('TELEGRAM_BOT_TOKEN', '8344834179:AAHraP-5KTdYMXmAOak6KnBAw0zl6Um4Shc'); // Get from @BotFather
+// define('TELEGRAM_BOT_TOKEN', '7195967730:AAG8Q8FQkPdaHWGblLDDkZMKT4MkX3wp1c4'); // Get from @BotFather
 define('TELEGRAM_BOT_ENABLED', true); // Set to true to enable Telegram OTP
 
 /*
