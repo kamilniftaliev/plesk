@@ -645,6 +645,12 @@
                 color: #9ca3af !important;
                 border-color: #374151 !important;
             }
+
+
+            select,
+            input[type="date"] {
+                color-scheme: dark;
+            }
         }
 
         h1.page-header {

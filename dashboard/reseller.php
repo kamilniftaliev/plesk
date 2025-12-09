@@ -248,7 +248,7 @@ include BASE_PATH . '/includes/admin_header.php';
     <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
 
     <!-- Table -->
-    <div class="table-responsive">
+    <div>
         <table id="resellersTable" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr class="column-names">

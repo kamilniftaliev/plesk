@@ -290,7 +290,7 @@ include BASE_PATH . '/includes/admin_header.php';
         </form>
     </div>
 
-    <div class="table-responsive">
+    <div>
         <table id="bayarTable" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr class="column-names">

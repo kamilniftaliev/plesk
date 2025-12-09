@@ -38,6 +38,14 @@ $select = array('id', 'name', 'iduser', 'configblob', 'serviceid', 'tgl', 'statu
 
 
 if ($search_string) {
+    if ($admin_user_id) {
+        $db->where('iduser', $admin_user_id);
+    }
+
+    if ($serviceid) {
+        $db->where('serviceid', $serviceid);
+    }
+
     $where3 = "";
     if ($paid == 0) {
         $where3 = "cost=0";
@@ -45,11 +53,11 @@ if ($search_string) {
         $where3 = "cost!=0";
     }
 
+    $db->where($where3);
 
-
-    $where2 = "tgl >='" . $tanggal . "'";
-    $db->where('iduser', $admin_user_id)->where('serviceid', $serviceid)->where($where3)->where($where2);
-
+    if ($tanggal) {
+        $db->where("tgl >='" . $tanggal . "'");
+    }
 }
 
 
@@ -248,13 +256,8 @@ if ($_SESSION['admin_type'] == 'reseller') {
         display: none !important;
     }
 
-    /* Status colors */
-    @media (prefers-color-scheme: dark) {
-
-        td[style*="background-color:green"],
-        td[style*="background-color:red"] {
-            /* Keep inline styles */
-        }
+    .dataTables_empty {
+        padding: 20px !important;
     }
 </style>
 
@@ -300,7 +303,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
     </div>
 
 
-    <div class="table-responsive">
+    <div>
         <table id="individualJobTable" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr class="column-names">
@@ -358,6 +361,21 @@ if ($_SESSION['admin_type'] == 'reseller') {
                         <?php
                         if ($row['serviceid'] == "4") { ?></td>
                             <td><?php echo "MTK";
+                        } ?></td>
+
+                        <?php
+                        if ($row['serviceid'] == "8") { ?></td>
+                            <td><?php echo "FLASH MTK NEW";
+                        } ?></td>
+
+                        <?php
+                        if ($row['serviceid'] == "10") { ?></td>
+                            <td><?php echo "FLASH MTK MALACHITE";
+                        } ?></td>
+
+                        <?php
+                        if ($row['serviceid'] == "9") { ?></td>
+                            <td><?php echo "FLASH MTK 6 OLD";
                         } ?></td>
 
 
