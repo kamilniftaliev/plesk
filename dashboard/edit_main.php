@@ -20,6 +20,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $oldpass = filter_input(INPUT_POST, 'oldpassword', FILTER_SANITIZE_SPECIAL_CHARS);
     $pw = filter_input(INPUT_POST, 'newpassword', FILTER_SANITIZE_SPECIAL_CHARS);
+    $confirmpassword = filter_input(INPUT_POST, 'confirmpassword', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Validate password strength
+    $password_errors = [];
+
+    // Check minimum length (8 characters)
+    if (strlen($pw) < 8) {
+        $password_errors[] = "at least 8 characters";
+    }
+
+    // Check maximum length (64 characters)
+    if (strlen($pw) > 64) {
+        $password_errors[] = "no more than 64 characters";
+    }
+
+    // Check for at least one letter
+    if (!preg_match('/[a-zA-Z]/', $pw)) {
+        $password_errors[] = "at least one letter";
+    }
+
+    // Check for at least one number
+    if (!preg_match('/[0-9]/', $pw)) {
+        $password_errors[] = "at least one number";
+    }
+
+    // If password doesn't meet requirements, show error
+    if (!empty($password_errors)) {
+        $_SESSION['failure'] = "Password does not meet requirements. Must have: " . implode(", ", $password_errors) . ".";
+        header('location: edit_main.php');
+        exit;
+    }
+
+    // Check if new password and confirm password match
+    if ($pw !== $confirmpassword) {
+        $_SESSION['failure'] = "New passwords do not match. Please make sure both password fields are identical.";
+        header('location: edit_main.php');
+        exit;
+    }
 
     if (!password_verify($oldpass, $hasholdpass)) {
         $_SESSION['failure'] = "Old password Inputed Is not match with record";

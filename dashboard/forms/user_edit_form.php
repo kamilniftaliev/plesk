@@ -1,7 +1,4 @@
 <fieldset>
-    <!-- Form Name -->
-    <legend class="dark:text-white">AZEGSM User's Informations</legend>
-    <!-- Text input-->
     <div class="form-group">
         <label class="col-md-4 control-label">User name</label>
         <div class="col-md-4 inputGroupContainer">
