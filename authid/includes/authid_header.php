@@ -17,15 +17,17 @@ require_once './auth_validate.php';
     <title>AH Auth Authid Panel</title>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/authid/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 
     <!-- MetisMenu CSS -->
-    <link href="/authid/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/authid/assets/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Design System CSS -->
+    <link href="/assets/css/design-system.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/authid/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -34,7 +36,7 @@ require_once './auth_validate.php';
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-    <script src="/authid/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
 
 </head>
 

@@ -97,8 +97,8 @@ include BASE_PATH . '/includes/admin_header.php';
 
 
     <div class="well text-center filter-form">
-        <form class="form form-inline" action="">
-            <label for="input_search">Search</label>
+        <form class="flex gap-4 items-center form form-inline w-1/3 mx-auto" action="">
+            <label for="input_search" class="mb-0">Search</label>
             <input type="text" class="form-control" id="input_search" name="search_string"
                 value="<?php echo htmlspecialchars($search_string, ENT_QUOTES, 'UTF-8'); ?>">
 

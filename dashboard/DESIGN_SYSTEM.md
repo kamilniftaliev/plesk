@@ -15,8 +15,8 @@ This design system provides a consistent, modern UI for all forms and components
 ### 1. Already Integrated
 
 The design system is already integrated into all dashboard pages through:
-- `/dashboard/assets/css/design-system.css` (loaded in admin_header.php)
-- `/dashboard/assets/js/design-system.js` (loaded in footer.php)
+- `/assets/css/design-system.css` (loaded in admin_header.php)
+- `/assets/js/design-system.js` (loaded in footer.php)
 
 ### 2. Automatic Application
 
@@ -232,7 +232,7 @@ The design system automatically maps icons to input fields based on their label 
 
 ### Custom Icon Mapping
 
-You can add custom mappings in `/dashboard/assets/js/design-system.js`:
+You can add custom mappings in `/assets/js/design-system.js`:
 
 ```javascript
 const iconMapping = {
@@ -451,7 +451,7 @@ The JavaScript will automatically add `ds-input`, `ds-select`, `ds-textarea`, an
 ## File Structure
 
 ```
-/dashboard/assets/
+/assets/
 ├── css/
 │   └── design-system.css     # All design system styles
 ├── js/

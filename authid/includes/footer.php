@@ -1,23 +1,25 @@
 </div>
-    <!-- /#wrapper -->
+<!-- /#wrapper -->
 
-    <!-- jQuery -->
-
-
-    <!-- Bootstrap Core JavaScript -->
-
-        <script src="/authid/assets/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/authid/assets/js/metisMenu/metisMenu.min.js"></script>
+<!-- jQuery -->
 
 
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/assets/js/metisMenu/metisMenu.min.js"></script>
 
 
-    <!-- Custom Theme JavaScript -->
-    <script src="/authid/assets/js/sb-admin-2.js"></script>
-    <script src="/authid/assets/js/jquery.validate.min.js"></script>
-    
+
+
+<!-- Custom Theme JavaScript -->
+<script src="/assets/js/sb-admin-2.js"></script>
+<script src="/assets/js/jquery.validate.min.js"></script>
+
+<!-- Design System JavaScript -->
+<script src="/assets/js/design-system.js"></script>
 
 </body>
 

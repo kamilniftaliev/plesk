@@ -14,22 +14,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/authid/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 
     <!-- MetisMenu CSS -->
-    <link href="/authid/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/authid/assets/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/assets/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/authid/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <script src="/authid/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
 
     <style>
         body {

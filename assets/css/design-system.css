@@ -898,3 +898,7 @@ textarea.form-control.ds-textarea:disabled {
 .inputGroupContainer {
   padding-left: 0;
 }
+
+/* .input_search {
+  margin-bottom: 0 !important;
+} */
