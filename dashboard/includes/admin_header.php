@@ -21,6 +21,8 @@
 
     <!-- Custom CSS -->
     <link href="/dashboard/assets/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Design System CSS -->
+    <link href="/dashboard/assets/css/design-system.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="/dashboard/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 

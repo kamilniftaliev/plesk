@@ -15,20 +15,20 @@ if ($name == "abang") {
     exit;
 }
 
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'admin') {
-    include_once('includes/admin_header.php');
-    include_once('includes/admin_menu.php');
-}
-
-
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'authid') {
-    include_once('includes/authid_header.php');
-    include_once('includes/authid_menu.php');
-}
-
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'user') {
-    include_once('includes/user_header.php');
-    include_once('includes/user_menu.php');
+if (isset($_SESSION['admin_type'])) {
+    // if ($_SESSION['admin_type'] == 'admin') {
+    //     include_once('includes/admin_header.php');
+    //     include_once('includes/admin_menu.php');
+    // } else if ($_SESSION['admin_type'] == 'authid') {
+    //     include_once('includes/authid_header.php');
+    //     include_once('includes/authid_menu.php');
+    // } else if ($_SESSION['admin_type'] == 'user') {
+    //     include_once('includes/user_header.php');
+    //     include_once('includes/user_menu.php');
+    // } else {
+    //     header("Location: /authid/servers.php");
+    // }
+    header("Location: /authid/servers.php");
 }
 
 

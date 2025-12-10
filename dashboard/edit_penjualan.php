@@ -13,18 +13,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		echo 'Permission Denied';
 		exit();
 	}
-$ispay = filter_input(INPUT_POST, 'ispay', FILTER_SANITIZE_SPECIAL_CHARS);
+	$ispay = filter_input(INPUT_POST, 'ispay', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$serverid = filter_input(INPUT_GET, 'serverid', FILTER_VALIDATE_INT);
+	$serverid = filter_input(INPUT_GET, 'serverid', FILTER_VALIDATE_INT);
 
-$db = getDbInstance();
-$db->where('id', $serverid);
-$row = $db->getOne('penjualancredit');
+	$db = getDbInstance();
+	$db->where('id', $serverid);
+	$row = $db->getOne('penjualancredit');
 
 
-     $data_to_update = [
-        'ispay' => $ispay
-    ];
+	$data_to_update = [
+		'ispay' => $ispay
+	];
 	$db = getDbInstance();
 	$db->where('id', $serverid);
 	$stat = $db->update('penjualancredit', $data_to_update);
@@ -53,19 +53,16 @@ require_once 'includes/admin_header.php';
 ?>
 <div id="page-wrapper">
 
-    <div class="row">
-     <div class="col-lg-12">
-            <h2 class="page-header">Update Servers Info</h2>
-        </div>
-
-    </div>
-    <?php include_once 'includes/flash_messages.php';?>
-    <form class="well form-horizontal" action="" method="post"  id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/edit_penjualan_form.php';?>
-    </form>
+	<div class="row">
+		<h1 class="page-header">Update Servers Info</h1>
+	</div>
+	<?php include_once 'includes/flash_messages.php'; ?>
+	<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+		<?php include_once './forms/edit_penjualan_form.php'; ?>
+	</form>
 </div>
 
 
 
 
-<?php include_once 'includes/footer.php';?>
+<?php include_once 'includes/footer.php'; ?>

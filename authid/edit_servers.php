@@ -9,27 +9,27 @@ $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS)
 ($operation == 'edit') ? $edit = true : $edit = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
-		echo 'Permission Denied';
-		exit();
-	}
-$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
-$limitflash = filter_input(INPUT_POST, 'limitflash', FILTER_SANITIZE_SPECIAL_CHARS);
-$limitfrp = filter_input(INPUT_POST, 'limitfrp', FILTER_SANITIZE_SPECIAL_CHARS);
-$limitfdl = filter_input(INPUT_POST, 'limitfdl', FILTER_SANITIZE_SPECIAL_CHARS);
-$serverid = filter_input(INPUT_GET, 'serverid', FILTER_VALIDATE_INT);
-$serversupport = filter_input(INPUT_POST, 'serversupport', FILTER_SANITIZE_SPECIAL_CHARS);
-$mihost = filter_input(INPUT_POST, 'mihost', FILTER_SANITIZE_SPECIAL_CHARS);
-$passtoken = filter_input(INPUT_POST, 'passtoken', FILTER_SANITIZE_SPECIAL_CHARS);
-$uid = filter_input(INPUT_POST, 'uid', FILTER_SANITIZE_SPECIAL_CHARS);
-$apiurl = filter_input(INPUT_POST, 'apiurl', FILTER_SANITIZE_SPECIAL_CHARS);
+    if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
+        echo 'Permission Denied';
+        exit();
+    }
+    $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
+    $limitflash = filter_input(INPUT_POST, 'limitflash', FILTER_SANITIZE_SPECIAL_CHARS);
+    $limitfrp = filter_input(INPUT_POST, 'limitfrp', FILTER_SANITIZE_SPECIAL_CHARS);
+    $limitfdl = filter_input(INPUT_POST, 'limitfdl', FILTER_SANITIZE_SPECIAL_CHARS);
+    $serverid = filter_input(INPUT_GET, 'serverid', FILTER_VALIDATE_INT);
+    $serversupport = filter_input(INPUT_POST, 'serversupport', FILTER_SANITIZE_SPECIAL_CHARS);
+    $mihost = filter_input(INPUT_POST, 'mihost', FILTER_SANITIZE_SPECIAL_CHARS);
+    $passtoken = filter_input(INPUT_POST, 'passtoken', FILTER_SANITIZE_SPECIAL_CHARS);
+    $uid = filter_input(INPUT_POST, 'uid', FILTER_SANITIZE_SPECIAL_CHARS);
+    $apiurl = filter_input(INPUT_POST, 'apiurl', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$db = getDbInstance();
-$db->where('id', $serverid);
-$row = $db->getOne('server');
+    $db = getDbInstance();
+    $db->where('id', $serverid);
+    $row = $db->getOne('server');
 
 
-     $data_to_update = [
+    $data_to_update = [
         'status' => $status,
         'limitedl' => $limitflash,
         'limitfrp' => $limitfrp,
@@ -43,18 +43,18 @@ $row = $db->getOne('server');
         'limitleftfdl' => $limitfdl,
         'serversupport' => $serversupport
     ];
-	$db = getDbInstance();
-	$db->where('id', $serverid);
-	$stat = $db->update('server', $data_to_update);
+    $db = getDbInstance();
+    $db->where('id', $serverid);
+    $stat = $db->update('server', $data_to_update);
 
-	if ($stat) {
-		$_SESSION['success'] = "Changed the Server of " . $user_name . " Successfully.";
-	} else {
-		$_SESSION['failure'] = "Failed to update Admin user : " . $db->getLastError();
-	}
+    if ($stat) {
+        $_SESSION['success'] = "Changed the Server of " . $user_name . " Successfully.";
+    } else {
+        $_SESSION['failure'] = "Failed to update Admin user : " . $db->getLastError();
+    }
 
-	header('location: servers.php');
-	exit;
+    header('location: servers.php');
+    exit;
 
 }
 
@@ -72,18 +72,15 @@ require_once 'includes/admin_header.php';
 <div id="page-wrapper">
 
     <div class="row">
-     <div class="col-lg-12">
-            <h2 class="page-header">Update Servers Info</h2>
-        </div>
-
+        <h1 class="page-header">Update Servers Info</h1>
     </div>
-    <?php include_once 'includes/flash_messages.php';?>
-    <form class="well form-horizontal" action="" method="post"  id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/server_form.php';?>
+    <?php include_once 'includes/flash_messages.php'; ?>
+    <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+        <?php include_once './forms/server_form.php'; ?>
     </form>
 </div>
 
 
 
 
-<?php include_once 'includes/footer.php';?>
+<?php include_once 'includes/footer.php'; ?>

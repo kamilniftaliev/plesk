@@ -12,16 +12,16 @@ $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// If non-super user accesses this script via url. Stop the exexution
 	if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
-	
+
 		echo 'Permission Denied';
 		exit();
 	}
 
 
-$user_name = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_SPECIAL_CHARS);
-$camount = filter_input(INPUT_POST, 'camount', FILTER_VALIDATE_FLOAT);
-$famount = filter_input(INPUT_POST, 'famount', FILTER_VALIDATE_FLOAT);
-    	$admin_user_id = filter_input(INPUT_GET, 'admin_user_id', FILTER_VALIDATE_INT);
+	$user_name = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_SPECIAL_CHARS);
+	$camount = filter_input(INPUT_POST, 'camount', FILTER_VALIDATE_FLOAT);
+	$famount = filter_input(INPUT_POST, 'famount', FILTER_VALIDATE_FLOAT);
+	$admin_user_id = filter_input(INPUT_GET, 'admin_user_id', FILTER_VALIDATE_INT);
 	//Check whether the user name already exists ;
 	$db = getDbInstance();
 	$db->where('user', $user_name);
@@ -39,21 +39,21 @@ $famount = filter_input(INPUT_POST, 'famount', FILTER_VALIDATE_FLOAT);
 			'admin_user_id' => $admin_user_id,
 			'operation' => $operation,
 		));
-		header('location: refill_admin.php?'.$query_string );
+		header('location: refill_admin.php?' . $query_string);
 		exit;
 	}
 
 
-	
-  
+
+
 	//Encrypting the password
 //	$data_to_update['left_act'] = $data_to_update['camount'] + $data_to_update['famount'];
-	
 
-     $data_to_update = [
-        'user_name' => $user_name,
-        'left_act' => $camount + $famount,
-    ];
+
+	$data_to_update = [
+		'user_name' => $user_name,
+		'left_act' => $camount + $famount,
+	];
 	$db = getDbInstance();
 	$db->where('id', $admin_user_id);
 	$stat = $db->update('username', $data_to_update);
@@ -82,19 +82,16 @@ require_once 'includes/admin_header.php';
 ?>
 <div id="page-wrapper">
 
-    <div class="row">
-     <div class="col-lg-12">
-            <h2 class="page-header">Update Admin Info</h2>
-        </div>
-
-    </div>
-    <?php include_once 'includes/flash_messages.php';?>
-    <form class="well form-horizontal" action="" method="post"  id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/refill_edit_form.php';?>
-    </form>
+	<div class="row">
+		<h1 class="page-header">Update Admin Info</h1>
+	</div>
+	<?php include_once 'includes/flash_messages.php'; ?>
+	<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+		<?php include_once './forms/refill_edit_form.php'; ?>
+	</form>
 </div>
 
 
 
 
-<?php include_once 'includes/footer.php';?>
+<?php include_once 'includes/footer.php'; ?>

@@ -645,6 +645,12 @@
                 color: #9ca3af !important;
                 border-color: #374151 !important;
             }
+
+
+            select,
+            input[type="date"] {
+                color-scheme: dark;
+            }
         }
 
         h1.page-header {
@@ -654,6 +660,11 @@
 
         a:hover {
             text-decoration: none !important;
+        }
+
+        .input-group select {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>

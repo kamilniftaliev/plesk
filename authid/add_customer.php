@@ -37,10 +37,7 @@ require_once 'includes/header.php';
 ?>
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-header">Add Customers</h2>
-        </div>
-
+        <h1 class="page-header">Add Customers</h1>
     </div>
     <form class="form" action="" method="post" id="customer_form" enctype="multipart/form-data">
         <?php include_once('./forms/customer_form.php'); ?>

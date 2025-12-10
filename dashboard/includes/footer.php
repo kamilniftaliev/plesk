@@ -18,6 +18,9 @@
     <script src="/dashboard/assets/js/sb-admin-2.js"></script>
     <script src="/dashboard/assets/js/jquery.validate.min.js"></script>
 
+    <!-- Design System JavaScript -->
+    <script src="/dashboard/assets/js/design-system.js"></script>
+
 </body>
 
 </html>

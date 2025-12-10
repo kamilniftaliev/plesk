@@ -65,7 +65,7 @@
 
     <div class="form-group">
         <label class="col-md-4 control-label">State</label>
-        <div class="col-md-6 inputGroupContainer">
+        <div class="col-md-4 inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                 <?php
@@ -116,7 +116,7 @@
 
     <div class="form-group">
         <label class="col-md-4 control-label">FRP Packet</label>
-        <div class="col-md-6 inputGroupContainer">
+        <div class="col-md-4 inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                 <?php
@@ -150,7 +150,7 @@
 
     <div class="form-group">
         <label class="col-md-4 control-label">SPECIAL PRICE</label>
-        <div class="col-md-6 inputGroupContainer">
+        <div class="col-md-4 inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                 <?php
