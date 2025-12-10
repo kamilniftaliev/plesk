@@ -300,19 +300,13 @@ if ($_SESSION['admin_type'] == 'reseller') {
         width: auto;
     }
 
-    #captcha-status {
-        background: #f5f5f5;
-        border: 1px solid #e0e0e0;
-        border-radius: 4px;
-    }
-
     #captcha-status i {
-        color: #666;
+        color: #fff;
         font-size: 16px;
     }
 
     #captcha-status span {
-        color: #666;
+        color: #fff;
         font-size: 14px;
         font-weight: normal;
     }
@@ -322,6 +316,66 @@ if ($_SESSION['admin_type'] == 'reseller') {
         border-radius: 4px;
         padding: 15px;
         background: #f9f9f9;
+    }
+
+    .info-icon {
+        cursor: pointer;
+        color: #5bc0de;
+        margin-left: 5px;
+        font-size: 16px;
+    }
+
+    .info-icon:hover {
+        color: #46b8da;
+    }
+
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        padding: 15px;
+        background-color: #5bc0de;
+        color: white;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #f1f1f1;
     }
 </style>
 
@@ -334,8 +388,8 @@ if ($_SESSION['admin_type'] == 'reseller') {
 
     <?php include_once 'includes/flash_messages.php'; ?>
 
-    <div class="flex gap-8 w-3/4 mx-auto">
-        <div class="col-lg-6 px-0">
+    <div class="flex justify-center w-full">
+        <div class="col-lg-8 px-0">
             <div class="panel panel-default">
                 <div class="panel-heading flex items-center gap-3">
                     <i class="fa fa-mobile text-4xl w-4 fa-fw"></i>
@@ -344,7 +398,10 @@ if ($_SESSION['admin_type'] == 'reseller') {
                 <div class="flex flex-col gap-6 p-6">
                     <form id="imei-form" method="POST" action="" class="flex flex-col gap-7">
                         <div class="gap-2 flex flex-col">
-                            <label for="imei" class="mb-0">IMEI Number</label>
+                            <label for="imei" class="mb-0">
+                                IMEI Number
+                                <i class="fa fa-question-circle info-icon" id="info-icon"></i>
+                            </label>
                             <input type="text" class="form-control" id="imei" value="" name="imei"
                                 placeholder="Enter 15-digit IMEI" maxlength="15" required>
                             <small class="text-muted">Enter your 15-digit IMEI number</small>
@@ -355,7 +412,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
                         <input type="hidden" id="vcode" name="vcode" required>
 
                         <!-- Captcha solving status -->
-                        <div id="captcha-status" class="flex items-center justify-center gap-2 p-3"
+                        <div id="captcha-status" class="flex items-center justify-center gap-2 p-2"
                             style="display: none;">
                             <i class="fa fa-spinner fa-spin"></i>
                             <span>Solving captcha<span id="loading-dots">...</span></span>
@@ -363,14 +420,17 @@ if ($_SESSION['admin_type'] == 'reseller') {
 
                         <!-- Manual captcha container (shown if auto-solve fails) -->
                         <div id="manual-captcha-container" style="display: none;">
-                            <label class="text-sm text-gray-700 mb-2 block">Automatic solving failed. Please enter the code manually:</label>
+                            <label class="text-sm text-gray-700 mb-2 block">Automatic solving failed. Please enter the
+                                code manually:</label>
                             <div class="flex gap-3 items-center justify-center mb-3">
-                                <img id="manual-captcha-image" src="" class="captcha-image" alt="Verification Code" style="display: inline-block; height: 40px;">
+                                <img id="manual-captcha-image" src="" class="captcha-image" alt="Verification Code"
+                                    style="display: inline-block; height: 40px;">
                                 <button type="button" id="refresh-manual-captcha" class="btn btn-sm btn-default">
                                     <i class="fa fa-refresh"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control" id="manual-vcode" placeholder="Enter verification code">
+                            <input type="text" class="form-control" id="manual-vcode"
+                                placeholder="Enter verification code">
                         </div>
 
                         <div class="flex gap-4 items-center justify-center">
@@ -388,27 +448,28 @@ if ($_SESSION['admin_type'] == 'reseller') {
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-lg-6 px-0">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <i class="fa fa-info-circle fa-fw"></i> Information
-                </div>
-                <div class="panel-body">
-                    <h4>How to use:</h4>
-                    <ol>
-                        <li>Enter your 15-digit IMEI number</li>
-                        <li>Enter the verification code from the image</li>
-                        <li>Click "Check IMEI" to verify</li>
-                    </ol>
-                    <hr>
-                    <h4>How to find IMEI:</h4>
-                    <ul>
-                        <li>Dial <strong>*#06#</strong> on your phone</li>
-                        <li>Check Settings → About Phone → Status</li>
-                        <li>Check the box or back of your device</li>
-                    </ul>
-                </div>
+    <!-- Information Modal -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h4 style="margin: 0;">How to use Xiaomi IMEI Checker</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>Enter your 15-digit IMEI number</li>
+                    <li>Captcha will be solved automatically in the background</li>
+                    <li>Click "Check IMEI" to verify (button will be enabled when ready)</li>
+                </ol>
+                <hr>
+                <h4>How to find IMEI:</h4>
+                <ul>
+                    <li>Dial <strong>*#06#</strong> on your phone</li>
+                    <li>Check Settings → About Phone → Status</li>
+                    <li>Check the box or back of your device</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -433,6 +494,31 @@ if ($_SESSION['admin_type'] == 'reseller') {
         let dotsInterval;
         let captchaSolved = false;
         let manualMode = false;
+
+        // Modal elements
+        const modal = document.getElementById('info-modal');
+        const infoIcon = document.getElementById('info-icon');
+
+        // Initial button states
+        submitBtn.disabled = true; // Disabled until IMEI has 15 digits AND captcha is solved
+        clearBtn.disabled = true; // Disabled until IMEI field has content
+
+        // Modal functionality
+        infoIcon.addEventListener('click', function (e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+        });
+
+        // Close modal when clicking the X button
+        modal.addEventListener('click', function (event) {
+            if (event.target.classList.contains('close')) {
+                modal.style.display = 'none';
+            }
+            // Close when clicking outside the modal content
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
 
         // Load captcha on page load
         loadCaptcha();
@@ -481,7 +567,8 @@ if ($_SESSION['admin_type'] == 'reseller') {
             manualMode = true;
             manualCaptchaContainer.style.display = 'block';
             manualCaptchaImage.src = captchaImage.src;
-            submitBtn.disabled = false;
+            // Only enable submit button if IMEI has 15 digits
+            submitBtn.disabled = imeiInput.value.length !== 15;
         }
 
         // Manual captcha refresh
@@ -499,6 +586,12 @@ if ($_SESSION['admin_type'] == 'reseller') {
             vcodeInput.value = this.value;
             if (this.value.trim() !== '') {
                 captchaSolved = true;
+                // Enable submit button only if IMEI has 15 digits
+                if (imeiInput.value.length === 15) {
+                    submitBtn.disabled = false;
+                }
+            } else {
+                submitBtn.disabled = true;
             }
         });
 
@@ -512,7 +605,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
                 ctx.drawImage(captchaImage, 0, 0);
 
                 const imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95));
-                console.log('Captcha image blob created from rendered image:', imageBlob);
+                // console.log('Captcha image blob created from rendered image:', imageBlob);
 
                 // Step 2: Submit captcha to 2captcha via our backend
                 const formData = new FormData();
@@ -561,10 +654,14 @@ if ($_SESSION['admin_type'] == 'reseller') {
                         // Mark captcha as solved
                         captchaSolved = true;
 
-                        // Hide loading status and enable submit button
+                        // Hide loading status
                         stopLoadingAnimation();
                         document.getElementById('captcha-status').style.display = 'none';
-                        submitBtn.disabled = false;
+
+                        // Enable submit button only if IMEI has 15 digits
+                        if (imeiInput.value.length === 15) {
+                            submitBtn.disabled = false;
+                        }
                         return;
                     } else if (resultData.pending) {
                         // Still processing, wait and retry
@@ -594,23 +691,30 @@ if ($_SESSION['admin_type'] == 'reseller') {
             }
         }
 
-        // Only allow numbers in IMEI field
+        // Only allow numbers in IMEI field and handle button states
         imeiInput.addEventListener('input', function (e) {
             this.value = this.value.replace(/[^0-9]/g, '');
+
+            // Enable/disable submit button based on IMEI length and captcha status
+            if (this.value.length === 15 && captchaSolved) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+
+            // Enable/disable clear button based on field content
+            clearBtn.disabled = this.value.length === 0;
         });
 
         // Clear button
         clearBtn.addEventListener('click', function () {
-            form.reset();
+            // Only clear the IMEI input and result box
+            imeiInput.value = '';
             resultBox.style.display = 'none';
-            stopLoadingAnimation();
-            document.getElementById('captcha-status').style.display = 'none';
-            manualCaptchaContainer.style.display = 'none';
-            vcodeInput.value = '';
-            manualVcodeInput.value = '';
-            captchaSolved = false; // Reset captcha solved flag
-            manualMode = false;
-            loadCaptcha();
+
+            // Update button states
+            submitBtn.disabled = !captchaSolved;
+            clearBtn.disabled = true;
         });
 
         // Form submission
