@@ -19,7 +19,8 @@
       "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(sudo apt-get update:*)",
-      "Bash(sudo apt-get install:*)"
+      "Bash(sudo apt-get install:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

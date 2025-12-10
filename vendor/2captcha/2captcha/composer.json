@@ -1,0 +1,60 @@
+{
+    "name": "2captcha/2captcha",
+    "description": "PHP package for easy integration with 2captcha API",
+    "keywords": [
+        "2captcha",
+        "captcha",
+        "recaptcha",
+        "funcaptcha",
+        "keycaptcha",
+        "geetest",
+        "anticaptcha",
+        "recaptcha v2",
+        "recaptcha v3",
+        "bypass captcha",
+        "solve captcha",
+        "captcha solver",
+        "decaptcha",
+        "2captcha.com",
+        "lemin",
+        "cloudflare turnstile",
+        "amazon waf",
+        "audio captcha",
+        "Tencent",
+        "MTCaptcha",
+        "Cutcaptcha",
+        "Friendly Captcha",
+        "atbCAPTCHA",
+        "DataDome"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "2captcha",
+            "email": "info@2captcha.com",
+            "homepage": "https://2captcha.com/"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-fileinfo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "TwoCaptcha\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TwoCaptcha\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}

@@ -4,8 +4,81 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "baf0b1b659e688a64051c5ee9742a77e",
+    "content-hash": "74de3e65d3763d5b661a90222ea35cf6",
     "packages": [
+        {
+            "name": "2captcha/2captcha",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2captcha/2captcha-php.git",
+                "reference": "fa04f580fb32867204be0d5cae8891cc29f4e92e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2captcha/2captcha-php/zipball/fa04f580fb32867204be0d5cae8891cc29f4e92e",
+                "reference": "fa04f580fb32867204be0d5cae8891cc29f4e92e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-fileinfo": "*",
+                "ext-mbstring": "*",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "9.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TwoCaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "2captcha",
+                    "email": "info@2captcha.com",
+                    "homepage": "https://2captcha.com/"
+                }
+            ],
+            "description": "PHP package for easy integration with 2captcha API",
+            "keywords": [
+                "2captcha",
+                "2captcha.com",
+                "Cutcaptcha",
+                "MTCaptcha",
+                "amazon waf",
+                "anticaptcha",
+                "atbCAPTCHA",
+                "audio captcha",
+                "bypass captcha",
+                "captcha",
+                "captcha solver",
+                "cloudflare turnstile",
+                "datadome",
+                "decaptcha",
+                "friendly captcha",
+                "funcaptcha",
+                "geetest",
+                "keycaptcha",
+                "lemin",
+                "reCAPTCHA V2",
+                "recaptcha",
+                "recaptcha v3",
+                "solve captcha",
+                "tencent"
+            ],
+            "support": {
+                "issues": "https://github.com/2captcha/2captcha-php/issues",
+                "source": "https://github.com/2captcha/2captcha-php/tree/v1.2.1"
+            },
+            "time": "2024-12-04T10:25:37+00:00"
+        },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.9.3",
@@ -87,10 +160,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

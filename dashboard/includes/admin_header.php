@@ -31,6 +31,8 @@
 
     <script src="/dashboard/assets/js/jquery.min.js" type="text/javascript"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -749,6 +751,17 @@
                         </path>
                     </svg>
                     <span class="font-medium">Refill Credit</span>
+                </a>
+
+                <!-- IMEI Checker -->
+                <a href="/dashboard/imei_checker.php"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    <span class="font-medium">IMEI Checker</span>
                 </a>
 
                 <!-- Resellers -->
