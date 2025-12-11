@@ -1,7 +1,7 @@
 <?php
 
 
-include("/includes/konak.php");
+include("./includes/konak.php");
 
 
 $jumlahFRP = GetServerOn($koneksi, "frp");
