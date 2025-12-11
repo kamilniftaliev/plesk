@@ -1,7 +1,7 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-include('/includes/konak.php');
+include('../includes/konak.php');
 require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-    $sqls = "INSERT INTO server (passtoken,uid,deviceid,mihost,apiurl) VALUES ('$passtoken','$uid','$deviceid','$mihost','$apiurl')";
+    $sqls = "INSERT INTO server (passtoken,uid,deviceid,mihost,apiurl,delay,servicetoken,ssecurity,unlockapiph) VALUES ('$passtoken','$uid','$deviceid','$mihost','$apiurl',0,'','','')";
     if (mysqli_query($koneksi, $sqls)) {
         $_SESSION['success'] = "Server added successfully!";
         header('location: add_server.php');
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //We are using same form for adding and editing. This is a create form so declare $edit = false.
 $edit = false;
 
-require_once 'includes/admin_header.php';
+require_once './includes/admin_header.php';
 ?>
 
 
@@ -59,12 +59,13 @@ require_once 'includes/admin_header.php';
     <?php include_once 'includes/flash_messages.php'; ?>
     <div class="row">
         <div class="row">
-            <h1 class="page-header">Add SERVER</h1>
+            <h1 class="page-header">Add Server</h1>
         </div>
 
     </div>
-    <form class="form" action="" method="post" id="add_server_form" enctype="multipart/form-data">
-        <?php include_once('./forms/add_server_form.php'); ?>
+    <form class="form w-full md:w-2/3 lg:w-1/2 mx-auto" action="" method="post" id="add_server_form"
+        enctype="multipart/form-data">
+        <?php include_once('../forms/add_server_form.php'); ?>
     </form>
 </div>
 
@@ -75,13 +76,21 @@ require_once 'includes/admin_header.php';
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#customer_form").validate({
+        $("#add_server_form").validate({
             rules: {
-                f_name: {
+                passtoken: {
                     required: true,
                     minlength: 3
                 },
-                l_name: {
+                uid: {
+                    required: true,
+                    minlength: 3
+                },
+                deviceid: {
+                    required: true,
+                    minlength: 3
+                },
+                apiurl: {
                     required: true,
                     minlength: 3
                 },

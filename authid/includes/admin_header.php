@@ -691,13 +691,12 @@
 
             <!-- Navigation -->
             <nav class="px-4 py-4 flex-1 overflow-y-auto">
-                <!-- Add Servers -->
                 <a href="/authid/add_server.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    <span class="font-medium">Add Servers</span>
+                    <span class="font-medium">Add Server</span>
                 </a>
 
                 <!-- Server Edit -->

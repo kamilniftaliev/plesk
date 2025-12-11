@@ -115,7 +115,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
     <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/pass_edit_form.php'; ?>
+        <?php include_once '../forms/pass_edit_form.php'; ?>
     </form>
 </div>
 
