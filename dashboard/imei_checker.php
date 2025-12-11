@@ -1,8 +1,8 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 // Function to check activation lock status
 function checkActivationLockStatus($imei)
@@ -389,7 +389,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
     <?php include_once 'includes/flash_messages.php'; ?>
 
     <div class="flex justify-center w-full">
-        <div class="col-lg-8 px-0">
+        <div class="col-lg-8 px-0 col-md-8 col-sm-8">
             <div class="panel panel-default">
                 <div class="panel-heading flex items-center gap-3">
                     <i class="fa fa-mobile text-4xl w-4 fa-fw"></i>
@@ -830,4 +830,4 @@ if ($_SESSION['admin_type'] == 'reseller') {
     });
 </script>
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once '../includes/footer.php'; ?>

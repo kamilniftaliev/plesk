@@ -1,7 +1,7 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 // Costumers class
@@ -100,14 +100,14 @@ if ($statuspatch == 1) {
 
 
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">
     <div class="row">
         <h1 class="page-header">AzeGsm- Servers</h1>
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
 
 

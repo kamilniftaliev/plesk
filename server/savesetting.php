@@ -1,36 +1,36 @@
 <?php
 
-require_once 'konak.php';
+require_once '/includes/konak.php';
 session_start();
 
- // sid: sid,
-                //    flash: flash,
-                 //   frp: frp,
-                  //  fdl: fdl,
+// sid: sid,
+//    flash: flash,
+//   frp: frp,
+//  fdl: fdl,
 
 $typeadmin = $_SESSION['admin_type'];
-if (!$typeadmin =="super"){
-    echo "<h1><center>You Are Not Admin Super</h1><center>";
-    die();
+if (!$typeadmin == "super") {
+  echo "<h1><center>You Are Not Admin Super</h1><center>";
+  die();
 }
-if(!isset($_POST['sid'])){ 
-echo "Error Not post Server id";
-die();
-}
-
-if(!isset($_POST['flash'])){ 
-echo "Error Not post Flash Value";
-die();
-}
-if(!isset($_POST['frp'])){ 
-echo "Error Not post frp value";
-die();
+if (!isset($_POST['sid'])) {
+  echo "Error Not post Server id";
+  die();
 }
 
+if (!isset($_POST['flash'])) {
+  echo "Error Not post Flash Value";
+  die();
+}
+if (!isset($_POST['frp'])) {
+  echo "Error Not post frp value";
+  die();
+}
 
-if(!isset($_POST['fdl'])){ 
-echo "Error Not post fdl value";
-die();
+
+if (!isset($_POST['fdl'])) {
+  echo "Error Not post fdl value";
+  die();
 }
 
 
@@ -41,12 +41,14 @@ $fdl = antiInject($_POST['fdl']);
 $status = antiInject($_POST['status']);
 
 
-$sqls = "UPDATE status SET limitsetflash = '$flash' , limitsetfrp = '$frp' , limitsetfdl = '$fdl' , state = '$status'  WHERE id = '".$sid."' ";
-if(mysqli_query($koneksi, $sqls)){
-    
-  echo "Success Update Limit setting in Server ID : " . $sid ; 
-    
-}else {	echo "Failed Update Limit setting On Server ID : " . $sid ; 	}
+$sqls = "UPDATE status SET limitsetflash = '$flash' , limitsetfrp = '$frp' , limitsetfdl = '$fdl' , state = '$status'  WHERE id = '" . $sid . "' ";
+if (mysqli_query($koneksi, $sqls)) {
+
+  echo "Success Update Limit setting in Server ID : " . $sid;
+
+} else {
+  echo "Failed Update Limit setting On Server ID : " . $sid;
+}
 
 
 
@@ -55,10 +57,11 @@ if(mysqli_query($koneksi, $sqls)){
 
 
 
-function antiInject($data){
-$filter = stripslashes(strip_tags(htmlspecialchars($data,ENT_QUOTES)));
+function antiInject($data)
+{
+  $filter = stripslashes(strip_tags(htmlspecialchars($data, ENT_QUOTES)));
 
-return $filter;
+  return $filter;
 
 }
-	
+

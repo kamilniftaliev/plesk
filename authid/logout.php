@@ -1,5 +1,5 @@
 <?php
-require_once './config/config.php';
+require_once '../config/config.php';
 session_name('AUTHID_SESSION');
 session_start();
 

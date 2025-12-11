@@ -1,8 +1,8 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 
 // Sanitize if you want
@@ -70,4 +70,4 @@ include_once 'includes/header.php';
 
 
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once '../includes/footer.php'; ?>

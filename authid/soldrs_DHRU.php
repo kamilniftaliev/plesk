@@ -1,7 +1,7 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 // Users class
@@ -70,7 +70,7 @@ include BASE_PATH . '/includes/header.php';
         </div>
 
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {

@@ -1,7 +1,7 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 
@@ -60,7 +60,7 @@ $rows = $db->get('penjualancredit', null, implode(',', $select));
 $statusOptions = array_unique(array_column($rows, 'ispay'));
 sort($statusOptions);
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">
@@ -257,7 +257,7 @@ include BASE_PATH . '/includes/admin_header.php';
     <div class="row">
         <h1 class="page-header">AZEGSM Reseller Sold Records</h1>
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php';
+    <?php include './includes/flash_messages.php';
     ?>
 
     <?php
@@ -281,8 +281,8 @@ include BASE_PATH . '/includes/admin_header.php';
 
 
     <div class="well text-center filter-form">
-        <form class="form form-inline" action="">
-            <label for="input_search">Search</label>
+        <form class="form form-inline flex items-center gap-4 w-1/3 mx-auto" action="">
+            <label for="input_search" class="mb-0">Search</label>
             <input type="text" class="form-control" id="input_search" name="search_string"
                 value="<?php echo htmlspecialchars($search_string, ENT_QUOTES, 'UTF-8'); ?>">
 

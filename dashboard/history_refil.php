@@ -2,7 +2,7 @@
 // include "/include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 
@@ -77,7 +77,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
         </div>
 
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {

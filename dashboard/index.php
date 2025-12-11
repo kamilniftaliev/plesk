@@ -4,8 +4,8 @@
 
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 require("auth.php");
 
 error_reporting(E_ERROR | E_PARSE);
@@ -34,4 +34,4 @@ if ($_SESSION['admin_type'] == 'user') {
 
 
 
-include_once('includes/footer.php'); ?>
+include_once('../includes/footer.php'); ?>

@@ -1,8 +1,8 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 $admin_user_id = filter_input(INPUT_GET, 'admin_user_id');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -110,4 +110,4 @@ require_once 'includes/admin_header.php';
 
 
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once '../includes/footer.php'; ?>

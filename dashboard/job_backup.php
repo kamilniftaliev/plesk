@@ -2,7 +2,7 @@
 include "/include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 
@@ -71,7 +71,7 @@ $total_pages = $db->totalPages;
 
 
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <style>
     @media (prefers-color-scheme: dark) {
@@ -110,7 +110,7 @@ include BASE_PATH . '/includes/admin_header.php';
     <div class="row">
         <h1 class="page-header">Server Requesting History</h1>
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {
@@ -175,70 +175,70 @@ include BASE_PATH . '/includes/admin_header.php';
             foreach ($rows as $row):
                 // if ($row['sid'] === $serverid) {
                 ?>
-                <tr>
-                    <?php $i++ ?>
-                    <td><?php echo $i; ?></td>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo htmlspecialchars($row['iduser']); ?></td>
-                    <td><?php echo htmlspecialchars($row['name']); ?></td>
-                    <td><?php
-                    $blobkey = $row['configblob'];
-                    echo (strlen($blobkey) > 10) ? substr($blobkey, 0, 10) . '...' : $blobkey;
+                    <tr>
+                        <?php $i++ ?>
+                        <td><?php echo $i; ?></td>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo htmlspecialchars($row['iduser']); ?></td>
+                        <td><?php echo htmlspecialchars($row['name']); ?></td>
+                        <td><?php
+                        $blobkey = $row['configblob'];
+                        echo (strlen($blobkey) > 10) ? substr($blobkey, 0, 10) . '...' : $blobkey;
 
-                    if ($row['serviceid'] == "1") { ?></td>
-                        <td><?php echo "EDL";
-                    } ?></td>
-                    <?php
-                    if ($row['serviceid'] == "2") { ?></td>
-                        <td><?php echo "FRP";
-                    } ?></td>
-
-
-                    <?php
-                    if ($row['serviceid'] == "4") { ?></td>
-                        <td><?php echo "FDL";
-                    } ?></td>
-
-                    <?php
-                    if ($row['serviceid'] == "6") { ?></td>
-                        <td><?php echo "MTK 5";
-                    } ?></td>
-
-                    <?php
-                    if ($row['serviceid'] == "9") { ?></td>
-                        <td><?php echo "MTK 6 new ";
-                    } ?></td>
-                    <td><?php echo "Server " . $row['serverid']; ?></td>
-
-                    <td>Hidden</td>
-                    <td><?php echo $row['cost']; ?></td>
-                    <?php
-
-
-                    ?>
-                    <td>
-                        <?php echo $row['tgl']; ?>
-
-                    </td>
-                    <?php
-                    if (htmlspecialchars($row['status']) == 'done') {
-                        ?>
-                        <td style="background-color:green !important;color:white !important;"> <?php echo 'done'; ?> </td>
+                        if ($row['serviceid'] == "1") { ?></td>
+                                <td><?php echo "EDL";
+                        } ?></td>
                         <?php
-                    } else {
+                        if ($row['serviceid'] == "2") { ?></td>
+                                <td><?php echo "FRP";
+                        } ?></td>
+
+
+                        <?php
+                        if ($row['serviceid'] == "4") { ?></td>
+                                <td><?php echo "FDL";
+                        } ?></td>
+
+                        <?php
+                        if ($row['serviceid'] == "6") { ?></td>
+                                <td><?php echo "MTK 5";
+                        } ?></td>
+
+                        <?php
+                        if ($row['serviceid'] == "9") { ?></td>
+                                <td><?php echo "MTK 6 new ";
+                        } ?></td>
+                        <td><?php echo "Server " . $row['serverid']; ?></td>
+
+                        <td>Hidden</td>
+                        <td><?php echo $row['cost']; ?></td>
+                        <?php
+
+
                         ?>
-                        <td style="background-color:red !important;color:white !important;">
-                            <?php echo htmlspecialchars($row['status']); ?>
+                        <td>
+                            <?php echo $row['tgl']; ?>
+
                         </td>
                         <?php
-                    }
-                    // }
-                    ?>
+                        if (htmlspecialchars($row['status']) == 'done') {
+                            ?>
+                                <td style="background-color:green !important;color:white !important;"> <?php echo 'done'; ?> </td>
+                                <?php
+                        } else {
+                            ?>
+                                <td style="background-color:red !important;color:white !important;">
+                                    <?php echo htmlspecialchars($row['status']); ?>
+                                </td>
+                                <?php
+                        }
+                        // }
+                        ?>
 
-                </tr>
-                <!-- Delete Confirmation Modal -->
+                    </tr>
+                    <!-- Delete Confirmation Modal -->
 
-                <!-- //Delete Confirmation Modal -->
+                    <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>

@@ -1,8 +1,8 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 $serverid = filter_input(INPUT_GET, 'serverid');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -83,4 +83,4 @@ require_once 'includes/admin_header.php';
 
 
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once '../includes/footer.php'; ?>

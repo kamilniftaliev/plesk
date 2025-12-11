@@ -1,8 +1,8 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 $admin_user_id = $_SESSION['admin_id'];
 
@@ -84,4 +84,4 @@ if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'authid') {
 
 
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once '../includes/footer.php'; ?>

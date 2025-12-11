@@ -1,7 +1,7 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 // Costumers class
@@ -53,7 +53,7 @@ $db->pageLimit = $pagelimit;
 $rows = $db->arraybuilder()->paginate('price', $page, $select);
 $total_pages = $db->totalPages;
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">
@@ -61,7 +61,7 @@ include BASE_PATH . '/includes/admin_header.php';
         <h1 class="page-header">AzeGsm - Price</h1>
 
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
 
 
@@ -97,22 +97,22 @@ include BASE_PATH . '/includes/admin_header.php';
         </thead>
         <tbody>
             <?php foreach ($rows as $row): ?>
-                <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo xss_clean($row['serviceid']); ?></td>
-                    <td><?php echo xss_clean($row['servicename']); ?></td>
-                    <td><?php echo xss_clean($row['harga']); ?></td>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo xss_clean($row['serviceid']); ?></td>
+                            <td><?php echo xss_clean($row['servicename']); ?></td>
+                            <td><?php echo xss_clean($row['harga']); ?></td>
 
 
-                    <td>
-                        <a href="edit_price.php?serverid=<?php echo $row['id']; ?>&operation=edit"
-                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                            <td>
+                                <a href="edit_price.php?serverid=<?php echo $row['id']; ?>&operation=edit"
+                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
 
-                    </td>
-                </tr>
-                <!-- Delete Confirmation Modal -->
+                            </td>
+                        </tr>
+                        <!-- Delete Confirmation Modal -->
 
-                <!-- //Delete Confirmation Modal -->
+                        <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>

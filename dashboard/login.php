@@ -2,7 +2,7 @@
 session_name('DASHBOARD_SESSION');
 session_start();
 $sekarang = date('Y-m-d H:i:s');
-require_once 'config/config.php';
+require_once '../config/config.php';
 $token = bin2hex(openssl_random_pseudo_bytes(16));
 
 if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] === TRUE) {
@@ -52,7 +52,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 // Check if we're in OTP verification mode
 $otp_mode = isset($_SESSION['otp_pending']) && $_SESSION['otp_pending'] === TRUE;
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <style>
 	.otp-input {

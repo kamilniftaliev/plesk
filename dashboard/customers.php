@@ -1,7 +1,7 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 // Costumers class
@@ -53,7 +53,7 @@ $rows = $db->get('user', null, implode(',', $select));
 $statusOptions = array_unique(array_column($rows, 'status'));
 sort($statusOptions);
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">
@@ -286,7 +286,7 @@ include BASE_PATH . '/includes/admin_header.php';
     <div class="row">
         <h1 class="page-header">AZEGSM - Users</h1>
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
     <!-- Table -->
     <div class="table-responsive">

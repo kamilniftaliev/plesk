@@ -1,9 +1,9 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-include 'konak.php';
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+include '/includes/konak.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 
 
@@ -16,7 +16,7 @@ $page = 1;
 
 
 $db = getDbInstance();
-$select = array('authidid','jumlah');
+$select = array('authidid', 'jumlah');
 
 $total = 0;
 
@@ -25,7 +25,7 @@ $db->pageLimit = $pagelimit;
 
 $rows = $db->arraybuilder()->paginate('penjualancredit', $page, $select);
 
-foreach ($rows as $row): 
-$total += $row['jumlah'];    
+foreach ($rows as $row):
+  $total += $row['jumlah'];
 endforeach;
 echo $total;

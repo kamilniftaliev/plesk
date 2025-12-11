@@ -1,7 +1,7 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 if ($_SESSION['admin_type'] !== 'admin') {

@@ -1,7 +1,7 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 
@@ -90,7 +90,7 @@ $db->where('status', "reseller");
 $rows = $db->arraybuilder()->paginate('user', $page, $select);
 $total_pages = $db->totalPages;
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">
@@ -104,7 +104,7 @@ include BASE_PATH . '/includes/admin_header.php';
             </div>
         </div>
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {
@@ -135,56 +135,56 @@ include BASE_PATH . '/includes/admin_header.php';
                 if (!isset($_SESSION['name']) || $_SESSION['name'] !== $row['username']) {
                     ?>
 
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo htmlspecialchars($row['username']); ?></td>
-                        <td><?php echo htmlspecialchars($row['status']); ?></td>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span
-                                    style="font-family: monospace; font-size: 13px;"><?php echo htmlspecialchars($row['apikey']); ?></span>
-                                <a href="reseller.php?regenerate_id=<?php echo $row['id']; ?>" class="btn btn-warning btn-xs"
-                                    onclick="return confirm('Are you sure you want to regenerate the API key for <?php echo htmlspecialchars($row['username']); ?>?');"
-                                    title="Regenerate API Key">
-                                    <i class="glyphicon glyphicon-refresh"></i>
-                                </a>
-                            </div>
-                        </td>
-                        <td><?php echo htmlspecialchars($row['status']); ?></td>
+                            <tr>
+                                <td><?php echo $row['id']; ?></td>
+                                <td><?php echo htmlspecialchars($row['username']); ?></td>
+                                <td><?php echo htmlspecialchars($row['status']); ?></td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span
+                                            style="font-family: monospace; font-size: 13px;"><?php echo htmlspecialchars($row['apikey']); ?></span>
+                                        <a href="reseller.php?regenerate_id=<?php echo $row['id']; ?>" class="btn btn-warning btn-xs"
+                                            onclick="return confirm('Are you sure you want to regenerate the API key for <?php echo htmlspecialchars($row['username']); ?>?');"
+                                            title="Regenerate API Key">
+                                            <i class="glyphicon glyphicon-refresh"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td><?php echo htmlspecialchars($row['status']); ?></td>
 
-                        <td>
-                            <a href="edit_reseller.php?admin_user_id=<?php echo $row['id']; ?>&operation=edit"
-                                class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
-                                data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
-                                    class="glyphicon glyphicon-trash"></i></a>
-                        </td>
-                    <?php } ?>
-                </tr>
+                                <td>
+                                    <a href="edit_reseller.php?admin_user_id=<?php echo $row['id']; ?>&operation=edit"
+                                        class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                                    <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
+                                        data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
+                                            class="glyphicon glyphicon-trash"></i></a>
+                                </td>
+                        <?php } ?>
+                    </tr>
 
-                <!-- Delete Confirmation Modal -->
-                <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
-                    <div class="modal-dialog">
-                        <form action="delete_customer.php" method="POST">
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Confirm</h4>
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
+                        <div class="modal-dialog">
+                            <form action="delete_customer.php" method="POST">
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Confirm</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
+                                        <p>Are you sure you want to delete <?php echo $row['username']; ?> ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-default pull-left">Yes</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
-                                    <p>Are you sure you want to delete <?php echo $row['username']; ?> ?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default pull-left">Yes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <!-- //Delete Confirmation Modal -->
+                    <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>

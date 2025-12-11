@@ -1,8 +1,8 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 require("auth.php");
 //Used to hide any error or warning messages on the responce page (If any text other than json appear in responce it crash the app)
 error_reporting(E_ERROR | E_PARSE);
@@ -112,4 +112,4 @@ require_once 'includes/header.php';
 
 
 
-<?php include_once 'includes/footer.php'; ?>
+<?php include_once '../includes/footer.php'; ?>

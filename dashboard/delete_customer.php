@@ -1,36 +1,32 @@
-<?php 
+<?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'includes/auth_validate.php';
-require_once './config/config.php';
+require_once '../includes/auth_validate.php';
+require_once '../config/config.php';
 $del_id = filter_input(INPUT_POST, 'del_id');
-if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') 
-{
+if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	if($_SESSION['admin_type']!='super'){
-		$_SESSION['failure'] = "You don't have permission to perform this action";
-    	header('location: admin_users.php');
+    if ($_SESSION['admin_type'] != 'super') {
+        $_SESSION['failure'] = "You don't have permission to perform this action";
+        header('location: admin_users.php');
         exit;
 
-	}
+    }
     $customer_id = $del_id;
 
     $db = getDbInstance();
     $db->where('id', $customer_id);
     $status = $db->delete('admin_accounts');
-    
-    if ($status) 
-    {
+
+    if ($status) {
         $_SESSION['success'] = "Reseller deleted successfully!";
         header('location: admin_users.php');
         exit;
-    }
-    else
-    {
-    	$_SESSION['failure'] = "Unable to delete customer";
-    	header('location: admin_users.php');
+    } else {
+        $_SESSION['failure'] = "Unable to delete customer";
+        header('location: admin_users.php');
         exit;
 
     }
-    
+
 }

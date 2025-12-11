@@ -1,7 +1,7 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 // Costumers class
@@ -53,7 +53,7 @@ $db->pageLimit = $pagelimit;
 $rows = $db->arraybuilder()->paginate('server', $page, $select);
 $total_pages = $db->totalPages;
 
-include BASE_PATH . '/includes/admin_header.php';
+include './includes/admin_header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">
@@ -61,7 +61,7 @@ include BASE_PATH . '/includes/admin_header.php';
         <h1 class="page-header">AzeGsm- Servers</h1>
 
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
 
 
@@ -100,48 +100,48 @@ include BASE_PATH . '/includes/admin_header.php';
         </thead>
         <tbody>
             <?php foreach ($rows as $row): ?>
-                <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo xss_clean($row['status']); ?></td>
-                    <td><?php echo xss_clean($row['limitedl']); ?></td>
-                    <td><?php echo xss_clean($row['limitleftedl']); ?></td>
-                    <td><?php echo xss_clean($row['limitfrp']); ?></td>
-                    <td><?php echo xss_clean($row['limitleftfrp']); ?></td>
-                    <td><?php echo xss_clean($row['limitfdl']); ?></td>
-                    <td><?php echo xss_clean($row['limitleftfdl']); ?></td>
-                    <td><?php echo xss_clean($row['serversupport']); ?></td>
-                    <td>
-                        <a href="edit_servers.php?serverid=<?php echo $row['id']; ?>&operation=edit"
-                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
-                            data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
-                                class="glyphicon glyphicon-trash"></i></a>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo xss_clean($row['status']); ?></td>
+                        <td><?php echo xss_clean($row['limitedl']); ?></td>
+                        <td><?php echo xss_clean($row['limitleftedl']); ?></td>
+                        <td><?php echo xss_clean($row['limitfrp']); ?></td>
+                        <td><?php echo xss_clean($row['limitleftfrp']); ?></td>
+                        <td><?php echo xss_clean($row['limitfdl']); ?></td>
+                        <td><?php echo xss_clean($row['limitleftfdl']); ?></td>
+                        <td><?php echo xss_clean($row['serversupport']); ?></td>
+                        <td>
+                            <a href="edit_servers.php?serverid=<?php echo $row['id']; ?>&operation=edit"
+                                class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
+                                data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
+                                    class="glyphicon glyphicon-trash"></i></a>
 
-                    </td>
-                </tr>
-                <!-- Delete Confirmation Modal -->
-                <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
-                    <div class="modal-dialog">
-                        <form action="delete_server.php" method="POST">
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Confirm</h4>
+                        </td>
+                    </tr>
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
+                        <div class="modal-dialog">
+                            <form action="delete_server.php" method="POST">
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Confirm</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
+                                        <p>Are you sure you want to delete <?php echo $row['id']; ?> ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-default pull-left">Yes</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
-                                    <p>Are you sure you want to delete <?php echo $row['id']; ?> ?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default pull-left">Yes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <!-- //Delete Confirmation Modal -->
+                    <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>

@@ -1,9 +1,9 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-include 'konak.php';
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+include '/includes/konak.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -523,4 +523,4 @@ function SenDemail($email, $amount, $reseller)
 
 }
 
-include_once 'includes/footer.php'; ?>
+include_once '../includes/footer.php'; ?>

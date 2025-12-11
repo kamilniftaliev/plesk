@@ -2,7 +2,7 @@
 include "/include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once 'config/config.php';
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
 
@@ -266,7 +266,7 @@ if ($_SESSION['admin_type'] == 'reseller') {
     <div class="row">
         <h1 class="page-header">Job Auth History</h1>
     </div>
-    <?php include BASE_PATH . '/includes/flash_messages.php'; ?>
+    <?php include './includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {
@@ -276,8 +276,8 @@ if ($_SESSION['admin_type'] == 'reseller') {
 
     <!-- Filters -->
     <div class="well text-center filter-form">
-        <form class="form form-inline" action="">
-            <label for="input_search">Search</label>
+        <form class="form form-inline flex items-center gap-4 mx-auto w-1/2" action="">
+            <label for="input_search" class="mb-0">Search</label>
 
 
             <select name="serviceid" id="serviceid">

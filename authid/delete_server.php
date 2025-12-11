@@ -1,8 +1,8 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once 'includes/auth_validate.php';
-require_once './config/config.php';
+require_once '../includes/auth_validate.php';
+require_once '../config/config.php';
 $del_id = filter_input(INPUT_POST, 'del_id');
 $db = getDbInstance();
 

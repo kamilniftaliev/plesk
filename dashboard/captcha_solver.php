@@ -1,12 +1,10 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once './config/config.php';
-require_once 'includes/auth_validate.php';
+require_once '../config/config.php';
+require_once '../includes/auth_validate.php';
 
 header('Content-Type: application/json');
-
-$TWOCAPTCHA_API_KEY = '7ffb03579cea7566b484f2b342a6ab3a';
 
 // Handle captcha submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'submit') {
@@ -23,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     // Upload to 2captcha using multipart/form-data
     $post_data = [
       'method' => 'post',
-      'key' => $TWOCAPTCHA_API_KEY,
+      'key' => TWOCAPTCHA_API_KEY,
       'file' => new CURLFile($uploaded_file, $_FILES['captcha_image']['type'], 'captcha.jpg')
     ];
 
@@ -69,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     exit;
   }
 
-  $url = "https://2captcha.com/res.php?key=$TWOCAPTCHA_API_KEY&action=get&id=$captcha_id";
+  $url = "https://2captcha.com/res.php?key=" . TWOCAPTCHA_API_KEY . "&action=get&id=$captcha_id";
 
   if (function_exists('curl_init')) {
     $ch = curl_init($url);
