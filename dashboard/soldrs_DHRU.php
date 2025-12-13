@@ -11,7 +11,7 @@ $users = new Users();
 // Only super admin is allowed to access this page
 if ($_SESSION['admin_type'] !== 'super') {
     // Show permission denied message
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 

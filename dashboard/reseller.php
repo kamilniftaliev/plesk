@@ -8,7 +8,7 @@ require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
 
 if ($_SESSION['admin_type'] !== 'admin') {
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 
@@ -272,65 +272,65 @@ include './includes/admin_header.php';
                 <?php foreach ($rows as $row):
                     if (!isset($_SESSION['name']) || $_SESSION['name'] !== $row['username']):
                         ?>
-                                <tr>
-                                    <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo htmlspecialchars($row['username']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['status']); ?></td>
-                                    <td>
-                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                            <span class="api-key-text"
-                                                style="font-family: monospace; font-size: 13px;"><?php echo htmlspecialchars($row['apikey']); ?></span>
-                                            <button class="btn btn-default btn-xs copy-api-btn"
-                                                data-apikey="<?php echo htmlspecialchars($row['apikey'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                title="Copy API Key">
-                                                <i class="glyphicon glyphicon-copy"></i>
-                                            </button>
-                                            <a href="reseller.php?regenerate_id=<?php echo $row['id']; ?>"
-                                                class="btn btn-warning btn-xs"
-                                                onclick="return confirm('Are you sure you want to regenerate the API key for <?php echo htmlspecialchars($row['username']); ?>?');"
-                                                title="Regenerate API Key">
-                                                <i class="glyphicon glyphicon-refresh"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td><?php echo isset($row['credit']) ? htmlspecialchars($row['credit']) : '0'; ?></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <a href="edit_reseller.php?admin_user_id=<?php echo $row['id']; ?>&operation=edit"
-                                                class="btn btn-primary btn-sm" title="Edit">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-sm delete_btn" data-toggle="modal"
-                                                data-target="#confirm-delete-<?php echo $row['id']; ?>" title="Delete">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Delete Confirmation Modal -->
-                                <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
-                                    <div class="modal-dialog">
-                                        <form action="delete_customer.php" method="POST">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Confirm</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
-                                                    <p>Are you sure you want to delete <?php echo $row['username']; ?> ?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-default pull-left">Yes</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo htmlspecialchars($row['username']); ?></td>
+                            <td><?php echo htmlspecialchars($row['status']); ?></td>
+                            <td>
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <span class="api-key-text"
+                                        style="font-family: monospace; font-size: 13px;"><?php echo htmlspecialchars($row['apikey']); ?></span>
+                                    <button class="btn btn-default btn-xs copy-api-btn"
+                                        data-apikey="<?php echo htmlspecialchars($row['apikey'], ENT_QUOTES, 'UTF-8'); ?>"
+                                        title="Copy API Key">
+                                        <i class="glyphicon glyphicon-copy"></i>
+                                    </button>
+                                    <a href="reseller.php?regenerate_id=<?php echo $row['id']; ?>"
+                                        class="btn btn-warning btn-xs"
+                                        onclick="return confirm('Are you sure you want to regenerate the API key for <?php echo htmlspecialchars($row['username']); ?>?');"
+                                        title="Regenerate API Key">
+                                        <i class="glyphicon glyphicon-refresh"></i>
+                                    </a>
                                 </div>
-                                <!-- //Delete Confirmation Modal -->
-                        <?php endif; endforeach; ?>
+                            </td>
+                            <td><?php echo isset($row['credit']) ? htmlspecialchars($row['credit']) : '0'; ?></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="edit_reseller.php?admin_user_id=<?php echo $row['id']; ?>&operation=edit"
+                                        class="btn btn-primary btn-sm" title="Edit">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-sm delete_btn" data-toggle="modal"
+                                        data-target="#confirm-delete-<?php echo $row['id']; ?>" title="Delete">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Delete Confirmation Modal -->
+                        <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
+                            <div class="modal-dialog">
+                                <form action="delete_customer.php" method="POST">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Confirm</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
+                                            <p>Are you sure you want to delete <?php echo $row['username']; ?> ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-default pull-left">Yes</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- //Delete Confirmation Modal -->
+                    <?php endif; endforeach; ?>
             </tbody>
         </table>
     </div>

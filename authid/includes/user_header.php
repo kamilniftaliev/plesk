@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'user') {
 
-    header('Location:/authid/login.php');
+    header('Location:' . URL_PREFIX . '/authid/login.php');
     exit();
 }
 

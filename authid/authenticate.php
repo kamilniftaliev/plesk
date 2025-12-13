@@ -16,7 +16,7 @@ if (isset($_GET['cancel_otp'])) {
 	unset($_SESSION['otp_remember']);
 	unset($_SESSION['otp_expires']);
 	unset($_SESSION['otp_dev_display']); // Clear dev display code
-	header('Location: /authid/login.php');
+	header('Location:' . URL_PREFIX . '/authid/login.php');
 	exit;
 }
 
@@ -63,7 +63,7 @@ if (isset($_GET['resend_otp'])) {
 			}
 		}
 	}
-	header('Location: /authid/login.php');
+	header('Location:' . URL_PREFIX . '/authid/login.php');
 	exit;
 }
 
@@ -76,14 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Validate OTP format
 		if (!preg_match('/^\d{4}$/', $otp_code)) {
 			$_SESSION['otp_failure'] = "Invalid code format. Please enter 4 digits.";
-			header('Location: /authid/login.php');
+			header('Location:' . URL_PREFIX . '/authid/login.php');
 			exit;
 		}
 
 		// Check if OTP session exists
 		if (!isset($_SESSION['otp_pending']) || $_SESSION['otp_pending'] !== TRUE) {
 			$_SESSION['login_failure'] = "OTP session expired. Please login again.";
-			header('Location: /authid/login.php');
+			header('Location:' . URL_PREFIX . '/authid/login.php');
 			exit;
 		}
 
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			unset($_SESSION['otp_admin_type']);
 			unset($_SESSION['otp_remember']);
 			$_SESSION['login_failure'] = "OTP code expired. Please login again.";
-			header('Location: /authid/login.php');
+			header('Location:' . URL_PREFIX . '/authid/login.php');
 			exit;
 		}
 
@@ -146,12 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			unset($_SESSION['otp_dev_display']); // Clear dev display code
 
 			// Redirect to dashboard
-			header('Location: /authid/index.php');
+			header('Location:' . URL_PREFIX . '/authid/index.php');
 			exit;
 		} else {
 			// Wrong OTP code
 			$_SESSION['otp_failure'] = "Invalid verification code. Please try again.";
-			header('Location: /authid/login.php');
+			header('Location:' . URL_PREFIX . '/authid/login.php');
 			exit;
 		}
 	}
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if ($second_password !== $current_hour) {
 		$_SESSION['login_failure'] = "Invalid second password. Please enter the correct second password.";
-		header('Location: /authid/login.php');
+		header('Location:' . URL_PREFIX . '/authid/login.php');
 		exit;
 	}
 
@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Check if user has at least email or Telegram
 			if (empty($user_email) && empty($user_telegram_chat_id)) {
 				$_SESSION['login_failure'] = "No email or Telegram configured for this account. Please contact administrator.";
-				header('Location: /authid/login.php');
+				header('Location:' . URL_PREFIX . '/authid/login.php');
 				exit;
 			}
 
@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (defined('DEV_MODE') && DEV_MODE === true) {
 				// Development mode - store OTP in session for display on login page
 				$_SESSION['otp_dev_display'] = $otp_code;
-				header('Location: /authid/login.php');
+				header('Location:' . URL_PREFIX . '/authid/login.php');
 				exit;
 			} else {
 				// Production mode - send via email and/or Telegram
@@ -240,27 +240,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				// Check if at least one method succeeded
 				if ($email_sent || $telegram_sent) {
 					// Successfully sent OTP, redirect to OTP verification page
-					header('Location: /authid/login.php');
+					header('Location:' . URL_PREFIX . '/authid/login.php');
 					exit;
 				} else {
 					// Failed to send via any method
 					unset($_SESSION['otp_pending']);
 					unset($_SESSION['otp_code']);
 					$_SESSION['login_failure'] = "Failed to send verification code. Please try again or contact administrator.";
-					header('Location: /authid/login.php');
+					header('Location:' . URL_PREFIX . '/authid/login.php');
 					exit;
 				}
 			}
 
 		} else {
 			$_SESSION['login_failure'] = "Invalid user name or password";
-			header('Location: /authid/login.php');
+			header('Location:' . URL_PREFIX . '/authid/login.php');
 		}
 
 		exit;
 	} else {
 		$_SESSION['login_failure'] = "Invalid user name or password";
-		header('Location: /authid/login.php');
+		header('Location:' . URL_PREFIX . '/authid/login.php');
 		exit;
 	}
 

@@ -6,7 +6,7 @@ require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
     // Show permission denied message
-    header('Location:/authid/login.php');
+    header('Location:' . URL_PREFIX . '/authid/login.php');
     exit();
 }
 

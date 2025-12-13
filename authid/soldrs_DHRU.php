@@ -11,7 +11,7 @@ $users = new Users();
 // Only super admin is allowed to access this page
 if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'super') {
     // Show permission denied message
-    header('Location:/authid/login.php');
+    header('Location:' . URL_PREFIX . '/authid/login.php');
     exit();
 }
 

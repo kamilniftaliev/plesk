@@ -5,7 +5,7 @@ require_once '../config/config.php';
 require_once './includes/auth_validate.php';
 if ($_SESSION['admin_type'] !== 'super') {
     // Show permission denied message
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 

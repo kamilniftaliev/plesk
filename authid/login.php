@@ -27,7 +27,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 			if (strtotime($sekarang) > $expires) {
 
 				clearAuthCookie();
-				header('Location: /authid/login.php');
+				header('Location:' . URL_PREFIX . '/authid/login.php');
 				exit;
 			}
 
@@ -38,12 +38,12 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 			exit;
 		} else {
 			clearAuthCookie();
-			header('Location: /authid/login.php');
+			header('Location:' . URL_PREFIX . '/authid/login.php');
 			exit;
 		}
 	} else {
 		clearAuthCookie();
-		header('Location: /authid/login.php');
+		header('Location:' . URL_PREFIX . '/authid/login.php');
 		exit;
 	}
 }

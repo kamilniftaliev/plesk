@@ -1,6 +1,6 @@
 <?php
 if ($_SESSION['admin_type'] !== 'user') {
-    header('Location:/reseller/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 
 } ?>

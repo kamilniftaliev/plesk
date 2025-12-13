@@ -7,7 +7,7 @@ $del_id = filter_input(INPUT_POST, 'del_id');
 $db = getDbInstance();
 
 if ($_SESSION['admin_type'] != 'admin') {
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 

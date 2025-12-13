@@ -11,7 +11,7 @@ $users = new Users();
 
 if ($_SESSION['admin_type'] !== 'admin') {
 
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 
@@ -175,70 +175,70 @@ include './includes/admin_header.php';
             foreach ($rows as $row):
                 // if ($row['sid'] === $serverid) {
                 ?>
-                    <tr>
-                        <?php $i++ ?>
-                        <td><?php echo $i; ?></td>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo htmlspecialchars($row['iduser']); ?></td>
-                        <td><?php echo htmlspecialchars($row['name']); ?></td>
-                        <td><?php
-                        $blobkey = $row['configblob'];
-                        echo (strlen($blobkey) > 10) ? substr($blobkey, 0, 10) . '...' : $blobkey;
+                <tr>
+                    <?php $i++ ?>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo htmlspecialchars($row['iduser']); ?></td>
+                    <td><?php echo htmlspecialchars($row['name']); ?></td>
+                    <td><?php
+                    $blobkey = $row['configblob'];
+                    echo (strlen($blobkey) > 10) ? substr($blobkey, 0, 10) . '...' : $blobkey;
 
-                        if ($row['serviceid'] == "1") { ?></td>
-                                <td><?php echo "EDL";
-                        } ?></td>
-                        <?php
-                        if ($row['serviceid'] == "2") { ?></td>
-                                <td><?php echo "FRP";
-                        } ?></td>
-
-
-                        <?php
-                        if ($row['serviceid'] == "4") { ?></td>
-                                <td><?php echo "FDL";
-                        } ?></td>
-
-                        <?php
-                        if ($row['serviceid'] == "6") { ?></td>
-                                <td><?php echo "MTK 5";
-                        } ?></td>
-
-                        <?php
-                        if ($row['serviceid'] == "9") { ?></td>
-                                <td><?php echo "MTK 6 new ";
-                        } ?></td>
-                        <td><?php echo "Server " . $row['serverid']; ?></td>
-
-                        <td>Hidden</td>
-                        <td><?php echo $row['cost']; ?></td>
-                        <?php
+                    if ($row['serviceid'] == "1") { ?></td>
+                        <td><?php echo "EDL";
+                    } ?></td>
+                    <?php
+                    if ($row['serviceid'] == "2") { ?></td>
+                        <td><?php echo "FRP";
+                    } ?></td>
 
 
+                    <?php
+                    if ($row['serviceid'] == "4") { ?></td>
+                        <td><?php echo "FDL";
+                    } ?></td>
+
+                    <?php
+                    if ($row['serviceid'] == "6") { ?></td>
+                        <td><?php echo "MTK 5";
+                    } ?></td>
+
+                    <?php
+                    if ($row['serviceid'] == "9") { ?></td>
+                        <td><?php echo "MTK 6 new ";
+                    } ?></td>
+                    <td><?php echo "Server " . $row['serverid']; ?></td>
+
+                    <td>Hidden</td>
+                    <td><?php echo $row['cost']; ?></td>
+                    <?php
+
+
+                    ?>
+                    <td>
+                        <?php echo $row['tgl']; ?>
+
+                    </td>
+                    <?php
+                    if (htmlspecialchars($row['status']) == 'done') {
                         ?>
-                        <td>
-                            <?php echo $row['tgl']; ?>
-
+                        <td style="background-color:green !important;color:white !important;"> <?php echo 'done'; ?> </td>
+                        <?php
+                    } else {
+                        ?>
+                        <td style="background-color:red !important;color:white !important;">
+                            <?php echo htmlspecialchars($row['status']); ?>
                         </td>
                         <?php
-                        if (htmlspecialchars($row['status']) == 'done') {
-                            ?>
-                                <td style="background-color:green !important;color:white !important;"> <?php echo 'done'; ?> </td>
-                                <?php
-                        } else {
-                            ?>
-                                <td style="background-color:red !important;color:white !important;">
-                                    <?php echo htmlspecialchars($row['status']); ?>
-                                </td>
-                                <?php
-                        }
-                        // }
-                        ?>
+                    }
+                    // }
+                    ?>
 
-                    </tr>
-                    <!-- Delete Confirmation Modal -->
+                </tr>
+                <!-- Delete Confirmation Modal -->
 
-                    <!-- //Delete Confirmation Modal -->
+                <!-- //Delete Confirmation Modal -->
             <?php endforeach; ?>
         </tbody>
     </table>

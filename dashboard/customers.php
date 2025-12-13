@@ -9,7 +9,7 @@ require_once BASE_PATH . '/lib/Costumers/Costumers.php';
 $costumers = new Costumers();
 if ($_SESSION['admin_type'] !== 'admin') {
 
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 

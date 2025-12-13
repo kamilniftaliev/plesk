@@ -11,7 +11,7 @@ $users = new Users();
 
 if ($_SESSION['admin_type'] !== 'admin') {
 
-    header('Location:/dashboard/login.php');
+    header('Location:' . URL_PREFIX . '/dashboard/login.php');
     exit();
 }
 
@@ -122,54 +122,54 @@ include './includes/admin_header.php';
             <?php
             $totalcredit = 0;
             foreach ($rows as $row): ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo htmlspecialchars($row['email']); ?></td>
-                        <td><?php
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo htmlspecialchars($row['email']); ?></td>
+                    <td><?php
 
-                        $totalcredit += $row['jumlah'];
+                    $totalcredit += $row['jumlah'];
 
-                        echo htmlspecialchars($row['jumlah']); ?></td>
-                        <td>
-                            <?php echo $row['resellername']; ?>
+                    echo htmlspecialchars($row['jumlah']); ?></td>
+                    <td>
+                        <?php echo $row['resellername']; ?>
 
-                        </td>
-                        <td><?php echo htmlspecialchars($row['created_at']); ?></td>
-                        <td><?php echo htmlspecialchars($row['ispay']); ?></td>
-                        <td>
-                            <a href="edit_penjualan.php?serverid=<?php echo $row['id']; ?>&operation=edit"
-                                class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                    </td>
+                    <td><?php echo htmlspecialchars($row['created_at']); ?></td>
+                    <td><?php echo htmlspecialchars($row['ispay']); ?></td>
+                    <td>
+                        <a href="edit_penjualan.php?serverid=<?php echo $row['id']; ?>&operation=edit"
+                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
 
-                            <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
-                                data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
-                                    class="glyphicon glyphicon-trash"></i></a>
-                        </td>
-                        </td>
+                        <a href="#" class="btn btn-danger delete_btn" data-toggle="modal"
+                            data-target="#confirm-delete-<?php echo $row['id']; ?>"><i
+                                class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+                    </td>
 
-                    </tr>
-                    <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
-                        <div class="modal-dialog">
-                            <form action="delete_history_credit.php" method="POST">
-                                <!-- Modal content -->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Confirm</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
-                                        <p>Are you sure you want to delete <?php echo $row['id']; ?> ?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-default pull-left">Yes</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                    </div>
+                </tr>
+                <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
+                    <div class="modal-dialog">
+                        <form action="delete_history_credit.php" method="POST">
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Confirm</h4>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
+                                    <p>Are you sure you want to delete <?php echo $row['id']; ?> ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default pull-left">Yes</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <?php
-                    $_SESSION["CREDIT"] = $totalcredit;
+                </div>
+                <?php
+                $_SESSION["CREDIT"] = $totalcredit;
 
             endforeach;
             if ($search_string) {

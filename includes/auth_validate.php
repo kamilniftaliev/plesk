@@ -11,13 +11,13 @@ $current_path = $_SERVER['REQUEST_URI'];
 if (strpos($current_path, '/authid') === 0) {
 	// We're in authid, check for authid session
 	if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== TRUE) {
-		header('Location: /authid/login.php');
+		header('Location:' . URL_PREFIX . '/authid/login.php');
 		exit;
 	}
 } else {
 	// We're in dashboard or other area, check for dashboard session
 	if (!isset($_SESSION['dashboard_user_logged_in']) || $_SESSION['dashboard_user_logged_in'] !== TRUE) {
-		header('Location: /dashboard/login.php');
+		header('Location:' . URL_PREFIX . '/dashboard/login.php');
 		exit;
 	}
 }

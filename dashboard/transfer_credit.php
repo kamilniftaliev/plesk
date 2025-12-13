@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 if ($_SESSION['admin_type'] !== 'admin') {
     if ($_SESSION['admin_type'] !== 'reseller') {
-        header('Location:/dashboard/login.php');
+        header('Location:' . URL_PREFIX . '/dashboard/login.php');
         exit();
 
 
