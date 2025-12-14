@@ -6,10 +6,6 @@ session_start();
 
 $url_prefix = URL_PREFIX ?: '';
 
-print_r(strlen($url_prefix));
-
-exit;
-
 // Handle OTP cancellation
 if (isset($_GET['cancel_otp'])) {
 	unset($_SESSION['otp_pending']);
@@ -119,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (isset($_SESSION['otp_remember']) && $_SESSION['otp_remember']) {
 				$user_id = $_SESSION['otp_user_id'];
 				$series_id = randomString(16);
-				$remember_token = getSecureRandomToken(20);
+				$remember_token = getSecureRandomToken();
 				$encryted_remember_token = password_hash($remember_token, PASSWORD_DEFAULT);
 
 				$expiry_time = date('Y-m-d H:i:s', strtotime(' + 30 days'));

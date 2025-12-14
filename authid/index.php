@@ -29,9 +29,9 @@ if (isset($_SESSION['admin_type'])) {
     //     include_once('includes/user_header.php');
     //     include_once('includes/user_menu.php');
     // } else {
-    //     header("Location:' . $url_prefix . '/authid/servers.php");
+    //     header("Location:" . $url_prefix . "/authid/servers.php");
     // }
-    header("Location:' . $url_prefix . '/authid/servers.php");
+    header("Location:" . $url_prefix . "/authid/servers.php");
 }
 
 
