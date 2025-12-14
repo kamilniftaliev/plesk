@@ -716,7 +716,7 @@
                 <!-- Reporting (with submenu) -->
                 <div class="mb-1">
                     <button
-                        class="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+                        class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
                         onclick="toggleSubmenu('reporting')">
                         <div class="flex items-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -733,16 +733,16 @@
                     </button>
                     <div id="reporting-submenu" class="ml-8 mt-1 space-y-1 hidden">
                         <a href="<?php echo $url_prefix ?>/dashboard/job.php?id=1"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Check
+                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Check
                             History</a>
                         <a href="<?php echo $url_prefix ?>/dashboard/penjualan.php"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Unpaid
+                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Unpaid
                             Credit</a>
                         <a href="<?php echo $url_prefix ?>/dashboard/bayar.php"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Paid
+                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Paid
                             Credit</a>
                         <a href="<?php echo $url_prefix ?>/dashboard/individual_job.php"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">History
+                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">History
                             Job</a>
                     </div>
                 </div>

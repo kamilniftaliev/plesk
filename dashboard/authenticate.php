@@ -4,6 +4,15 @@ require_once '../config/config.php';
 session_name('DASHBOARD_SESSION');
 session_start();
 
+// Helper function to redirect to login with return_url
+function redirectToLoginWithReturn($base_url = '/dashboard/login.php') {
+	$url = $base_url;
+	if (isset($_GET['return_url'])) {
+		$url .= '?return_url=' . urlencode($_GET['return_url']);
+	}
+	redirectTo($url);
+}
+
 // Handle OTP cancellation
 if (isset($_GET['cancel_otp'])) {
 	unset($_SESSION['otp_pending']);
@@ -16,8 +25,8 @@ if (isset($_GET['cancel_otp'])) {
 	unset($_SESSION['otp_remember']);
 	unset($_SESSION['otp_expires']);
 	unset($_SESSION['otp_dev_display']); // Clear dev display code
-	header('Location: login.php');
-	exit;
+	unset($_SESSION['otp_return_url']); // Clear return URL
+	redirectToLoginWithReturn();
 }
 
 // Handle OTP resend
@@ -63,7 +72,7 @@ if (isset($_GET['resend_otp'])) {
 			}
 		}
 	}
-	header('Location: login.php');
+	redirectToLoginWithReturn();
 	exit;
 }
 
@@ -76,14 +85,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Validate OTP format
 		if (!preg_match('/^\d{4}$/', $otp_code)) {
 			$_SESSION['otp_failure'] = "Invalid code format. Please enter 4 digits.";
-			header('Location: login.php');
+			redirectToLoginWithReturn();
 			exit;
 		}
 
 		// Check if OTP session exists
 		if (!isset($_SESSION['otp_pending']) || $_SESSION['otp_pending'] !== TRUE) {
 			$_SESSION['login_failure'] = "OTP session expired. Please login again.";
-			header('Location: login.php');
+			redirectToLoginWithReturn();
 			exit;
 		}
 
@@ -97,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			unset($_SESSION['otp_admin_type']);
 			unset($_SESSION['otp_remember']);
 			$_SESSION['login_failure'] = "OTP code expired. Please login again.";
-			header('Location: login.php');
+			redirectToLoginWithReturn();
 			exit;
 		}
 
@@ -145,14 +154,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			unset($_SESSION['otp_expires']);
 			unset($_SESSION['otp_dev_display']); // Clear dev display code
 
-			// Redirect to dashboard
-			header('Location: index.php');
-			exit;
+			// Get return URL before clearing session
+			$return_url = $_SESSION['otp_return_url'] ?? '/dashboard/index.php';
+			unset($_SESSION['otp_return_url']); // Clear return URL
+
+			// Redirect to return URL or default index
+			redirectTo($return_url);
 		} else {
 			// Wrong OTP code
 			$_SESSION['otp_failure'] = "Invalid verification code. Please try again.";
-			header('Location: login.php');
-			exit;
+			redirectToLoginWithReturn();
 		}
 	}
 
@@ -179,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Check if user has at least email or Telegram
 			if (empty($user_email) && empty($user_telegram_chat_id)) {
 				$_SESSION['login_failure'] = "No email or Telegram configured for this account. Please contact administrator.";
-				header('Location: login.php');
+				redirectToLoginWithReturn();
 				exit;
 			}
 
@@ -197,12 +208,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$_SESSION['otp_remember'] = $remember ? true : false;
 			$_SESSION['otp_expires'] = time() + 600; // OTP expires in 10 minutes
 
+			// Store return URL if provided
+			if (isset($_GET['return_url'])) {
+				$_SESSION['otp_return_url'] = $_GET['return_url'];
+			}
+
 			// Send OTP via email/Telegram or display on screen (dev mode)
 			if (defined('DEV_MODE') && DEV_MODE === true) {
 				// Development mode - store OTP in session for display on login page
 				$_SESSION['otp_dev_display'] = $otp_code;
-				header('Location: login.php');
-				exit;
+				redirectToLoginWithReturn();
 			} else {
 				// Production mode - send via email and/or Telegram
 				$email_sent = false;
@@ -221,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				// Check if at least one method succeeded
 				if ($email_sent || $telegram_sent) {
 					// Successfully sent OTP, redirect to OTP verification page
-					header('Location: login.php');
+					redirectToLoginWithReturn();
 					exit;
 				} else {
 					// Failed to send via any method
@@ -229,20 +244,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					unset($_SESSION['otp_code']);
 					// $_SESSION['login_failure'] = "Failed to send verification code. Please try again or contact administrator.";
 					$_SESSION['login_failure'] = $telegram_sent;
-					// header('Location: login.php');
+					// redirectToLoginWithReturn();
 					exit;
 				}
 			}
 
 		} else {
 			$_SESSION['login_failure'] = "Invalid user name or password";
-			header('Location: login.php');
+			redirectToLoginWithReturn();
 		}
 
 		exit;
 	} else {
 		$_SESSION['login_failure'] = "Invalid user name or password";
-		header('Location: login.php');
+		redirectToLoginWithReturn();
 		exit;
 	}
 

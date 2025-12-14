@@ -121,3 +121,53 @@ function xss_clean($string){
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 
 }
+
+/**
+ * Redirect to login page with optional return URL
+ * @param string $login_url The login page URL (e.g., '/authid/login.php' or '/dashboard/login.php')
+ * @param bool $save_return_url Whether to save the current URL to redirect back after login
+ */
+function redirectToLogin($login_url, $save_return_url = true) {
+	$url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
+
+	if ($save_return_url) {
+		// Save the current URL (without query string for return_url itself)
+		$current_url = $_SERVER['REQUEST_URI'];
+		// Don't save if already on login page or if return_url is already set
+		if (strpos($current_url, 'login.php') === false && strpos($current_url, 'return_url=') === false) {
+			$return_url = urlencode($current_url);
+			$separator = (strpos($login_url, '?') !== false) ? '&' : '?';
+			header('Location: ' . $url_prefix . $login_url . $separator . 'return_url=' . $return_url);
+			exit;
+		}
+	}
+
+	header('Location: ' . $url_prefix . $login_url);
+	exit;
+}
+
+/**
+ * Redirect to a specific page with URL prefix support
+ * @param string $url The URL to redirect to
+ */
+function redirectTo($url) {
+	$url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
+	header('Location: ' . $url_prefix . $url);
+	exit;
+}
+
+/**
+ * Get the return URL from query string or default
+ * @param string $default_url Default URL if no return URL is set
+ * @return string The return URL
+ */
+function getReturnUrl($default_url) {
+	if (isset($_GET['return_url']) && !empty($_GET['return_url'])) {
+		$return_url = urldecode($_GET['return_url']);
+		// Security: Only allow relative URLs (prevent open redirect)
+		if (strpos($return_url, '/') === 0 && strpos($return_url, '//') !== 0) {
+			return $return_url;
+		}
+	}
+	return $default_url;
+}

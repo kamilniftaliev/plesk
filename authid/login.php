@@ -99,7 +99,7 @@ include './includes/login_header.php';
 <div id="page-" class="col-md-4 col-md-offset-4">
 	<?php if (!$otp_mode): ?>
 		<!-- Login Form -->
-		<form class="form loginform" method="POST" action="authenticate.php">
+		<form class="form loginform" method="POST" action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
 			<input type="hidden" name="user_timezone" id="user_timezone" value="">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Authid Login - Please Sign in</div>
@@ -138,7 +138,7 @@ include './includes/login_header.php';
 		</form>
 	<?php else: ?>
 		<!-- OTP Verification Form -->
-		<form class="form loginform" method="POST" action="authenticate.php">
+		<form class="form loginform" method="POST" action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Verify OTP</div>
 				<div class="panel-body">
@@ -210,9 +210,9 @@ include './includes/login_header.php';
 					<button type="submit" class="btn btn-success btn-block">Verify Code</button>
 
 					<div style="text-align: center; margin-top: 15px;">
-						<a href="authenticate.php?resend_otp=1" class="resend-otp-link">Resend Code</a>
+						<a href="authenticate.php?resend_otp=1<?php echo isset($_GET['return_url']) ? '&return_url=' . urlencode($_GET['return_url']) : ''; ?>" class="resend-otp-link">Resend Code</a>
 						&nbsp;|&nbsp;
-						<a href="authenticate.php?cancel_otp=1" class="resend-otp-link">Cancel</a>
+						<a href="authenticate.php?cancel_otp=1<?php echo isset($_GET['return_url']) ? '&return_url=' . urlencode($_GET['return_url']) : ''; ?>" class="resend-otp-link">Cancel</a>
 					</div>
 				</div>
 			</div>

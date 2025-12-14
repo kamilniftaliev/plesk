@@ -6,20 +6,17 @@
 
 // Get current URL path
 $current_path = $_SERVER['REQUEST_URI'];
-$url_prefix = URL_PREFIX ?: '';
 
 // Check if we're in /authid directory
 if (strpos($current_path, '/authid') === 0) {
 	// We're in authid, check for authid session
 	if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== TRUE) {
-		header('Location:' . $url_prefix . '/authid/login.php');
-		exit;
+		redirectToLogin('/authid/login.php', true);
 	}
 } else {
 	// We're in dashboard or other area, check for dashboard session
 	if (!isset($_SESSION['dashboard_user_logged_in']) || $_SESSION['dashboard_user_logged_in'] !== TRUE) {
-		header('Location:' . $url_prefix . '/dashboard/login.php');
-		exit;
+		redirectToLogin('/dashboard/login.php', true);
 	}
 }
 
