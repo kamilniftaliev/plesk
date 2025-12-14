@@ -152,7 +152,15 @@ function redirectToLogin($login_url, $save_return_url = true) {
  */
 function redirectTo($url) {
 	$url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
-	header('Location: ' . $url_prefix . $url);
+
+	// Check if URL already starts with the prefix to avoid duplication
+	if (!empty($url_prefix) && strpos($url, $url_prefix) === 0) {
+		// URL already has the prefix, use it as-is
+		header("Location: $url");
+	} else {
+		// Add the prefix to the URL
+		header("Location: $url_prefix$url");
+	}
 	exit;
 }
 

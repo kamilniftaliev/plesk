@@ -7,8 +7,10 @@
 // Get current URL path
 $current_path = $_SERVER['REQUEST_URI'];
 
+$url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
+// https://testh.org/kev/authid
 // Check if we're in /authid directory
-if (strpos($current_path, '/authid') === 0) {
+if (strpos($current_path, "$url_prefix/authid") === 0) {
 	// We're in authid, check for authid session
 	if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== TRUE) {
 		redirectToLogin('/authid/login.php', true);

@@ -28,13 +28,9 @@ if (empty($usernameOrEmail) || empty($password)) {
 
 $host = "localhost";
 
-$dbname = "u676821063_new2";
-
-$user = "u676821063_new2";
-
-$pass = "!/F:6h[E9";
-
-
+$dbname = DB_NAME ?: "u676821063_new2";
+$user = DB_USER ?: "u676821063_new2";
+$pass = DB_PASSWORD ?: "!/F:6h[E9";
 
 try {
 
@@ -61,7 +57,7 @@ try {
         echo json_encode(['error' => 'Account Not Found!']);
 
     } elseif (!password_verify($password, $userData['password'])) {
-    //elseif ($password !== $userData['password']) { // Non encrypted dta base
+        //elseif ($password !== $userData['password']) { // Non encrypted dta base
 
         // Jika password salah
 
@@ -75,9 +71,9 @@ try {
 
             'message' => 'Login successful',
 
-            'credit'  => $userData['credit'],
+            'credit' => $userData['credit'],
 
-            'status'  => $userData['status']
+            'status' => $userData['status']
 
         ]);
 
@@ -90,4 +86,3 @@ try {
 }
 
 ?>
-
