@@ -16,6 +16,8 @@ if ($name == "abang") {
     exit;
 }
 
+$url_prefix = URL_PREFIX ?: '';
+
 if (isset($_SESSION['admin_type'])) {
     // if ($_SESSION['admin_type'] == 'admin') {
     //     include_once('includes/admin_header.php');
@@ -27,9 +29,9 @@ if (isset($_SESSION['admin_type'])) {
     //     include_once('includes/user_header.php');
     //     include_once('includes/user_menu.php');
     // } else {
-    //     header("Location:' . URL_PREFIX . '/authid/servers.php");
+    //     header("Location:' . $url_prefix . '/authid/servers.php");
     // }
-    header("Location:' . URL_PREFIX . '/authid/servers.php");
+    header("Location:' . $url_prefix . '/authid/servers.php");
 }
 
 

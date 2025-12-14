@@ -13,23 +13,26 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <?php $url_prefix = URL_PREFIX ?: ''; ?>
+
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?php echo $url_prefix ?>/assets/css/bootstrap.min.css" />
 
     <!-- MetisMenu CSS -->
-    <link href="/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo $url_prefix ?>/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/assets/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $url_prefix ?>/assets/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $url_prefix ?>/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="<?php echo $url_prefix ?>/assets/js/jquery.min.js" type="text/javascript"></script>
 
     <style>
         body {
@@ -691,7 +694,7 @@
 
             <!-- Navigation -->
             <nav class="px-4 py-4 flex-1 overflow-y-auto">
-                <a href="/authid/add_server.php"
+                <a href="<?php echo $url_prefix ?>/authid/add_server.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -700,7 +703,7 @@
                 </a>
 
                 <!-- Server Edit -->
-                <a href="/authid/servers.php"
+                <a href="<?php echo $url_prefix ?>/authid/servers.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -711,7 +714,7 @@
                 </a>
 
                 <!-- Server Status (Active) -->
-                <a href="/authid/serverstatus.php"
+                <a href="<?php echo $url_prefix ?>/authid/serverstatus.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -721,7 +724,7 @@
                 </a>
 
                 <!-- Server Patch -->
-                <a href="/authid/serverspatch.php"
+                <a href="<?php echo $url_prefix ?>/authid/serverspatch.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -732,7 +735,7 @@
                 </a>
 
                 <!-- Price Setting -->
-                <a href="/authid/price.php"
+                <a href="<?php echo $url_prefix ?>/authid/price.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -775,7 +778,7 @@
                 <!-- User Dropdown Menu -->
                 <div id="user-menu"
                     class="hidden absolute bottom-28 left-4 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-                    <a href="/authid/edit_profile.php"
+                    <a href="<?php echo $url_prefix ?>/authid/edit_profile.php"
                         class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors border-b border-gray-200 dark:border-gray-700">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -792,7 +795,7 @@
                         </svg>
                         <span class="font-medium">Change Password</span>
                     </a>
-                    <a href="/authid/logout.php"
+                    <a href="<?php echo $url_prefix ?>/authid/logout.php"
                         class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

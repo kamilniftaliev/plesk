@@ -13,25 +13,28 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <?php $url_prefix = URL_PREFIX ?: ''; ?>
+
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?php echo $url_prefix ?>/assets/css/bootstrap.min.css" />
 
     <!-- MetisMenu CSS -->
-    <link href="/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo $url_prefix ?>/assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/assets/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $url_prefix ?>/assets/css/sb-admin-2.css" rel="stylesheet">
     <!-- Design System CSS -->
-    <link href="/assets/css/design-system.css" rel="stylesheet">
+    <link href="<?php echo $url_prefix ?>/assets/css/design-system.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $url_prefix ?>/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="<?php echo $url_prefix ?>/assets/js/jquery.min.js" type="text/javascript"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -690,7 +693,7 @@
             <!-- Navigation -->
             <nav class="px-4 py-4 flex-1 overflow-y-auto">
                 <!-- Dashboard -->
-                <a href="/dashboard/index.php"
+                <a href="<?php echo $url_prefix ?>/dashboard/index.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -701,7 +704,7 @@
                 </a>
 
                 <!-- Search Users -->
-                <a href="/dashboard/customers.php"
+                <a href="<?php echo $url_prefix ?>/dashboard/customers.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -729,23 +732,23 @@
                         </svg>
                     </button>
                     <div id="reporting-submenu" class="ml-8 mt-1 space-y-1 hidden">
-                        <a href="/dashboard/job.php?id=1"
+                        <a href="<?php echo $url_prefix ?>/dashboard/job.php?id=1"
                             class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Check
                             History</a>
-                        <a href="/dashboard/penjualan.php"
+                        <a href="<?php echo $url_prefix ?>/dashboard/penjualan.php"
                             class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Unpaid
                             Credit</a>
-                        <a href="/dashboard/bayar.php"
+                        <a href="<?php echo $url_prefix ?>/dashboard/bayar.php"
                             class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Paid
                             Credit</a>
-                        <a href="/dashboard/individual_job.php"
+                        <a href="<?php echo $url_prefix ?>/dashboard/individual_job.php"
                             class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">History
                             Job</a>
                     </div>
                 </div>
 
                 <!-- Refill Credit (Active) -->
-                <a href="/dashboard/transfer_credit.php"
+                <a href="<?php echo $url_prefix ?>/dashboard/transfer_credit.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -756,7 +759,7 @@
                 </a>
 
                 <!-- IMEI Checker -->
-                <a href="/dashboard/imei_checker.php"
+                <a href="<?php echo $url_prefix ?>/dashboard/imei_checker.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -767,7 +770,7 @@
                 </a>
 
                 <!-- Resellers -->
-                <a href="/dashboard/reseller.php"
+                <a href="<?php echo $url_prefix ?>/dashboard/reseller.php"
                     class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -823,7 +826,7 @@
                         </svg>
                         <span class="font-medium">Change Password</span>
                     </a>
-                    <a href="/dashboard/logout.php"
+                    <a href="<?php echo $url_prefix ?>/dashboard/logout.php"
                         class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -5,6 +5,7 @@ $sekarang = date('Y-m-d H:i:s');
 require_once '../config/config.php';
 $token = bin2hex(openssl_random_pseudo_bytes(16));
 
+$url_prefix = URL_PREFIX ?: '';
 
 if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === TRUE) {
 	header('Location:index.php');
@@ -27,7 +28,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 			if (strtotime($sekarang) > $expires) {
 
 				clearAuthCookie();
-				header('Location:' . URL_PREFIX . '/authid/login.php');
+				header('Location:' . $url_prefix . '/authid/login.php');
 				exit;
 			}
 
@@ -38,12 +39,12 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 			exit;
 		} else {
 			clearAuthCookie();
-			header('Location:' . URL_PREFIX . '/authid/login.php');
+			header('Location:' . $url_prefix . '/authid/login.php');
 			exit;
 		}
 	} else {
 		clearAuthCookie();
-		header('Location:' . URL_PREFIX . '/authid/login.php');
+		header('Location:' . $url_prefix . '/authid/login.php');
 		exit;
 	}
 }

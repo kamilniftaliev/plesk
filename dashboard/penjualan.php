@@ -10,8 +10,8 @@ $users = new Users();
 
 
 if ($_SESSION['admin_type'] !== 'admin') {
-
-    header('Location:' . URL_PREFIX . '/dashboard/login.php');
+    $url_prefix = URL_PREFIX ?: '';
+    header('Location:' . $url_prefix . '/dashboard/login.php');
     exit();
 }
 

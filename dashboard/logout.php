@@ -8,7 +8,8 @@ session_destroy();
 if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 	clearAuthCookie();
 }
-header('Location:' . URL_PREFIX . '/dashboard/index.php');
+$url_prefix = URL_PREFIX ?: '';
+header('Location:' . $url_prefix . '/dashboard/index.php');
 exit;
 
 ?>

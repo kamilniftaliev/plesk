@@ -41,8 +41,10 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 // Destroy the session
 session_destroy();
 
+$url_prefix = URL_PREFIX ?: '';
+
 // Redirect to login page
-header('Location:' . URL_PREFIX . '/authid/login.php');
+header('Location:' . $url_prefix . '/authid/login.php');
 exit;
 
 ?>
