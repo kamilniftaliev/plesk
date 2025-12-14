@@ -18,7 +18,7 @@ require_once BASE_PATH . '/helpers/helpers.php';
 | Set to FALSE for production (OTP will be sent via email/Telegram)
  */
 // define('DEV_MODE', value: false); // Change to false in production
-define('DEV_MODE', value: true); // Change to false in production
+define('DEV_MODE', value: false); // Change to false in production
 define('URL_PREFIX', value: ""); // Change to false in production
 
 /*

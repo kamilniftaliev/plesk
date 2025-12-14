@@ -99,7 +99,8 @@ include './includes/admin_header.php';
 <div id="page-" class="col-md-4 col-md-offset-4">
 	<?php if (!$otp_mode): ?>
 		<!-- Login Form -->
-		<form class="form loginform" method="POST" action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
+		<form class="form loginform" method="POST"
+			action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Please Sign in</div>
 				<div class="panel-body">
@@ -133,7 +134,8 @@ include './includes/admin_header.php';
 		</form>
 	<?php else: ?>
 		<!-- OTP Verification Form -->
-		<form class="form loginform" method="POST" action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
+		<form class="form loginform" method="POST"
+			action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Verify OTP</div>
 				<div class="panel-body">
@@ -163,7 +165,17 @@ include './includes/admin_header.php';
 							<div style="margin-top: 10px;">
 								<?php if (!empty($_SESSION['otp_email'])): ?>
 									<div style="margin: 5px 0;">
-										📧 <strong>Email:</strong> <?php echo htmlspecialchars($_SESSION['otp_email']); ?>
+										📧 <strong>Email:</strong>
+										<?php
+										$email = $_SESSION['otp_email'];
+										// Mask email: show 3 chars at start, 3 dots, 3 chars at end
+										if (strlen($email) > 6) {
+											$masked_email = substr($email, 0, 3) . '...' . substr($email, -3);
+										} else {
+											$masked_email = $email; // Show full email if too short
+										}
+										echo htmlspecialchars($masked_email);
+										?>
 									</div>
 								<?php endif; ?>
 								<?php if (!empty($_SESSION['otp_telegram_chat_id'])): ?>
@@ -205,9 +217,11 @@ include './includes/admin_header.php';
 					<button type="submit" class="btn btn-success btn-block">Verify Code</button>
 
 					<div style="text-align: center; margin-top: 15px;">
-						<a href="authenticate.php?resend_otp=1<?php echo isset($_GET['return_url']) ? '&return_url=' . urlencode($_GET['return_url']) : ''; ?>" class="resend-otp-link">Resend Code</a>
+						<a href="authenticate.php?resend_otp=1<?php echo isset($_GET['return_url']) ? '&return_url=' . urlencode($_GET['return_url']) : ''; ?>"
+							class="resend-otp-link">Resend Code</a>
 						&nbsp;|&nbsp;
-						<a href="authenticate.php?cancel_otp=1<?php echo isset($_GET['return_url']) ? '&return_url=' . urlencode($_GET['return_url']) : ''; ?>" class="resend-otp-link">Cancel</a>
+						<a href="authenticate.php?cancel_otp=1<?php echo isset($_GET['return_url']) ? '&return_url=' . urlencode($_GET['return_url']) : ''; ?>"
+							class="resend-otp-link">Cancel</a>
 					</div>
 				</div>
 			</div>
