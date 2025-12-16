@@ -1,5 +1,5 @@
 <?php
-include "/include/header.php";
+include "../include/header.php";
 session_name('AUTHID_SESSION');
 session_start();
 require_once '../config/config.php';
@@ -60,7 +60,7 @@ if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'user') {
     require_once 'includes/user_header.php';
 }
 if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'admin') {
-    require_once 'includes/admin_header.php';
+    require_once '../includes/header.php';
 }
 if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'authid') {
     require_once 'includes/authid_header.php';

@@ -101,7 +101,7 @@ if ($_SESSION['admin_type'] == 'user') {
     require_once 'includes/user_header.php';
 }
 if ($_SESSION['admin_type'] == 'admin') {
-    require_once 'includes/admin_header.php';
+    require_once '../includes/header.php';
 }
 if ($_SESSION['admin_type'] == 'reseller') {
     require_once 'includes/reseller_header.php';

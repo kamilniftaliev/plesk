@@ -110,7 +110,7 @@ if (mysqli_num_rows($results) == 1)
 //We are using same form for adding and editing. This is a create form so declare $edit = false.
 $edit = false;
 
-require_once 'includes/header.php'; 
+require_once '../includes/header.php'; 
 ?>
 <div id="page-wrapper">
 <div class="row">

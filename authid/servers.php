@@ -53,7 +53,7 @@ $db->pageLimit = $pagelimit;
 $rows = $db->arraybuilder()->paginate('server', $page, $select);
 $total_pages = $db->totalPages;
 
-include './includes/admin_header.php';
+include '../includes/header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">

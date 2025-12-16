@@ -61,7 +61,7 @@ $rows = $db->get('penjualancredit', null, implode(',', $select));
 $statusOptions = array_unique(array_column($rows, 'ispay'));
 sort($statusOptions);
 
-include './includes/admin_header.php';
+include '../includes/header.php';
 ?>
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">

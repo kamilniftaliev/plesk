@@ -1,8 +1,11 @@
 <?php
+
+require_once '../config/config.php';
+
 $host = "localhost";
-$db_name = DB_NAME ?: "u676821063_new2";
-$db_user = DB_USER ?: "u676821063_new2";
-$db_pass = DB_PASSWORD ?: "!/F:6h[E9";
+$db_name = DB_NAME;
+$db_user = DB_USER;
+$db_pass = DB_PASSWORD;
 
 $conn = new mysqli($host, $db_user, $db_pass, $db_name);
 

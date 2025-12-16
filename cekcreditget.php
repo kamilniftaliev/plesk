@@ -1,5 +1,8 @@
 <?php
 
+
+require_once './config/config.php';
+
 header('Content-Type: application/json'); // Pastikan response JSON
 
 
@@ -28,9 +31,9 @@ if (empty($usernameOrEmail) || empty($password)) {
 
 $host = "localhost";
 
-$dbname = DB_NAME ?: "u676821063_new2";
-$user = DB_USER ?: "u676821063_new2";
-$pass = DB_PASSWORD ?: "!/F:6h[E9";
+$dbname = DB_NAME;
+$user = DB_USER;
+$pass = DB_PASSWORD;
 
 try {
 

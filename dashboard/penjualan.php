@@ -66,7 +66,7 @@ $total_pages = $db->totalPages;
 
 
 
-include './includes/admin_header.php';
+include '../includes/header.php';
 ?>
 
 <div id="page-wrapper">

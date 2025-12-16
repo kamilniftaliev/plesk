@@ -1,127 +1,233 @@
 <?php
-include_once('register.php');
-$currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-
-if (str_contains($currentURL, 'frp62')) {
-  header("location:https://ah-tool.com/index.php");
-}
+session_name('DASHBOARD_SESSION');
 session_start();
-
+include_once('register.php');
+require_once '../config/config.php';
+require_once '../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title> AH-TOOL User Registeration</title>
- 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <style>
-        html, body{
-            min-height:100%;
-            width:100%;
+<style>
+    .otp-input {
+        font-size: 24px;
+        text-align: center;
+        letter-spacing: 10px;
+        font-weight: bold;
+    }
+
+    .otp-info {
+        background-color: #d9edf7;
+        border: 1px solid #bce8f1;
+        color: #31708f;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .otp-info {
+            background-color: #1e293b;
+            border-color: #374151;
+            color: #93c5fd;
         }
-        .img-holder {
-            text-align: center;
-            height: 20vw;
-            border: 1px solid;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: black;
+    }
+
+    .resend-otp-link {
+        display: inline-block;
+        margin-top: 10px;
+        color: #337ab7;
+        text-decoration: none;
+    }
+
+    .resend-otp-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .resend-otp-link {
+            color: #60a5fa;
         }
-        .img-holder > img{
-            max-height:calc(100%);
-            max-width:calc(100%);
-            object-fit:scale-down;
-            object-position:center center;
+    }
+
+    .register-link {
+        color: #337ab7;
+        text-decoration: none;
+    }
+
+    .register-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .register-link {
+            color: #60a5fa;
         }
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient">
-        <div class="container">
-            <a class="navbar-brand" href="./">Register New User</a>
-            <div>
-                <a href="https://miazetool.com" class="text-light fw-bolder h6 text-decoration-none" target="_blank"></a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container-fluid px-5 my-3">
-        <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
-            <div class="card rounded-0 shadow">
-                <div class="card-body">
-                    <div class="container-fluid">
-                        <?php if(isset($_SESSION['success_msg'])): ?>
-                        <div class="alert alert-success rounded-0">
-                            <?= $_SESSION['success_msg'] ?>
-                        </div>
-                        <style>
-        .password-mismatch {
-            border: 2px solid red;
-        }
-    </style>
-                        <?php unset($_SESSION); ?>
-                        <?php endif; ?>
-                        <?php if(isset($error_msg)): ?>
-                        <div class="alert alert-danger rounded-0">
-                            <?= $error_msg ?>
-                        </div>
-                        
-                        <?php unset($error_msg); ?>
-                        <?php endif; ?>
-                        
-                        <form action="" method="POST">
-                           
-                            <div class="mb-3">
-                                <label for="Username" class="form-label">Username</label>
-                                <input type="text" class="form-control rounded-0" id="username" name="username" value="<?= (isset($_POST['username']) ? $_POST['username'] : "") ?>" required>
-                            </div>
-                            
-                            
-                            <div class="mb-3">
-                                <label for="Username" class="form-label">Email</label>
-                                <input type="email" class="form-control rounded-0" id="email" name="email" value="<?= (isset($_POST['email']) ? $_POST['email'] : "") ?>" required>
-                            </div>
-                            
-                            
-                            
-                            <div class="mb-3">
-                                <label for="middle_name" class="form-label">Password</label>
-                                <input type="password" class="form-control rounded-0" id="password" name="password" value="<?= (isset($_POST['password']) ? $_POST['password'] : "") ?>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="last_name" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control rounded-0" id="cpasswrod"  name="cpassword" value="<?= (isset($_POST['cpassword']) ? $_POST['cpassword'] : "") ?>" required>
-                            </div>
-                            <div class="mb-3">
-                                <div class="g-recaptcha" data-sitekey="6LchFhYsAAAAAK9GfxkXYCDOJ5KQt2ulJy-VpSCM"></div>
-                            </div>
-                            <?php if(isset($err_captcha)): ?>
-                            <div class="alert alert-danger rounded-0 mb-3">
-                                <?= $err_captcha ?>
-                            </div>
-                            <?php unset($err_captcha); ?>
-                            <?php endif; ?>
-                            <div class="mb-3 d-grid">
-                                <button class="btn btn-primary btn-block rounded-pill">Register</button>
-                            </div>
-                        </form>
+    }
+
+    .error-border {
+        border-color: #dc3545 !important;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+    }
+
+    .error-message.show {
+        display: block;
+    }
+</style>
+
+<div id="page-" class="col-md-4 col-md-offset-4">
+    <form class="form loginform" method="POST" id="registerForm" onsubmit="return validateForm()">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">Register New Account</div>
+            <div class="panel-body">
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label class="control-label">Username</label>
+                    <input type="text" name="username" id="username" class="form-control" required="required"
+                        value="<?= (isset($_POST['username']) ? htmlspecialchars($_POST['username']) : "") ?>"
+                        oninput="validateUsername()">
+                    <small class="error-message" id="username-error">Username can only contain letters and numbers (no
+                        spaces or special characters)</small>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" required="required"
+                        value="<?= (isset($_POST['email']) ? htmlspecialchars($_POST['email']) : "") ?>"
+                        oninput="validateEmail()">
+                    <small class="error-message" id="email-error">Please enter a valid email address</small>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" required="required"
+                        minlength="6" oninput="validatePasswordMatch()">
+                    <small style="color: #666; display: block; margin-top: 5px;">Minimum 6 characters</small>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <label class="control-label">Confirm Password</label>
+                    <input type="password" name="cpassword" id="cpassword" class="form-control" required="required"
+                        minlength="6" oninput="validatePasswordMatch()">
+                    <small class="error-message" id="password-error">Passwords do not match</small>
+                </div>
+
+                <!-- Google reCAPTCHA (hidden in DEV_MODE) -->
+                <?php if (!defined('DEV_MODE') || DEV_MODE !== true): ?>
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6LchFhYsAAAAAK9GfxkXYCDOJ5KQt2ulJy-VpSCM"></div>
                     </div>
+                <?php endif; ?>
+
+                <!-- Error Messages from Server -->
+                <?php if (isset($error_msg)): ?>
+                    <div class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <?= $error_msg ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($err_captcha)): ?>
+                    <div class="alert alert-danger alert-dismissable fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <?= $err_captcha ?>
+                    </div>
+                <?php endif; ?>
+
+                <button type="submit" class="btn btn-success btn-block" id="submitBtn">Register</button>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="../dashboard/login.php" class="register-link">Already have an account? Login</a>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-</html>
+    </form>
+</div>
+
+<script>
+    // Email validation
+    function validateEmail() {
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailInput.value && !emailPattern.test(emailInput.value)) {
+            emailInput.classList.add('error-border');
+            emailError.classList.add('show');
+            return false;
+        } else {
+            emailInput.classList.remove('error-border');
+            emailError.classList.remove('show');
+            return true;
+        }
+    }
+
+    // Username validation (alphanumeric only)
+    function validateUsername() {
+        const usernameInput = document.getElementById('username');
+        const usernameError = document.getElementById('username-error');
+        const usernamePattern = /^[a-zA-Z0-9]+$/;
+
+        if (usernameInput.value && !usernamePattern.test(usernameInput.value)) {
+            usernameInput.classList.add('error-border');
+            usernameError.classList.add('show');
+            return false;
+        } else {
+            usernameInput.classList.remove('error-border');
+            usernameError.classList.remove('show');
+            return true;
+        }
+    }
+
+    // Password match validation
+    function validatePasswordMatch() {
+        const password = document.getElementById('password').value;
+        const cpassword = document.getElementById('cpassword').value;
+        const passwordError = document.getElementById('password-error');
+        const cpasswordInput = document.getElementById('cpassword');
+
+        if (cpassword && password !== cpassword) {
+            cpasswordInput.classList.add('error-border');
+            passwordError.classList.add('show');
+            return false;
+        } else {
+            cpasswordInput.classList.remove('error-border');
+            passwordError.classList.remove('show');
+            return true;
+        }
+    }
+
+    // Form validation before submission
+    function validateForm() {
+        const isEmailValid = validateEmail();
+        const isUsernameValid = validateUsername();
+        const isPasswordMatch = validatePasswordMatch();
+
+        // Check all validations
+        if (!isEmailValid || !isUsernameValid || !isPasswordMatch) {
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+
+    // Add event listeners for real-time validation
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('username').addEventListener('blur', validateUsername);
+        document.getElementById('cpassword').addEventListener('blur', validatePasswordMatch);
+    });
+</script>
+
+<?php if (!defined('DEV_MODE') || DEV_MODE !== true): ?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<?php endif; ?>
+
+<?php include BASE_PATH . '/includes/footer.php'; ?>

@@ -36,7 +36,18 @@
 
     <script src="<?php echo $url_prefix ?>/assets/js/jquery.min.js" type="text/javascript"></script>
 
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap.min.css">
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap.min.js"></script>
+
 
     <style>
         body {
@@ -854,14 +865,14 @@
 
                 function toggleUserMenu() {
                     const menu = document.getElementById('user-menu');
-                    menu.classList.toggle('hidden');
+                    menu?.classList.toggle('hidden');
                 }
 
                 // Close user menu when clicking outside
                 document.addEventListener('click', function (event) {
                     const menu = document.getElementById('user-menu');
                     const userButton = event.target.closest('button[onclick="toggleUserMenu()"]');
-                    if (!userButton && !menu.contains(event.target)) {
+                    if (menu && !userButton && !menu.contains(event.target)) {
                         menu.classList.add('hidden');
                     }
                 });

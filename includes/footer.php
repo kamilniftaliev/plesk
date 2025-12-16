@@ -1,12 +1,8 @@
 </div>
-<!-- /#wrapper -->
-
-<!-- jQuery -->
-
+<?php $url_prefix = URL_PREFIX ?: ''; ?>
 
 <!-- Bootstrap Core JavaScript -->
 
-<?php $url_prefix = URL_PREFIX ?: ''; ?>
 
 <script src="<?php echo $url_prefix ?>/assets/js/bootstrap.min.js"></script>
 
@@ -18,6 +14,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<?php echo $url_prefix ?>/assets/js/sb-admin-2.js"></script>
+
 <script src="<?php echo $url_prefix ?>/assets/js/jquery.validate.min.js"></script>
 
 <!-- Design System JavaScript -->

@@ -61,7 +61,7 @@ $db->pageLimit = $pagelimit;
 $rows = $db->arraybuilder()->paginate('Sales', $page, $select);
 $total_pages = $db->totalPages;
 
-include BASE_PATH . '/includes/header.php';
+include '../includes/header.php';
 ?>
 <!-- Main container -->
 <div id="page-wrapper">

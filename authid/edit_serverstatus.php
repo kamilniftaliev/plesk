@@ -58,7 +58,7 @@ $admin_account = $db->getOne("server");
 // Set values to $row
 
 // import header
-require_once 'includes/admin_header.php';
+require_once '../includes/header.php';
 ?>
 <div id="page-wrapper">
 

@@ -11,7 +11,6 @@ if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_lo
 
 
 if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
-
 	$series_id = filter_var($_COOKIE['series_id']);
 	$remember_token = filter_var($_COOKIE['remember_token']);
 	$db = getDbInstance();
@@ -52,7 +51,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 // Check if we're in OTP verification mode
 $otp_mode = isset($_SESSION['otp_pending']) && $_SESSION['otp_pending'] === TRUE;
 
-include './includes/admin_header.php';
+include '../includes/header.php';
 ?>
 <style>
 	.otp-input {
@@ -96,7 +95,7 @@ include './includes/admin_header.php';
 		}
 	}
 </style>
-<div id="page-" class="col-md-4 col-md-offset-4">
+<div id="page-" class="col-md-6 col-sm-8 col-sm-offset-2 col-md-offset-3">
 	<?php if (!$otp_mode): ?>
 		<!-- Login Form -->
 		<form class="form loginform" method="POST"
@@ -127,7 +126,11 @@ include './includes/admin_header.php';
 						</div>
 					<?php endif; ?>
 					<button type="submit" class="btn btn-success loginField">Login</button>
-					<a href="../forgot/index.php">Forgot Password</a>
+					<div style="margin-top: 15px;">
+						<a href="../forgot/index.php">Forgot Password</a>
+						&nbsp;|&nbsp;
+						<a href="../register/index.php">Register</a>
+					</div>
 
 				</div>
 			</div>

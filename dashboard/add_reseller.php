@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $edit = false;
 
 
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 ?>
 <div id="page-wrapper">
 	<div class="row">

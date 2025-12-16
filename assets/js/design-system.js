@@ -4,8 +4,8 @@
  * Version: 1.0.0
  */
 
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
   /**
    * Icon mapping based on field labels and input names
@@ -13,151 +13,151 @@
    */
   const iconMapping = {
     // User & Authentication
-    'username': 'fa-user',
-    'user': 'fa-user',
-    'name': 'fa-user',
-    'full name': 'fa-user',
-    'first name': 'fa-user',
-    'last name': 'fa-user',
-    'fname': 'fa-user',
-    'lname': 'fa-user',
+    username: "fa-user",
+    user: "fa-user",
+    name: "fa-user",
+    "full name": "fa-user",
+    "first name": "fa-user",
+    "last name": "fa-user",
+    fname: "fa-user",
+    lname: "fa-user",
 
     // Email
-    'email': 'fa-envelope',
-    'e-mail': 'fa-envelope',
-    'mail': 'fa-envelope',
+    email: "fa-envelope",
+    "e-mail": "fa-envelope",
+    mail: "fa-envelope",
 
     // Password
-    'password': 'fa-lock',
-    'pass': 'fa-lock',
-    'current password': 'fa-lock',
-    'new password': 'fa-key',
-    'confirm password': 'fa-key',
-    'repeat password': 'fa-key',
+    password: "fa-lock",
+    pass: "fa-lock",
+    "current password": "fa-lock",
+    "new password": "fa-key",
+    "confirm password": "fa-key",
+    "repeat password": "fa-key",
 
     // Phone & Contact
-    'phone': 'fa-phone',
-    'telephone': 'fa-phone',
-    'mobile': 'fa-mobile',
-    'contact': 'fa-phone',
-    'phone number': 'fa-phone',
-    'whatsapp': 'fa-whatsapp',
-    'telegram': 'fa-telegram',
+    phone: "fa-phone",
+    telephone: "fa-phone",
+    mobile: "fa-mobile",
+    contact: "fa-phone",
+    "phone number": "fa-phone",
+    whatsapp: "fa-whatsapp",
+    telegram: "fa-telegram",
 
     // Address & Location
-    'address': 'fa-map-marker',
-    'location': 'fa-map-marker',
-    'city': 'fa-building',
-    'state': 'fa-map',
-    'country': 'fa-globe',
-    'region': 'fa-map',
-    'zip': 'fa-map-pin',
-    'postal': 'fa-map-pin',
+    address: "fa-map-marker",
+    location: "fa-map-marker",
+    city: "fa-building",
+    state: "fa-map",
+    country: "fa-globe",
+    region: "fa-map",
+    zip: "fa-map-pin",
+    postal: "fa-map-pin",
 
     // Business
-    'company': 'fa-building',
-    'organization': 'fa-building',
-    'business': 'fa-briefcase',
+    company: "fa-building",
+    organization: "fa-building",
+    business: "fa-briefcase",
 
     // Identification
-    'id': 'fa-id-card',
-    'license': 'fa-id-card',
-    'authid': 'fa-id-badge',
-    'auth id': 'fa-id-badge',
-    'imei': 'fa-mobile',
-    'serial': 'fa-barcode',
+    id: "fa-id-card",
+    license: "fa-id-card",
+    authid: "fa-id-badge",
+    "auth id": "fa-id-badge",
+    imei: "fa-mobile",
+    serial: "fa-barcode",
 
     // Financial
-    'price': 'fa-dollar',
-    'cost': 'fa-dollar',
-    'amount': 'fa-dollar',
-    'balance': 'fa-money',
-    'credit': 'fa-credit-card',
-    'payment': 'fa-credit-card',
-    'salary': 'fa-money',
-    'commission': 'fa-percent',
+    price: "fa-dollar",
+    cost: "fa-dollar",
+    amount: "fa-dollar",
+    balance: "fa-money",
+    credit: "fa-credit-card",
+    payment: "fa-credit-card",
+    salary: "fa-money",
+    commission: "fa-percent",
 
     // Server & Technical
-    'server': 'fa-server',
-    'host': 'fa-server',
-    'hostname': 'fa-server',
-    'ip': 'fa-globe',
-    'ip address': 'fa-globe',
-    'port': 'fa-plug',
-    'url': 'fa-link',
-    'domain': 'fa-globe',
-    'api': 'fa-code',
-    'api key': 'fa-key',
-    'token': 'fa-key',
+    server: "fa-server",
+    host: "fa-server",
+    hostname: "fa-server",
+    ip: "fa-globe",
+    "ip address": "fa-globe",
+    port: "fa-plug",
+    url: "fa-link",
+    domain: "fa-globe",
+    api: "fa-code",
+    "api key": "fa-key",
+    token: "fa-key",
 
     // Date & Time
-    'date': 'fa-calendar',
-    'time': 'fa-clock-o',
-    'datetime': 'fa-calendar',
-    'birthday': 'fa-birthday-cake',
-    'expiry': 'fa-calendar-times-o',
-    'expire': 'fa-calendar-times-o',
+    date: "fa-calendar",
+    time: "fa-clock-o",
+    datetime: "fa-calendar",
+    birthday: "fa-birthday-cake",
+    expiry: "fa-calendar-times-o",
+    expire: "fa-calendar-times-o",
 
     // Status & Type
-    'status': 'fa-info-circle',
-    'type': 'fa-tag',
-    'category': 'fa-tags',
-    'role': 'fa-user-circle',
-    'level': 'fa-signal',
-    'priority': 'fa-flag',
+    status: "fa-info-circle",
+    type: "fa-tag",
+    category: "fa-tags",
+    role: "fa-user-circle",
+    level: "fa-signal",
+    priority: "fa-flag",
 
     // Description & Content
-    'description': 'fa-align-left',
-    'note': 'fa-sticky-note',
-    'notes': 'fa-sticky-note',
-    'comment': 'fa-comment',
-    'message': 'fa-comment',
-    'remarks': 'fa-file-text',
+    description: "fa-align-left",
+    note: "fa-sticky-note",
+    notes: "fa-sticky-note",
+    comment: "fa-comment",
+    message: "fa-comment",
+    remarks: "fa-file-text",
 
     // Database
-    'database': 'fa-database',
-    'table': 'fa-table',
-    'query': 'fa-search',
+    database: "fa-database",
+    table: "fa-table",
+    query: "fa-search",
 
     // Device
-    'device': 'fa-mobile',
-    'model': 'fa-mobile',
-    'brand': 'fa-tag',
+    device: "fa-mobile",
+    model: "fa-mobile",
+    brand: "fa-tag",
 
     // Customer
-    'customer': 'fa-users',
-    'client': 'fa-user',
-    'reseller': 'fa-user-circle',
+    customer: "fa-users",
+    client: "fa-user",
+    reseller: "fa-user-circle",
 
     // Network
-    'network': 'fa-wifi',
-    'wifi': 'fa-wifi',
-    'connection': 'fa-plug',
+    network: "fa-wifi",
+    wifi: "fa-wifi",
+    connection: "fa-plug",
 
     // File
-    'file': 'fa-file',
-    'upload': 'fa-upload',
-    'download': 'fa-download',
-    'attachment': 'fa-paperclip',
+    file: "fa-file",
+    upload: "fa-upload",
+    download: "fa-download",
+    attachment: "fa-paperclip",
 
     // Search
-    'search': 'fa-search',
-    'find': 'fa-search',
-    'query': 'fa-search',
+    search: "fa-search",
+    find: "fa-search",
+    query: "fa-search",
 
     // Settings
-    'setting': 'fa-cog',
-    'settings': 'fa-cogs',
-    'config': 'fa-wrench',
-    'configuration': 'fa-wrench',
+    setting: "fa-cog",
+    settings: "fa-cogs",
+    config: "fa-wrench",
+    configuration: "fa-wrench",
 
     // Security
-    'security': 'fa-shield',
-    'permission': 'fa-lock',
-    'access': 'fa-key',
+    security: "fa-shield",
+    permission: "fa-lock",
+    access: "fa-key",
 
     // Default fallback
-    'default': 'fa-pencil'
+    default: "fa-pencil",
   };
 
   /**
@@ -166,7 +166,7 @@
    * @returns {string} Font Awesome icon class
    */
   function getIconForField(text) {
-    if (!text) return iconMapping['default'];
+    if (!text) return iconMapping["default"];
 
     const normalized = text.toLowerCase().trim();
 
@@ -182,7 +182,7 @@
       }
     }
 
-    return iconMapping['default'];
+    return iconMapping["default"];
   }
 
   /**
@@ -190,44 +190,48 @@
    */
   function applyDesignSystem() {
     // Apply to all input elements
-    document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="tel"], input[type="url"]').forEach(input => {
-      if (!input.classList.contains('ds-input')) {
-        input.classList.add('ds-input');
-      }
-    });
+    document
+      .querySelectorAll(
+        'input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="tel"], input[type="url"]'
+      )
+      .forEach((input) => {
+        if (!input.classList.contains("ds-input")) {
+          input.classList.add("ds-input");
+        }
+      });
 
     // Apply to all select elements
-    document.querySelectorAll('select').forEach(select => {
-      if (!select.classList.contains('ds-select')) {
-        select.classList.add('ds-select');
+    document.querySelectorAll("select").forEach((select) => {
+      if (!select.classList.contains("ds-select")) {
+        select.classList.add("ds-select");
       }
     });
 
     // Apply to all textarea elements
-    document.querySelectorAll('textarea').forEach(textarea => {
-      if (!textarea.classList.contains('ds-textarea')) {
-        textarea.classList.add('ds-textarea');
+    document.querySelectorAll("textarea").forEach((textarea) => {
+      if (!textarea.classList.contains("ds-textarea")) {
+        textarea.classList.add("ds-textarea");
       }
     });
 
     // Apply to all buttons
-    document.querySelectorAll('button.btn, .btn').forEach(btn => {
-      if (!btn.classList.contains('ds-btn')) {
-        btn.classList.add('ds-btn');
+    document.querySelectorAll("button.btn, .btn").forEach((btn) => {
+      if (!btn.classList.contains("ds-btn")) {
+        btn.classList.add("ds-btn");
 
         // Map Bootstrap button classes to design system
-        if (btn.classList.contains('btn-primary')) {
-          btn.classList.add('ds-btn-primary');
-        } else if (btn.classList.contains('btn-success')) {
-          btn.classList.add('ds-btn-success');
-        } else if (btn.classList.contains('btn-danger')) {
-          btn.classList.add('ds-btn-danger');
-        } else if (btn.classList.contains('btn-warning')) {
-          btn.classList.add('ds-btn-warning');
-        } else if (btn.classList.contains('btn-info')) {
-          btn.classList.add('ds-btn-info');
-        } else if (btn.classList.contains('btn-default')) {
-          btn.classList.add('ds-btn-default');
+        if (btn.classList.contains("btn-primary")) {
+          btn.classList.add("ds-btn-primary");
+        } else if (btn.classList.contains("btn-success")) {
+          btn.classList.add("ds-btn-success");
+        } else if (btn.classList.contains("btn-danger")) {
+          btn.classList.add("ds-btn-danger");
+        } else if (btn.classList.contains("btn-warning")) {
+          btn.classList.add("ds-btn-warning");
+        } else if (btn.classList.contains("btn-info")) {
+          btn.classList.add("ds-btn-info");
+        } else if (btn.classList.contains("btn-default")) {
+          btn.classList.add("ds-btn-default");
         }
       }
     });
@@ -237,17 +241,17 @@
    * Apply icons to input-group elements
    */
   function applyInputGroupIcons() {
-    document.querySelectorAll('.input-group').forEach(group => {
-      const input = group.querySelector('input, select, textarea');
-      let addon = group.querySelector('.input-group-addon');
+    document.querySelectorAll(".input-group").forEach((group) => {
+      const input = group.querySelector("input, select, textarea");
+      let addon = group.querySelector(".input-group-addon");
 
       if (!input) return;
 
       // Get the label text for this input
-      let labelText = '';
-      const formGroup = group.closest('.form-group');
+      let labelText = "";
+      const formGroup = group.closest(".form-group");
       if (formGroup) {
-        const label = formGroup.querySelector('label');
+        const label = formGroup.querySelector("label");
         if (label) {
           labelText = label.textContent;
         }
@@ -255,7 +259,8 @@
 
       // Fallback to input name or placeholder
       if (!labelText) {
-        labelText = input.getAttribute('name') || input.getAttribute('placeholder') || '';
+        labelText =
+          input.getAttribute("name") || input.getAttribute("placeholder") || "";
       }
 
       // Get the appropriate icon
@@ -263,22 +268,22 @@
 
       // If addon doesn't exist, create it
       if (!addon) {
-        addon = document.createElement('span');
-        addon.className = 'input-group-addon';
+        addon = document.createElement("span");
+        addon.className = "input-group-addon";
         group.insertBefore(addon, group.firstChild);
       }
 
       // Update icon if it's not already set correctly
-      const existingIcon = addon.querySelector('i');
+      const existingIcon = addon.querySelector("i");
       if (existingIcon) {
         // Remove old icon classes (glyphicon or fa)
-        existingIcon.className = '';
-        existingIcon.classList.add('fa', iconClass);
+        existingIcon.className = "";
+        existingIcon.classList.add("fa", iconClass);
       } else {
         // Create new icon
-        const icon = document.createElement('i');
-        icon.className = 'fa ' + iconClass;
-        addon.innerHTML = '';
+        const icon = document.createElement("i");
+        icon.className = "fa " + iconClass;
+        addon.innerHTML = "";
         addon.appendChild(icon);
       }
     });
@@ -288,25 +293,25 @@
    * Convert input-group to ds-input-group structure
    */
   function convertToDesignSystemInputGroups() {
-    document.querySelectorAll('.input-group').forEach(group => {
+    document.querySelectorAll(".input-group").forEach((group) => {
       // Skip if already converted
-      if (group.classList.contains('ds-input-group')) return;
+      if (group.classList.contains("ds-input-group")) return;
 
-      const input = group.querySelector('input, select, textarea');
-      const addon = group.querySelector('.input-group-addon');
+      const input = group.querySelector("input, select, textarea");
+      const addon = group.querySelector(".input-group-addon");
 
       if (!input || !addon) return;
 
       // Add design system class
-      group.classList.add('ds-input-group');
+      group.classList.add("ds-input-group");
 
       // Get icon from addon
-      const icon = addon.querySelector('i');
+      const icon = addon.querySelector("i");
       if (!icon) return;
 
       // Create new icon element for ds structure
-      const dsIcon = document.createElement('span');
-      dsIcon.className = 'ds-input-icon';
+      const dsIcon = document.createElement("span");
+      dsIcon.className = "ds-input-icon";
       dsIcon.appendChild(icon.cloneNode(true));
 
       // Remove addon and append icon
@@ -327,8 +332,6 @@
 
     // Optional: Convert to new structure (comment out if you want to keep Bootstrap structure)
     // convertToDesignSystemInputGroups();
-
-    console.log('Design system initialized');
   }
 
   /**
@@ -340,14 +343,13 @@
     applyInputGroupIcons: applyInputGroupIcons,
     convertToDesignSystemInputGroups: convertToDesignSystemInputGroups,
     getIconForField: getIconForField,
-    iconMapping: iconMapping
+    iconMapping: iconMapping,
   };
 
   // Auto-initialize on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }
-
 })();

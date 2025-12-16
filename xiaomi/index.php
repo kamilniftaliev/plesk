@@ -1,5 +1,5 @@
 <?php
-include "/includes/konak.php";
+include "../includes/konak.php";
 session_start();
 $login = "";
 if ($_SESSION['status'] == "login") {
@@ -11,11 +11,6 @@ if ($_SESSION['status'] == "login") {
   $apikey = $user['apikey'];
 }
 ?>
-
-
-
-
-
 
 <!DOCTYPE HTML>
 <html>

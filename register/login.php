@@ -1,5 +1,5 @@
 <?php
-include "/includes/konak.php";
+include "../includes/konak.php";
 include "anti.php";
 $username = anti_injection($_POST['username']);
 $password = anti_injection($_POST['password']);

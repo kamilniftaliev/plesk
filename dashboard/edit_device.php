@@ -44,7 +44,7 @@ if ($edit) {
 
 
 <?php
-include_once 'includes/header.php';
+include_once '../includes/header.php';
 ?>
 <div id="page-wrapper">
     <div class="row">

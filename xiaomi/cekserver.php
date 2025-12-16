@@ -1,7 +1,7 @@
 <?php
 
 
-include "/includes/konak.php";
+include "../includes/konak.php";
 $sekarang = date('Y-m-d H:i:s');
 date_default_timezone_set('asia/jakarta');
 

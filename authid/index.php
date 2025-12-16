@@ -20,7 +20,7 @@ $url_prefix = URL_PREFIX ?: '';
 
 if (isset($_SESSION['admin_type'])) {
     // if ($_SESSION['admin_type'] == 'admin') {
-    //     include_once('includes/admin_header.php');
+    //     include_once('../includes/header.php');
     //     include_once('includes/admin_menu.php');
     // } else if ($_SESSION['admin_type'] == 'authid') {
     //     include_once('includes/authid_header.php');

@@ -1,5 +1,5 @@
 <?php
-include "/include/header.php";
+include "../include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../config/config.php';
@@ -71,7 +71,7 @@ $total_pages = $db->totalPages;
 
 
 
-include './includes/admin_header.php';
+include '../includes/header.php';
 ?>
 <style>
     @media (prefers-color-scheme: dark) {

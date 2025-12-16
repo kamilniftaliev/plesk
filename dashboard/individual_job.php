@@ -1,5 +1,5 @@
 <?php
-include "/include/header.php";
+include "../include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../config/config.php';
@@ -47,13 +47,15 @@ if ($search_string) {
     }
 
     $where3 = "";
-    if ($paid == 0) {
-        $where3 = "cost=0";
-    } else {
-        $where3 = "cost!=0";
-    }
+    if ($paid !== null) {
+        if ($paid == 0) {
+            $where3 = "cost=0";
+        } else {
+            $where3 = "cost!=0";
+        }
 
-    $db->where($where3);
+        $db->where($where3);
+    }
 
     if ($tanggal) {
         $db->where("tgl >='" . $tanggal . "'");
@@ -69,23 +71,18 @@ $rows = $db->get('data', null, implode(',', $select));
 
 
 if ($_SESSION['admin_type'] == 'user') {
-    require_once 'includes/user_header.php';
+    require_once '../includes/user_header.php';
 }
 if ($_SESSION['admin_type'] == 'admin') {
-    require_once 'includes/admin_header.php';
+    require_once '../includes/header.php';
 }
 if ($_SESSION['admin_type'] == 'reseller') {
-    require_once 'includes/reseller_header.php';
+    require_once '../includes/reseller_header.php';
 }
 
 
 
 ?>
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap.min.css">
-
 <style>
     @media (prefers-color-scheme: dark) {
 

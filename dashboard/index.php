@@ -1,7 +1,5 @@
 <?php
 
-
-
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../config/config.php';
@@ -15,23 +13,21 @@ if ($name == "abang") {
     exit;
 }
 
+include_once('../includes/header.php');
+
 if ($_SESSION['admin_type'] == 'admin') {
-    include_once('includes/admin_header.php');
-    include_once('includes/admin_menu.php');
+    include_once('../includes/admin_menu.php');
 }
 
-
 if ($_SESSION['admin_type'] == 'reseller') {
-    include_once('includes/reseller_header.php');
-    include_once('includes/reseller_menu.php');
+    include_once('../includes/reseller_header.php');
+    include_once('../includes/reseller_menu.php');
 }
 
 if ($_SESSION['admin_type'] == 'user') {
-    include_once('includes/user_header.php');
-    include_once('includes/user_menu.php');
+    include_once('../includes/user_header.php');
+    include_once('../includes/user_menu.php');
 }
-
-
 
 
 include_once('../includes/footer.php'); ?>

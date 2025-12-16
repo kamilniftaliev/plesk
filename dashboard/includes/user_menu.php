@@ -1,5 +1,5 @@
 <?php
-include('/includes/konak.php');
+include('../includes/konak.php');
 date_default_timezone_set('asia/jakarta');
 $now = date("Y-m-d ");
 $db = getDbInstance();

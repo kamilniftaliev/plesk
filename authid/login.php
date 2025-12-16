@@ -132,7 +132,11 @@ include './includes/login_header.php';
 						</div>
 					<?php endif; ?>
 					<button type="submit" class="btn btn-success loginField">Login</button>
-					<a href="../forgot/index.php">Forgot Password</a>
+					<div style="margin-top: 15px;">
+						<a href="../forgot/index.php">Forgot Password</a>
+						&nbsp;|&nbsp;
+						<a href="../register/index.php">Register</a>
+					</div>
 
 				</div>
 			</div>
