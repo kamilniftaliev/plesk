@@ -7,6 +7,13 @@ session_start();
 require_once '../config/config.php';
 require_once("db-connect.php");
 
+// Redirect to dashboard if user is already logged in
+$url_prefix = URL_PREFIX ?: '';
+if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] === TRUE) {
+    header('Location: ' . $url_prefix . '/dashboard/index.php');
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     extract($_POST);
     $grr = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';

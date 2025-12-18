@@ -249,6 +249,29 @@ $rows = $db->get('data', null, implode(',', $select));
     .dataTables_empty {
         padding: 20px !important;
     }
+
+    /* Copy icon styling */
+    .copy-icon {
+        cursor: pointer;
+        margin-left: 8px;
+        color: #6b7280;
+        font-size: 14px;
+        transition: color 0.2s;
+    }
+
+    .copy-icon:hover {
+        color: #3b82f6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .copy-icon {
+            color: #9ca3af;
+        }
+
+        .copy-icon:hover {
+            color: #60a5fa;
+        }
+    }
 </style>
 
 <!-- Main container -->
@@ -340,37 +363,26 @@ $rows = $db->get('data', null, implode(',', $select));
                         <td><?php
                         $blobkey = $row['configblob'];
                         echo substr($blobkey, 0, 10);
-
-                        if ($row['serviceid'] == "1") { ?></td>
-                            <td><?php echo "EDL";
-                        } ?></td>
-                        <?php
-                        if ($row['serviceid'] == "2") { ?></td>
-                            <td><?php echo "FRP";
-                        } ?></td>
-                        <?php
-                        if ($row['serviceid'] == "4") { ?></td>
-                            <td><?php echo "MTK";
-                        } ?></td>
-
-                        <?php
-                        if ($row['serviceid'] == "8") { ?></td>
-                            <td><?php echo "FLASH MTK NEW";
-                        } ?></td>
-
-                        <?php
-                        if ($row['serviceid'] == "10") { ?></td>
-                            <td><?php echo "FLASH MTK MALACHITE";
-                        } ?></td>
-
-                        <?php
-                        if ($row['serviceid'] == "9") { ?></td>
-                            <td><?php echo "FLASH MTK 6 OLD";
-                        } ?></td>
-
-
+                        ?></td>
+                        <td><?php
+                        // Service type based on serviceid
+                        $serviceType = '';
+                        if ($row['serviceid'] == "1") {
+                            $serviceType = "EDL";
+                        } elseif ($row['serviceid'] == "2") {
+                            $serviceType = "FRP";
+                        } elseif ($row['serviceid'] == "4") {
+                            $serviceType = "MTK";
+                        } elseif ($row['serviceid'] == "8") {
+                            $serviceType = "FLASH MTK NEW";
+                        } elseif ($row['serviceid'] == "10") {
+                            $serviceType = "FLASH MTK MALACHITE";
+                        } elseif ($row['serviceid'] == "9") {
+                            $serviceType = "FLASH MTK 6 OLD";
+                        }
+                        echo $serviceType;
+                        ?></td>
                         <td><?php echo "Server " . $row['serverid']; ?></td>
-
                         <td>Hidden</td>
                         <td><?php echo $row['cost']; ?></td>
                         <?php
@@ -415,6 +427,57 @@ $rows = $db->get('data', null, implode(',', $select));
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
 <script>
+    // Helper function to get relative time
+    function getRelativeTime(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const seconds = Math.floor((now - date) / 1000);
+
+        const intervals = {
+            year: 31536000,
+            month: 2592000,
+            week: 604800,
+            day: 86400,
+            hour: 3600,
+            minute: 60
+        };
+
+        for (let key in intervals) {
+            const interval = Math.floor(seconds / intervals[key]);
+            if (interval >= 1) {
+                return interval + ' ' + key + (interval === 1 ? '' : 's') + ' ago';
+            }
+        }
+        return 'just now';
+    }
+
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+                console.log('Copied to clipboard: ' + text);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        } else {
+            // Fallback for older browsers
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.top = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                console.log('Copied to clipboard: ' + text);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+
     $(document).ready(function () {
         // Initialize DataTable with all features
         var table = $('#individualJobTable').DataTable({
@@ -463,7 +526,15 @@ $rows = $db->get('data', null, implode(',', $select));
                 {
                     targets: 7,
                     width: '20%',
-                    orderable: true
+                    orderable: true,
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            var relativeTime = getRelativeTime(data);
+                            return '<span title="' + data + '">' + relativeTime + '</span>' +
+                                   '<i class="glyphicon glyphicon-copy copy-icon" onclick="copyToClipboard(\'' + data + '\')" title="Copy exact time"></i>';
+                        }
+                        return data;
+                    }
                 },
                 {
                     targets: 8,

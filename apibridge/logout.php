@@ -1,6 +1,6 @@
 <?php
 include 'anti.php';
-include '/includes/konak.php';
+include '../includes/konak.php';
 
 
 

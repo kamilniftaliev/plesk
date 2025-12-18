@@ -134,8 +134,6 @@ include './includes/login_header.php';
 					<button type="submit" class="btn btn-success loginField">Login</button>
 					<div style="margin-top: 15px;">
 						<a href="../forgot/index.php">Forgot Password</a>
-						&nbsp;|&nbsp;
-						<a href="../register/index.php">Register</a>
 					</div>
 
 				</div>

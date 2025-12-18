@@ -688,7 +688,7 @@
 
 <body>
 
-    <?php if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] == true): ?>
+    <?php if ((isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] == true) || (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true)): ?>
         <!-- Modern Sidebar -->
         <div class="modern-sidebar">
             <!-- Logo -->
@@ -866,7 +866,14 @@
                         </svg>
                         <span class="font-medium">Change Password</span>
                     </a>
-                    <a href="<?php echo $url_prefix ?>/dashboard/logout.php"
+                    <?php
+                    // Determine logout path based on current location
+                    $current_path = $_SERVER['REQUEST_URI'];
+                    $logout_url = (strpos($current_path, '/authid/') !== false)
+                        ? $url_prefix . '/authid/logout.php'
+                        : $url_prefix . '/dashboard/logout.php';
+                    ?>
+                    <a href="<?php echo $logout_url; ?>"
                         class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

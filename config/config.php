@@ -20,8 +20,10 @@ require_once BASE_PATH . '/config/permissions.php';
 | Set to TRUE for local development (OTP will be displayed on screen)
 | Set to FALSE for production (OTP will be sent via email/Telegram)
  */
-define('DEV_MODE', value: true); // Change to false in production
-define('URL_PREFIX', value: ""); // Make it "" in dev mode
+// define('DEV_MODE', value: true); // Change to false in production
+define('DEV_MODE', value: false); // Change to false in production
+// define('URL_PREFIX', value: ""); // Make it "" in dev mode
+define('URL_PREFIX', value: "/kev"); // Staging
 
 /*
 |--------------------------------------------------------------------------
@@ -48,12 +50,16 @@ define('GOOGLE_RECAPTCHA_SECRET_KEY', "6LchFhYsAAAAABzum3gWF2wjfTSjWcO7m5_kv2JG"
  */
 
 define('DB_HOST', "localhost");
-define('DB_USER', "u676821063_new2");
-define('DB_PASSWORD', "!/F:6h[E9");
-define('DB_NAME', "u676821063_new2");
-// define('DB_USER', "admin_kevin");
-// define('DB_PASSWORD', "5wq?7fHf_VnegTf2");
-// define('DB_NAME', "admin_kevin");
+
+// Staging
+define('DB_USER', "admin_kevin");
+define('DB_PASSWORD', "5wq?7fHf_VnegTf2");
+define('DB_NAME', "admin_kevin");
+
+// Development
+// define('DB_USER', "u676821063_new2");
+// define('DB_PASSWORD', "!/F:6h[E9");
+// define('DB_NAME', "u676821063_new2");
 
 /**
  * Get instance of DB object
