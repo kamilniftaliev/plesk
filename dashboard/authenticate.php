@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Verify OTP code
 		if ($otp_code === $_SESSION['otp_code']) {
 			// OTP verified successfully - complete login
-			$_SESSION['dashboard_user_logged_in'] = TRUE;
+			$_SESSION['user_logged_in'] = TRUE;
 			$_SESSION['name'] = $_SESSION['otp_username'];
 			$_SESSION['admin_id'] = $_SESSION['otp_user_id'];
 			$_SESSION['admin_type'] = $_SESSION['otp_admin_type'];
@@ -164,28 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	// Handle Initial Login (Username/Password + Second Password)
+	// Handle Initial Login (Username/Password)
 	$username = filter_input(INPUT_POST, 'username');
 	$passwd = filter_input(INPUT_POST, 'passwd');
 	$remember = filter_input(INPUT_POST, 'remember');
-	$second_password = filter_input(INPUT_POST, 'second_password');
-
-	// Validate hour password (must match current hour in user's timezone)
-	// Use the user's browser timezone if provided, otherwise use server timezone
-	$user_timezone = filter_input(INPUT_POST, 'user_timezone') ?: date_default_timezone_get();
-
-	try {
-		$dt = new DateTime('now', new DateTimeZone($user_timezone));
-		$current_hour = $dt->format('H'); // Get current hour in 24-hour format (00-23)
-	} catch (Exception $e) {
-		// If timezone is invalid, fall back to server timezone
-		$current_hour = date('H');
-	}
-
-	if ($second_password !== $current_hour) {
-		$_SESSION['login_failure'] = "Invalid second password. Please enter the correct second password.";
-		redirectToLoginWithReturn();
-	}
 
 	// Get DB instance
 	$db = getDbInstance();

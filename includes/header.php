@@ -816,7 +816,7 @@
 
 <body>
 
-    <?php if ((isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] == true) || (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true)): ?>
+    <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true): ?>
         <!-- Modern Sidebar -->
         <div class="modern-sidebar">
             <!-- Logo -->

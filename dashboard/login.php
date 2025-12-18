@@ -7,7 +7,7 @@ $token = bin2hex(openssl_random_pseudo_bytes(16));
 
 $url_prefix = URL_PREFIX ?: '';
 
-if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] === TRUE) {
+if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === TRUE) {
 	header('Location:index.php');
 }
 
@@ -32,7 +32,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 				exit;
 			}
 
-			$_SESSION['dashboard_user_logged_in'] = TRUE;
+			$_SESSION['user_logged_in'] = TRUE;
 			$_SESSION['admin_type'] = $row['status'];
 			$_SESSION['admin_id'] = $row['id'];
 			header('Location:index.php');
@@ -52,7 +52,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 // Check if we're in OTP verification mode
 $otp_mode = isset($_SESSION['otp_pending']) && $_SESSION['otp_pending'] === TRUE;
 
-include '../includes/login_header.php';
+include '../includes/header.php';
 ?>
 <style>
 	.otp-input {
@@ -110,12 +110,8 @@ include '../includes/login_header.php';
 						<input type="text" name="username" class="form-control" required="required">
 					</div>
 					<div class="form-group">
-						<label class="control-label">First Password</label>
+						<label class="control-label">Password</label>
 						<input type="password" name="passwd" class="form-control" required="required">
-					</div>
-					<div class="form-group">
-						<label class="control-label">Second Password</label>
-						<input type="password" name="second_password" class="form-control" required="required">
 					</div>
 					<div class="checkbox">
 						<label>

@@ -181,7 +181,7 @@ function getAllowedPages($user_type)
 function requirePermission($current_page_slug)
 {
     // Check if user is logged in
-    if (!isset($_SESSION['dashboard_user_logged_in']) || !$_SESSION['dashboard_user_logged_in']) {
+    if (!isset($_SESSION['user_logged_in']) || !$_SESSION['user_logged_in']) {
         $url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
         header('Location: ' . $url_prefix . '/dashboard/login.php');
         exit();

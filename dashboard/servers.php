@@ -67,7 +67,8 @@ include '../includes/header.php';
 
     <!-- Filters -->
     <div class="well text-center filter-form">
-        <form class="form form-inline flex items-center gap-4 mx-auto justify-center" action="">
+        <form class="form form-inline flex items-center gap-4 w-full md:w-1/2 lg:w-1/3 mx-auto justify-center"
+            action="">
             <label for="input_search" class="mb-0">Search</label>
             <input type="text" class="form-control" id="input_search" name="search_string"
                 value="<?php echo htmlspecialchars($search_string, ENT_QUOTES, 'UTF-8'); ?>">

@@ -70,8 +70,7 @@
 
             <!-- User Info -->
             <?php
-            $is_logged_in = (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in']) ||
-                           (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in']);
+            $is_logged_in = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
             ?>
             <?php if ($is_logged_in): ?>
             <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">

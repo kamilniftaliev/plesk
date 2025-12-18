@@ -12,6 +12,11 @@ $users = new Users();
 // Include header after session and permissions
 include_once('../includes/header.php');
 
+// Add Flatpickr CSS and JS
+echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">';
+echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">';
+echo '<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>';
+
 $admin_user_id = $_SESSION['admin_id'];
 $search_string = filter_input(INPUT_GET, 'search_string');
 $filter_col = filter_input(INPUT_GET, 'filter_col');
@@ -272,6 +277,101 @@ $rows = $db->get('data', null, implode(',', $select));
             color: #60a5fa;
         }
     }
+
+    /* Flatpickr custom styling */
+    .flatpickr-input {
+        padding: 6px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: white;
+        cursor: pointer;
+        min-width: 150px;
+    }
+
+    .flatpickr-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .flatpickr-input {
+            background-color: #1e293b;
+            border-color: #374151;
+            color: #f1f5f9;
+        }
+
+        .flatpickr-input:focus {
+            border-color: #60a5fa;
+        }
+
+        /* Flatpickr calendar dark mode */
+        .flatpickr-calendar {
+            background: #1e293b;
+            border-color: #374151;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .flatpickr-months {
+            background: #0f172a;
+            border-bottom: 1px solid #374151;
+        }
+
+        .flatpickr-current-month {
+            color: #f1f5f9;
+        }
+
+        .flatpickr-monthDropdown-months,
+        .numInputWrapper input {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-color: #374151;
+        }
+
+        .flatpickr-weekdays {
+            background: #0f172a;
+        }
+
+        span.flatpickr-weekday {
+            color: #9ca3af;
+        }
+
+        .flatpickr-day {
+            color: #f1f5f9;
+        }
+
+        .flatpickr-day:hover,
+        .flatpickr-day:focus {
+            background: #334155;
+            border-color: #334155;
+        }
+
+        .flatpickr-day.today {
+            border-color: #3b82f6;
+            background: #1e3a8a;
+        }
+
+        .flatpickr-day.selected {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .flatpickr-day.disabled,
+        .flatpickr-day.disabled:hover {
+            color: #4b5563;
+        }
+
+        .flatpickr-months .flatpickr-prev-month:hover svg,
+        .flatpickr-months .flatpickr-next-month:hover svg {
+            fill: #60a5fa;
+        }
+
+        .flatpickr-months .flatpickr-prev-month svg,
+        .flatpickr-months .flatpickr-next-month svg {
+            fill: #9ca3af;
+        }
+    }
 </style>
 
 <!-- Main container -->
@@ -292,7 +392,6 @@ $rows = $db->get('data', null, implode(',', $select));
         <form class="form form-inline flex items-center gap-4 mx-auto w-1/2" action="">
             <label for="input_search" class="mb-0">Search</label>
 
-
             <select name="serviceid" id="serviceid">
                 <option value="1">flash</option>
                 <option value="6">mtk5</option>
@@ -301,15 +400,10 @@ $rows = $db->get('data', null, implode(',', $select));
 
             </select>
 
-
-
-
-            <input type="date" id="tanggal" name="tanggal">
+            <input type="text" id="tanggal" name="tanggal" placeholder="Select date..." readonly>
             <select name="paid" id="paid">
-                <option value="1">paid</option>
-                <option value="0">free</option>
-
-
+                <option value="1">Paid</option>
+                <option value="0">Free</option>
             </select>
             <input type="submit" value="Go" class="btn btn-primary">
         </form>
@@ -454,9 +548,9 @@ $rows = $db->get('data', null, implode(',', $select));
     // Function to copy text to clipboard
     function copyToClipboard(text) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(function() {
+            navigator.clipboard.writeText(text).then(function () {
                 console.log('Copied to clipboard: ' + text);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.error('Failed to copy: ', err);
             });
         } else {
@@ -479,6 +573,42 @@ $rows = $db->get('data', null, implode(',', $select));
     }
 
     $(document).ready(function () {
+        // Initialize Flatpickr date picker
+        flatpickr("#tanggal", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            maxDate: "today",
+            monthSelectorType: "dropdown",
+            yearSelectorType: "dropdown",
+            disableMobile: false,
+            onChange: function(selectedDates, dateStr, instance) {
+                // Optional: auto-submit or highlight the Go button
+                console.log("Selected date: " + dateStr);
+            },
+            // Detect dark mode and apply appropriate theme
+            onReady: function(selectedDates, dateStr, instance) {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    instance.calendarContainer.classList.add('dark');
+                }
+            }
+        });
+
+        // Listen for dark mode changes
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                const fp = document.querySelector("#tanggal")._flatpickr;
+                if (fp) {
+                    if (e.matches) {
+                        fp.calendarContainer.classList.add('dark');
+                    } else {
+                        fp.calendarContainer.classList.remove('dark');
+                    }
+                }
+            });
+        }
+
         // Initialize DataTable with all features
         var table = $('#individualJobTable').DataTable({
             colReorder: false,
@@ -531,7 +661,7 @@ $rows = $db->get('data', null, implode(',', $select));
                         if (type === 'display') {
                             var relativeTime = getRelativeTime(data);
                             return '<span title="' + data + '">' + relativeTime + '</span>' +
-                                   '<i class="glyphicon glyphicon-copy copy-icon" onclick="copyToClipboard(\'' + data + '\')" title="Copy exact time"></i>';
+                                '<i class="glyphicon glyphicon-copy copy-icon" onclick="copyToClipboard(\'' + data + '\')" title="Copy exact time"></i>';
                         }
                         return data;
                     }
