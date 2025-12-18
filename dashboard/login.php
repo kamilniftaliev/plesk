@@ -5,10 +5,11 @@ $sekarang = date('Y-m-d H:i:s');
 require_once '../config/config.php';
 $token = bin2hex(openssl_random_pseudo_bytes(16));
 
-if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] === TRUE) {
+$url_prefix = URL_PREFIX ?: '';
+
+if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] === TRUE) {
 	header('Location:index.php');
 }
-
 
 if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 	$series_id = filter_var($_COOKIE['series_id']);
@@ -27,23 +28,23 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 			if (strtotime($sekarang) > $expires) {
 
 				clearAuthCookie();
-				header('Location:login.php');
+				header('Location:' . $url_prefix . '/dashboard/login.php');
 				exit;
 			}
 
-			$_SESSION['dashboard_user_logged_in'] = TRUE;
+			$_SESSION['user_logged_in'] = TRUE;
 			$_SESSION['admin_type'] = $row['status'];
 			$_SESSION['admin_id'] = $row['id'];
 			header('Location:index.php');
 			exit;
 		} else {
 			clearAuthCookie();
-			header('Location:login.php');
+			header('Location:' . $url_prefix . '/dashboard/login.php');
 			exit;
 		}
 	} else {
 		clearAuthCookie();
-		header('Location:login.php');
+		header('Location:' . $url_prefix . '/dashboard/login.php');
 		exit;
 	}
 }
@@ -51,7 +52,7 @@ if (isset($_COOKIE['series_id']) && isset($_COOKIE['remember_token'])) {
 // Check if we're in OTP verification mode
 $otp_mode = isset($_SESSION['otp_pending']) && $_SESSION['otp_pending'] === TRUE;
 
-include '../includes/header.php';
+include '../includes/login_header.php';
 ?>
 <style>
 	.otp-input {
@@ -95,21 +96,26 @@ include '../includes/header.php';
 		}
 	}
 </style>
-<div id="page-" class="col-md-6 col-sm-8 col-sm-offset-2 col-md-offset-3">
+<div id="page-" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
 	<?php if (!$otp_mode): ?>
 		<!-- Login Form -->
 		<form class="form loginform" method="POST"
 			action="authenticate.php<?php echo isset($_GET['return_url']) ? '?return_url=' . urlencode($_GET['return_url']) : ''; ?>">
+			<input type="hidden" name="user_timezone" id="user_timezone" value="">
 			<div class="login-panel panel panel-default">
-				<div class="panel-heading">Please Sign in</div>
+				<div class="panel-heading">Admin Login - Please Sign in</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="control-label">username</label>
+						<label class="control-label">Username</label>
 						<input type="text" name="username" class="form-control" required="required">
 					</div>
 					<div class="form-group">
-						<label class="control-label">password</label>
+						<label class="control-label">First Password</label>
 						<input type="password" name="passwd" class="form-control" required="required">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Second Password</label>
+						<input type="password" name="second_password" class="form-control" required="required">
 					</div>
 					<div class="checkbox">
 						<label>
@@ -128,8 +134,6 @@ include '../includes/header.php';
 					<button type="submit" class="btn btn-success loginField">Login</button>
 					<div style="margin-top: 15px;">
 						<a href="../forgot/index.php">Forgot Password</a>
-						&nbsp;|&nbsp;
-						<a href="../register/index.php">Register</a>
 					</div>
 
 				</div>
@@ -231,8 +235,18 @@ include '../includes/header.php';
 		</form>
 	<?php endif; ?>
 </div>
-
 <script>
+	// Detect and set user's timezone
+	document.addEventListener('DOMContentLoaded', function () {
+		<?php if (!$otp_mode): ?>
+			var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+			var timezoneInput = document.getElementById('user_timezone');
+			if (timezoneInput) {
+				timezoneInput.value = timezone;
+			}
+		<?php endif; ?>
+	});
+
 	// Auto-submit OTP form when 4 digits are entered
 	<?php if ($otp_mode): ?>
 		document.addEventListener('DOMContentLoaded', function () {
@@ -254,5 +268,4 @@ include '../includes/header.php';
 		});
 	<?php endif; ?>
 </script>
-
 <?php include BASE_PATH . '/includes/footer.php'; ?>

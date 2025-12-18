@@ -455,13 +455,12 @@ require_once '../includes/header.php';
         <h1 class="page-header">Reseller Panel</h1>
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
-    <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-        <?php include_once '../forms/transfer_credit_form.php'; ?>
-    </form>
+    <div class="form-container-responsive">
+        <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+            <?php include_once '../forms/transfer_credit_form.php'; ?>
+        </form>
+    </div>
 </div>
-
-
-
 
 <?php
 
@@ -509,5 +508,5 @@ function SenDemail($email, $amount, $reseller)
     }
 
 }
-
-include_once '../includes/footer.php'; ?>
+?>
+<?php include_once '../includes/footer.php'; ?>

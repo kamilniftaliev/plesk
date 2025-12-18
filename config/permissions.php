@@ -41,6 +41,10 @@ define('PAGES', [
     'edit_penjualan' => 'Edit Penjualan',
     'setserver' => 'Set Server',
     'setpatch' => 'Set Patch',
+    'serverstatus' => 'Server Status',
+    'serverspatch' => 'Servers Patch',
+    'servers' => 'Servers',
+    'price' => 'Price',
     'soldrs_DHRU' => 'DHRU Integration',
     'delete_customer' => 'Delete Customer',
     'delete_history_credit' => 'Delete History Credit',
@@ -179,7 +183,6 @@ function requirePermission($current_page_slug)
     // Check if user is logged in
     if (!isset($_SESSION['dashboard_user_logged_in']) || !$_SESSION['dashboard_user_logged_in']) {
         $url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
-        $url_prefix = $url_prefix ?: '';
         header('Location: ' . $url_prefix . '/dashboard/login.php');
         exit();
     }

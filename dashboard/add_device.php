@@ -2,8 +2,7 @@
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../config/config.php';
-require_once './includes/auth_validate.php';
-require("auth.php");
+require_once '../includes/auth_validate.php';
 //Used to hide any error or warning messages on the responce page (If any text other than json appear in responce it crash the app)
 error_reporting(E_ERROR | E_PARSE);
 
@@ -13,16 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	//Mass Insert Data. Keep "name" attribute in html form same as column name in mysql table.
 	$length = 20;
-	$key = ''; {
+	$key = '';
+	list($usec, $sec) = explode(' ', microtime());
+	mt_srand((float) $sec + ((float) $usec * 100000));
 
-		list($usec, $sec) = explode(' ', microtime());
-		mt_srand((float) $sec + ((float) $usec * 100000));
+	$inputs = array_merge(range('z', 'a'), range(0, 9), range('A', 'Z'));
 
-		$inputs = array_merge(range('z', 'a'), range(0, 9), range('A', 'Z'));
-
-		for ($i = 0; $i < $length; $i++) {
-			$key .= $inputs[mt_rand(0, 61)];
-		}
+	for ($i = 0; $i < $length; $i++) {
+		$key .= $inputs[mt_rand(0, 61)];
 	}
 	$admin_id = $_SESSION['admin_id'];
 	$admin_name = $_SESSION['name'];
@@ -63,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		} else {
 			if ($min_left === -1) {
 
-				echo '<script>alert("Sorry my dear xwa reseller. you are out of activation years!")</script>';
+				echo '<script>alert("Sorry, you are out of activation years!")</script>';
 			} else {
 				if (mysqli_query($conn, $sql)) {
 					if (mysqli_query($conn, $sqlAdmin)) {
@@ -99,9 +96,11 @@ require_once '../includes/header.php';
 	<div class="row">
 		<h1 class="page-header">Add a new activation</h1>
 	</div>
-	<form class="form" action="" method="post" id="customer_form" enctype="multipart/form-data">
-		<?php include_once('./forms/device_form.php'); ?>
-	</form>
+	<div class="form-container-responsive">
+		<form class="form" action="" method="post" id="customer_form" enctype="multipart/form-data">
+			<?php include_once('../forms/device_form.php'); ?>
+		</form>
+	</div>
 </div>
 
 

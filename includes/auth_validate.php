@@ -3,26 +3,11 @@
 // Include config first (which includes permissions.php)
 require_once __DIR__ . '/../config/config.php';
 
-//If User is logged in the session['dashboard_user_logged_in'] or session['user_logged_in'] will be set to true
+//If User is logged in the session['dashboard_user_logged_in'] will be set to true
 
-//if user is Not Logged in, redirect to appropriate login.php page based on current URL
+//if user is Not Logged in, redirect to login.php page
 
-// Get current URL path
-$current_path = $_SERVER['REQUEST_URI'];
-
-$url_prefix = defined('URL_PREFIX') ? URL_PREFIX : '';
-// https://testh.org/kev/authid
-// Check if we're in /authid directory
-if (strpos($current_path, "$url_prefix/authid") === 0) {
-	// We're in authid, check for authid session
-	if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== TRUE) {
-		redirectToLogin('/authid/login.php', true);
-	}
-} else {
-	// We're in dashboard or other area, check for dashboard session
-	if (!isset($_SESSION['dashboard_user_logged_in']) || $_SESSION['dashboard_user_logged_in'] !== TRUE) {
-		redirectToLogin('/dashboard/login.php', true);
-	}
+// Check if user is logged in
+if (!isset($_SESSION['dashboard_user_logged_in']) || $_SESSION['dashboard_user_logged_in'] !== TRUE) {
+	redirectToLogin('/dashboard/login.php', true);
 }
-
-?>

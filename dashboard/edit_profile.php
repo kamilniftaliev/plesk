@@ -3,9 +3,6 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
-// Check permission for this page
-requirePermission('edit_profile');
-
 $admin_user_id = $_SESSION['admin_id'];
 
 // Fetch current user data
@@ -112,7 +109,12 @@ $admin_account = $db->getOne("user");
 
 // Load appropriate header based on user type
 
-require_once '../includes/header.php';
+if (getCurrentUserType() == 'admin') {
+    require_once '../includes/header.php';
+}
+if (getCurrentUserType() == 'reseller') {
+    require_once 'includes/reseller_header.php';
+}
 
 ?>
 <div id="page-wrapper">
@@ -121,12 +123,10 @@ require_once '../includes/header.php';
         <h1 class="page-header">Edit Profile</h1>
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
-    <form class="well form-horizontal" action="" method="post" id="profile_form" enctype="multipart/form-data">
-        <?php include_once '../forms/profile_edit_form.php'; ?>
-    </form>
+    <div class="form-container-responsive">
+        <form class="well form-horizontal" action="" method="post" id="profile_form" enctype="multipart/form-data">
+            <?php include_once '../forms/profile_edit_form.php'; ?>
+        </form>
+    </div>
 </div>
-
-
-
-
 <?php include_once '../includes/footer.php'; ?>

@@ -3,43 +3,66 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('setserver');
+
 $serverid = filter_input(INPUT_GET, 'serverid');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
 ($operation == 'edit') ? $edit = true : $edit = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (getCurrentUserType() !== 'admin') {
-        echo 'Permission Denied';
-        exit();
-    }
     $authtype = filter_input(INPUT_GET, 'authtype', FILTER_SANITIZE_SPECIAL_CHARS);
     $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
-    $pencarianstatus = "";
 
-    if ($authtype == "frp") {
-        $pencarianstatus = "frpon";
-    }
-    if ($authtype == "fdl") {
-        $pencarianstatus = "fdlon";
-    }
-    if ($authtype == "flash") {
-        $pencarianstatus = "edlon";
-    }
-    if ($authtype == "ubl") {
-        $pencarianstatus = "ublon";
+    // If accessed without parameters, redirect to serverstatus page
+    if (empty($authtype) && empty($status) && empty($serverid)) {
+        header('location: serverstatus.php');
+        exit;
     }
 
-    $statuson = "";
+    // Only process if both authtype and status parameters are provided
+    if (!empty($authtype) && !empty($status)) {
+        $pencarianstatus = "";
 
-    if ($status == "on") {
+        if ($authtype == "frp") {
+            $pencarianstatus = "frpon";
+        }
+        if ($authtype == "fdl") {
+            $pencarianstatus = "fdlon";
+        }
+        if ($authtype == "flash") {
+            $pencarianstatus = "edlon";
+        }
+        if ($authtype == "ubl") {
+            $pencarianstatus = "ublon";
+        }
 
-        $statuson = 1;
-    }
+        // Validate that we have a valid column name
+        if (empty($pencarianstatus)) {
+            $_SESSION['failure'] = "Invalid auth type specified.";
+            header('location: serverstatus.php');
+            exit;
+        }
 
-    if ($status == "off") {
+        $statuson = "";
 
-        $statuson = 0;
-    }
+        if ($status == "on") {
+
+            $statuson = 1;
+        }
+
+        if ($status == "off") {
+
+            $statuson = 0;
+        }
+
+        // Validate that we have a valid status
+        if ($statuson === "") {
+            $_SESSION['failure'] = "Invalid status specified.";
+            header('location: serverstatus.php');
+            exit;
+        }
+
     $pagelimit = 50;
     $page = 1;
     $db = getDbInstance();
@@ -69,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     header('location: serverstatus.php');
     exit;
+    }
 
 
 

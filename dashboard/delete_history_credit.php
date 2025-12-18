@@ -2,15 +2,12 @@
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
+
+// Check permission for this page
+requirePermission('delete_history_credit');
+
 $del_id = filter_input(INPUT_POST, 'del_id');
 if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    if (getCurrentUserType() != 'admin') {
-        $_SESSION['failure'] = "You don't have permission to perform this action";
-        header('location: customers.php');
-        exit;
-
-    }
     $customer_id = $del_id;
 
     $db = getDbInstance();

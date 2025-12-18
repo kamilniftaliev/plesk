@@ -104,7 +104,7 @@ include '../includes/header.php';
             </div>
         </div>
     </div>
-    <?php include './includes/flash_messages.php'; ?>
+    <?php include 'includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {

@@ -5,8 +5,11 @@ $url_prefix = URL_PREFIX ?: '';
 if (getCurrentUserType() !== 'user') {
     header('Location:' . $url_prefix . '/dashboard/login.php');
     exit();
+}
 
-} ?>
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +31,8 @@ if (getCurrentUserType() !== 'user') {
 
     <!-- Custom CSS -->
     <link href="<?php echo $url_prefix ?>/assets/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Design System CSS -->
+    <link href="<?php echo $url_prefix ?>/assets/css/design-system.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?php echo $url_prefix ?>/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
@@ -41,17 +46,6 @@ if (getCurrentUserType() !== 'user') {
         <![endif]-->
     <script src="<?php echo $url_prefix ?>/assets/js/jquery.min.js" type="text/javascript"></script>
 
-    <style>
-        #page-wrapper {
-            padding: 1.5rem !important;
-        }
-
-        #page-wrapper .row {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -59,7 +53,7 @@ if (getCurrentUserType() !== 'user') {
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php if (isset($_SESSION['dashboard_user_logged_in']) && $_SESSION['dashboard_user_logged_in'] == true): ?>
+        <?php if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true): ?>
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -81,13 +75,13 @@ if (getCurrentUserType() !== 'user') {
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="edit_profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
                             <li><a href="edit_main.php?admin_user_id=<?php echo $_SESSION['admin_id']; ?>&operation=edit"><i
                                         class="fa fa-gear fa-fw"></i> Change Password</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="./logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>
                         </ul>
                         <!-- /.dropdown-user -->

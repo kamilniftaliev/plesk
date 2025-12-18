@@ -3,18 +3,34 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('setpatch');
+
 $serverid = filter_input(INPUT_GET, 'serverid');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
 ($operation == 'edit') ? $edit = true : $edit = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (getCurrentUserType() !== 'admin') {
-        echo 'Permission Denied';
-        exit();
-    }
     $authtype = filter_input(INPUT_GET, 'authtype', FILTER_SANITIZE_SPECIAL_CHARS);
     $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
     $multi = filter_input(INPUT_GET, 'multi', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // If accessed without any parameters, redirect to serverspatch page
+    if ($status === null && $multi === null && empty($authtype) && empty($serverid)) {
+        header('location: serverspatch.php');
+        exit;
+    }
+
+    // Ensure status has a valid value (default to 0 if not provided)
+    if ($status === null || $status === '') {
+        $status = 0;
+    }
+
+    // Ensure multi has a valid value (default to 1 if not provided)
+    if ($multi === null || $multi === '') {
+        $multi = 1;
+    }
+
     $pencarianstatus = "";
 
     if ($authtype == "frp") {
@@ -130,7 +146,7 @@ require_once '../includes/header.php';
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
     <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/server_form.php'; ?>
+        <?php include_once '../forms/server_form.php'; ?>
     </form>
 </div>
 

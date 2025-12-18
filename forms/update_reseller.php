@@ -50,13 +50,13 @@
         </div>
     </div>
     <!-- radio checks -->
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label class="col-md-4 control-label">Reseller Type</label>
         <div class="col-md-4">
             <div class="radio">
                 <label>
 
-                    <input type="radio" name="admin_type" value="super" required="" /> World Wide
+                    <input type="radio" name="admin_type" value="reseller" required="" /> World Wide
                 </label>
             </div>
             <div class="radio">
@@ -65,7 +65,7 @@
                 </label>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Button -->
     <div class="form-group">
         <label class="col-md-4 control-label"></label>

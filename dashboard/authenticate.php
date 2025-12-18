@@ -73,7 +73,6 @@ if (isset($_GET['resend_otp'])) {
 		}
 	}
 	redirectToLoginWithReturn();
-	exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -86,14 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (!preg_match('/^\d{4}$/', $otp_code)) {
 			$_SESSION['otp_failure'] = "Invalid code format. Please enter 4 digits.";
 			redirectToLoginWithReturn();
-			exit;
 		}
 
 		// Check if OTP session exists
 		if (!isset($_SESSION['otp_pending']) || $_SESSION['otp_pending'] !== TRUE) {
 			$_SESSION['login_failure'] = "OTP session expired. Please login again.";
 			redirectToLoginWithReturn();
-			exit;
 		}
 
 		// Check if OTP expired (10 minutes)
@@ -105,15 +102,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			unset($_SESSION['otp_username']);
 			unset($_SESSION['otp_admin_type']);
 			unset($_SESSION['otp_remember']);
+			unset($_SESSION['otp_return_url']);
 			$_SESSION['login_failure'] = "OTP code expired. Please login again.";
 			redirectToLoginWithReturn();
-			exit;
 		}
 
 		// Verify OTP code
 		if ($otp_code === $_SESSION['otp_code']) {
 			// OTP verified successfully - complete login
-			$_SESSION['dashboard_user_logged_in'] = TRUE;
+			$_SESSION['user_logged_in'] = TRUE;
 			$_SESSION['name'] = $_SESSION['otp_username'];
 			$_SESSION['admin_id'] = $_SESSION['otp_user_id'];
 			$_SESSION['admin_type'] = $_SESSION['otp_admin_type'];
@@ -122,14 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (isset($_SESSION['otp_remember']) && $_SESSION['otp_remember']) {
 				$user_id = $_SESSION['otp_user_id'];
 				$series_id = randomString(16);
-				$remember_token = getSecureRandomToken(20);
+				$remember_token = getSecureRandomToken();
 				$encryted_remember_token = password_hash($remember_token, PASSWORD_DEFAULT);
 
 				$expiry_time = date('Y-m-d H:i:s', strtotime(' + 30 days'));
 				$expires = strtotime($expiry_time);
 
-				setcookie('series_id', $series_id, $expires, "/");
-				setcookie('remember_token', $remember_token, $expires, "/");
+				setcookie('series_id', $series_id, $expires, "/dashboard");
+				setcookie('remember_token', $remember_token, $expires, "/dashboard");
 
 				$db = getDbInstance();
 				$db->where('id', $user_id);
@@ -167,10 +164,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	// Handle Initial Login (Username/Password)
+	// Handle Initial Login (Username/Password + Second Password)
 	$username = filter_input(INPUT_POST, 'username');
 	$passwd = filter_input(INPUT_POST, 'passwd');
 	$remember = filter_input(INPUT_POST, 'remember');
+	$second_password = filter_input(INPUT_POST, 'second_password');
+
+	// Validate hour password (must match current hour in user's timezone)
+	// Use the user's browser timezone if provided, otherwise use server timezone
+	$user_timezone = filter_input(INPUT_POST, 'user_timezone') ?: date_default_timezone_get();
+
+	try {
+		$dt = new DateTime('now', new DateTimeZone($user_timezone));
+		$current_hour = $dt->format('H'); // Get current hour in 24-hour format (00-23)
+	} catch (Exception $e) {
+		// If timezone is invalid, fall back to server timezone
+		$current_hour = date('H');
+	}
+
+	if ($second_password !== $current_hour) {
+		$_SESSION['login_failure'] = "Invalid second password. Please enter the correct second password.";
+		redirectToLoginWithReturn();
+	}
 
 	// Get DB instance
 	$db = getDbInstance();
@@ -191,7 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (empty($user_email) && empty($user_telegram_chat_id)) {
 				$_SESSION['login_failure'] = "No email or Telegram configured for this account. Please contact administrator.";
 				redirectToLoginWithReturn();
-				exit;
 			}
 
 			// Generate 4-digit OTP
@@ -237,15 +251,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				if ($email_sent || $telegram_sent) {
 					// Successfully sent OTP, redirect to OTP verification page
 					redirectToLoginWithReturn();
-					exit;
 				} else {
 					// Failed to send via any method
 					unset($_SESSION['otp_pending']);
 					unset($_SESSION['otp_code']);
-					// $_SESSION['login_failure'] = "Failed to send verification code. Please try again or contact administrator.";
-					$_SESSION['login_failure'] = $telegram_sent;
-					// redirectToLoginWithReturn();
-					exit;
+					unset($_SESSION['otp_return_url']);
+					$_SESSION['login_failure'] = "Failed to send verification code. Please try again or contact administrator.";
+					redirectToLoginWithReturn();
 				}
 			}
 
@@ -254,11 +266,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			redirectToLoginWithReturn();
 		}
 
-		exit;
 	} else {
 		$_SESSION['login_failure'] = "Invalid user name or password";
 		redirectToLoginWithReturn();
-		exit;
 	}
 
 } else {
@@ -388,7 +398,7 @@ function sendOTPEmail($email, $otp_code, $username)
 			</div>
 			<div class='content'>
 				<p>Hello <strong>" . htmlspecialchars($username) . "</strong>,</p>
-				<p>You are attempting to log in to your dashboard. Please use the verification code below to complete your login:</p>
+				<p>You are attempting to log in to your admin panel. Please use the verification code below to complete your login:</p>
 
 				<div class='otp-code'>" . htmlspecialchars($otp_code) . "</div>
 
@@ -411,7 +421,7 @@ function sendOTPEmail($email, $otp_code, $username)
 
 	$headers = "MIME-Version: 1.0" . "\r\n";
 	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-	$headers .= "From: Dashboard <noreply@" . $_SERVER['HTTP_HOST'] . ">" . "\r\n";
+	$headers .= "From: reseller Panel <noreply@" . $_SERVER['HTTP_HOST'] . ">" . "\r\n";
 
 	// Send email
 	return mail($email, $subject, $message, $headers);

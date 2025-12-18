@@ -54,7 +54,8 @@ include_once '../includes/header.php';
     include('./includes/flash_messages.php')
         ?>
 
-    <form class="" action="" method="post" enctype="multipart/form-data" id="contact_form">
+    <div class="form-container-responsive">
+        <form class="" action="" method="post" enctype="multipart/form-data" id="contact_form">
 
         <?php
         //Include the common form for add and edit  
@@ -62,8 +63,5 @@ include_once '../includes/header.php';
         ?>
     </form>
 </div>
-
-
-
-
+    </div>
 <?php include_once '../includes/footer.php'; ?>

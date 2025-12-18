@@ -1,12 +1,12 @@
 <?php
 
+
+
+
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 require("auth.php");
-
-// Check permission for this page
-requirePermission('index');
 
 error_reporting(E_ERROR | E_PARSE);
 $name = $_SESSION['name'];
@@ -15,8 +15,13 @@ if ($name == "abang") {
     exit;
 }
 
-include_once('../includes/header.php');
+$url_prefix = URL_PREFIX ?: '';
 
-include_once('../includes/footer.php');
+if (isset($_SESSION['admin_type'])) {
+    header("Location:" . $url_prefix . "/dashboard/servers.php");
+}
 
-?>
+
+
+
+include_once('../includes/footer.php'); ?>

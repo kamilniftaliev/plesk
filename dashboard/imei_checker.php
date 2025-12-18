@@ -382,8 +382,8 @@ require_once '../includes/header.php';
 
     <?php include_once 'includes/flash_messages.php'; ?>
 
-    <div class="flex justify-center w-full">
-        <div class="col-lg-8 px-0 col-md-8 col-sm-8">
+    <div class="flex justify-center w-full px-4">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 px-0">
             <div class="panel panel-default">
                 <div class="panel-heading flex items-center gap-3">
                     <i class="fa fa-mobile text-4xl w-4 fa-fw"></i>

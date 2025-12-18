@@ -317,7 +317,7 @@ include '../includes/header.php';
     <div class="row">
         <h1 class="page-header">Server Requesting History</h1>
     </div>
-    <?php include './includes/flash_messages.php'; ?>
+    <?php include 'includes/flash_messages.php'; ?>
 
     <!-- Table -->
     <div>

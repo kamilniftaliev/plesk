@@ -1,11 +1,10 @@
 <?php
-// include "../include/header.php";
+include "../include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
+require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
-// Check permission for this page
-requirePermission('history_refil');
 
 require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
@@ -59,6 +58,8 @@ $total_pages = $db->totalPages;
 
 require_once '../includes/header.php';
 
+
+
 ?>
 <!-- Main container -->
 <div id="page-wrapper">
@@ -68,7 +69,7 @@ require_once '../includes/header.php';
         </div>
 
     </div>
-    <?php include './includes/flash_messages.php'; ?>
+    <?php include 'includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {

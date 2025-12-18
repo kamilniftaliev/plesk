@@ -1,0 +1,3 @@
+# Redirect all authid URLs to dashboard
+RewriteEngine On
+RewriteRule ^authid/(.*)$ /dashboard/$1 [R=301,L]

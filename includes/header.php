@@ -681,6 +681,134 @@
         a:hover {
             text-decoration: none !important;
         }
+
+        /* Responsive Form Container */
+        .form-container-responsive {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-container-responsive {
+                padding: 0 0.5rem;
+            }
+
+            h1.page-header {
+                font-size: 2rem !important;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .form-container-responsive {
+                max-width: 600px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .form-container-responsive {
+                max-width: 800px;
+            }
+        }
+
+        /* Responsive Form Elements */
+        .form-control {
+            font-size: 1rem;
+            padding: 0.75rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-control {
+                font-size: 0.875rem;
+                padding: 0.625rem;
+            }
+
+            .btn {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            .input-group-addon {
+                padding: 0.625rem 0.75rem;
+            }
+        }
+
+        /* Form Group Spacing */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-group {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Input Groups Responsive */
+        .input-group {
+            display: flex;
+            width: 100%;
+        }
+
+        .input-group .form-control {
+            flex: 1;
+        }
+
+        /* Button Responsive */
+        .btn {
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 640px) {
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Well/Fieldset Responsive */
+        .well {
+            padding: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .well {
+                padding: 1rem;
+            }
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Label Responsive */
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            label {
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Radio Button Groups Responsive */
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 
 
@@ -819,6 +947,157 @@
                         <span class="font-medium">Resellers</span>
                     </a>
                 <?php endif; ?>
+
+                <!-- User Management Section - Admin Only -->
+                <?php
+                $has_user_management = isMenuVisible('add_customer', $current_user_type) ||
+                    isMenuVisible('add_reseller', $current_user_type);
+                ?>
+                <?php if ($has_user_management): ?>
+                    <div class="mb-1">
+                        <button
+                            class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+                            onclick="toggleSubmenu('user_management')">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">User Management</span>
+                            </div>
+                            <svg class="w-4 h-4 transition-transform" id="user_management-icon" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="user_management-submenu" class="ml-8 mt-1 space-y-1 hidden">
+                            <?php if (isMenuVisible('add_customer', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/add_customer.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Add
+                                    Customer</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('add_reseller', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/add_reseller.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Add
+                                    Reseller</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Device Management Section - Admin Only -->
+                <?php if (isMenuVisible('add_device', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/add_device.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <span class="font-medium">Add Device</span>
+                    </a>
+                <?php endif; ?>
+
+                <!-- Servers - Admin Only -->
+                <?php if (isMenuVisible('serverstatus', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/serverstatus.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Servers</span>
+                    </a>
+                <?php endif; ?>
+
+                <!-- Server Management Section - Admin Only -->
+                <?php
+                $has_server_management = isMenuVisible('setserver', $current_user_type) ||
+                    isMenuVisible('edit_serverstatus', $current_user_type) ||
+                    isMenuVisible('setpatch', $current_user_type);
+                ?>
+                <?php if ($has_server_management): ?>
+                    <div class="mb-1">
+                        <button
+                            class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+                            onclick="toggleSubmenu('server_management')">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">Server Management</span>
+                            </div>
+                            <svg class="w-4 h-4 transition-transform" id="server_management-icon" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="server_management-submenu" class="ml-8 mt-1 space-y-1 hidden">
+                            <?php if (isMenuVisible('setserver', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/setserver.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Set
+                                    Server</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('edit_serverstatus', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/edit_serverstatus.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Edit
+                                    Server Status</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('setpatch', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/setpatch.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Set
+                                    Patch</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Settings Section - Admin Only -->
+                <?php
+                $has_settings = isMenuVisible('edit_price', $current_user_type) ||
+                    isMenuVisible('soldrs_DHRU', $current_user_type);
+                ?>
+                <?php if ($has_settings): ?>
+                    <div class="mb-1">
+                        <button
+                            class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+                            onclick="toggleSubmenu('settings')">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                    </path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <span class="font-medium">Settings</span>
+                            </div>
+                            <svg class="w-4 h-4 transition-transform" id="settings-icon" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="settings-submenu" class="ml-8 mt-1 space-y-1 hidden">
+                            <?php if (isMenuVisible('edit_price', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/edit_price.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Edit
+                                    Price</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('soldrs_DHRU', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/soldrs_DHRU.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">DHRU
+                                    Integration</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </nav>
 
             <!-- User Profile (Bottom - Sticky) -->
@@ -866,14 +1145,7 @@
                         </svg>
                         <span class="font-medium">Change Password</span>
                     </a>
-                    <?php
-                    // Determine logout path based on current location
-                    $current_path = $_SERVER['REQUEST_URI'];
-                    $logout_url = (strpos($current_path, '/authid/') !== false)
-                        ? $url_prefix . '/authid/logout.php'
-                        : $url_prefix . '/dashboard/logout.php';
-                    ?>
-                    <a href="<?php echo $logout_url; ?>"
+                    <a href="<?php echo $url_prefix . '/dashboard/logout.php'; ?>"
                         class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

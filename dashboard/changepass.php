@@ -1,9 +1,10 @@
 <?php
 
+session_name('DASHBOARD_SESSION');
 session_start();
 include_once('connection.php');
 require_once '../config/config.php';
-require_once './includes/auth_validate.php';
+require_once '../includes/auth_validate.php';
 
 if (isset($_POST['chpass'])) {
 

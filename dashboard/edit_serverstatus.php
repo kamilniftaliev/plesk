@@ -3,15 +3,14 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('edit_serverstatus');
+
 $serverid = filter_input(INPUT_GET, 'serverid');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
 ($operation == 'edit') ? $edit = true : $edit = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	if (getCurrentUserType() !== 'admin') {
-		echo 'Permission Denied';
-		exit();
-	}
 	$status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_SPECIAL_CHARS);
 	$limitflash = filter_input(INPUT_POST, 'limitflash', FILTER_SANITIZE_SPECIAL_CHARS);
 	$limitfrp = filter_input(INPUT_POST, 'limitfrp', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -65,12 +64,10 @@ require_once '../includes/header.php';
 		<h1 class="page-header">Update Servers Info</h1>
 	</div>
 	<?php include_once 'includes/flash_messages.php'; ?>
-	<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-		<?php include_once './forms/server_formstatus.php'; ?>
-	</form>
+	<div class="form-container-responsive">
+		<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+			<?php include_once '../forms/server_form.php'; ?>
+		</form>
+	</div>
 </div>
-
-
-
-
 <?php include_once '../includes/footer.php'; ?>

@@ -3,9 +3,6 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
-// Check permission for this page
-requirePermission('edit_main');
-
 $admin_user_id = $_SESSION['admin_id'];
 
 $db = getDbInstance();
@@ -22,44 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $oldpass = filter_input(INPUT_POST, 'oldpassword', FILTER_SANITIZE_SPECIAL_CHARS);
     $pw = filter_input(INPUT_POST, 'newpassword', FILTER_SANITIZE_SPECIAL_CHARS);
-    $confirmpassword = filter_input(INPUT_POST, 'confirmpassword', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    // Validate password strength
-    $password_errors = [];
-
-    // Check minimum length (8 characters)
-    if (strlen($pw) < 8) {
-        $password_errors[] = "at least 8 characters";
-    }
-
-    // Check maximum length (64 characters)
-    if (strlen($pw) > 64) {
-        $password_errors[] = "no more than 64 characters";
-    }
-
-    // Check for at least one letter
-    if (!preg_match('/[a-zA-Z]/', $pw)) {
-        $password_errors[] = "at least one letter";
-    }
-
-    // Check for at least one number
-    if (!preg_match('/[0-9]/', $pw)) {
-        $password_errors[] = "at least one number";
-    }
-
-    // If password doesn't meet requirements, show error
-    if (!empty($password_errors)) {
-        $_SESSION['failure'] = "Password does not meet requirements. Must have: " . implode(", ", $password_errors) . ".";
-        header('location: edit_main.php');
-        exit;
-    }
-
-    // Check if new password and confirm password match
-    if ($pw !== $confirmpassword) {
-        $_SESSION['failure'] = "New passwords do not match. Please make sure both password fields are identical.";
-        header('location: edit_main.php');
-        exit;
-    }
 
     if (!password_verify($oldpass, $hasholdpass)) {
         $_SESSION['failure'] = "Old password Inputed Is not match with record";
@@ -108,12 +67,10 @@ require_once '../includes/header.php';
         <h1 class="page-header">Update User Info</h1>
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
-    <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-        <?php include_once '../forms/pass_edit_form.php'; ?>
-    </form>
+    <div class="form-container-responsive">
+        <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+            <?php include_once '../forms/pass_edit_form.php'; ?>
+        </form>
+    </div>
 </div>
-
-
-
-
 <?php include_once '../includes/footer.php'; ?>

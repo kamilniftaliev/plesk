@@ -97,16 +97,15 @@ $admin_account = $db->getOne("user");
 require_once '../includes/header.php';
 ?>
 <div id="page-wrapper">
+
 	<div class="row">
 		<h1 class="page-header">Update User's Info</h1>
 	</div>
 	<?php include_once 'includes/flash_messages.php'; ?>
-	<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-		<?php include_once '../forms/user_edit_form.php'; ?>
-	</form>
+	<div class="form-container-responsive">
+		<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+			<?php include_once './forms/user_edit_form.php'; ?>
+		</form>
+	</div>
 </div>
-
-
-
-
 <?php include_once '../includes/footer.php'; ?>

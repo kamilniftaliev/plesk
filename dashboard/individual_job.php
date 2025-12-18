@@ -279,7 +279,7 @@ $rows = $db->get('data', null, implode(',', $select));
     <div class="row">
         <h1 class="page-header">Job Auth History</h1>
     </div>
-    <?php include './includes/flash_messages.php'; ?>
+    <?php include 'includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {

@@ -1,4 +1,4 @@
 <?php
-composer require rooxie/omdb
+require 'rooxie/omdb';
 
 ?>

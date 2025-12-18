@@ -4,17 +4,12 @@ session_start();
 require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('soldrs_DHRU');
+
 // Users class
 require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
-
-// Only super admin is allowed to access this page
-if (getCurrentUserType() !== 'super') {
-    $url_prefix = URL_PREFIX ?: '';
-    // Show permission denied message
-    header('Location:' . $url_prefix . '/dashboard/login.php');
-    exit();
-}
 
 // Get Input data from query string
 $search_string = filter_input(INPUT_GET, 'search_string');
@@ -58,7 +53,7 @@ if ($order_by) {
 $db->pageLimit = $pagelimit;
 
 // Get result of the query.
-$rows = $db->arraybuilder()->paginate('Sales', $page, $select);
+$rows = $db->arraybuilder()->paginate('sales', $page, $select);
 $total_pages = $db->totalPages;
 
 include '../includes/header.php';
@@ -67,11 +62,11 @@ include '../includes/header.php';
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-6">
-            <h1 class="page-header">Xiaomi AzeGsm Reseller Sold Records From DHRU</h1>
+            <h1 class="page-header">Xiaomi AzeGsm reseller Sold Records From DHRU</h1>
         </div>
 
     </div>
-    <?php include './includes/flash_messages.php'; ?>
+    <?php include 'includes/flash_messages.php'; ?>
 
     <?php
     if (isset($del_stat) && $del_stat == 1) {
@@ -89,8 +84,8 @@ include '../includes/header.php';
         <thead>
             <tr>
                 <th width="10%">Sale ID</th>
-                <th width="15%">Reseller Name</th>
-                <th width="10%">Reseller Credit</th>
+                <th width="15%">reseller Name</th>
+                <th width="10%">reseller Credit</th>
                 <th width="20%">Sold To</th>
                 <th width="8%">Order QNT</th>
                 <th width="7%">Order ID</th>

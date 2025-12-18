@@ -20,7 +20,16 @@
       "Bash(ls:*)",
       "Bash(sudo apt-get update:*)",
       "Bash(sudo apt-get install:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(for file in admin_users_form.php edit_penjualan_form.php refill_edit_form.php server_formstatus.php user_edit_form.php device_form.php pass_edit_form.php price_form.php profile_edit_form.php server_form.php transfer_credit_form.php add_server_form.php customer_form.php)",
+      "Bash(do if [ ! -f \"/home/user/Desktop/plesk/forms/$file\" ])",
+      "Bash(then echo \"Missing: $file\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(\" 2>/dev/null || echo \"Need to check database credentials \")",
+      "Bash(for file in /home/user/Desktop/plesk/dashboard/{edit_device,add_device,delete_paid_credit,edit_userinfo,add_server,edit_customer,delete_server}.php)",
+      "Bash(do)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

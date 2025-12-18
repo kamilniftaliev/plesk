@@ -3,15 +3,12 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 require("auth.php");
+
+// Check permission for this page
+requirePermission('add_reseller');
+
 //Used to hide any error or warning messages on the responce page (If any text other than json appear in responce it crash the app)
 error_reporting(E_ERROR | E_PARSE);
-
-//Only admin is allowed to access this page
-if (getCurrentUserType() !== 'admin') {
-	// show permission denied message
-	echo 'Permission Denied';
-	exit();
-}
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -98,7 +95,7 @@ require_once '../includes/header.php';
 ?>
 <div id="page-wrapper">
 	<div class="row">
-		<h1 class="page-header">Add Reseller</h1>
+		<h1 class="page-header">Add reseller</h1>
 	</div>
 	<?php
 	include_once('includes/flash_messages.php');

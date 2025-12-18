@@ -3,16 +3,14 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('edit_price');
+
 $serverid = filter_input(INPUT_GET, 'serverid');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
 ($operation == 'edit') ? $edit = true : $edit = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (getCurrentUserType() !== 'admin') {
-        echo 'Permission Denied';
-        exit();
-    }
-
     $serviceid = filter_input(INPUT_POST, 'serviceid', FILTER_SANITIZE_SPECIAL_CHARS);
     $servicename = filter_input(INPUT_POST, 'servicename', FILTER_SANITIZE_SPECIAL_CHARS);
     $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -61,12 +59,10 @@ require_once '../includes/header.php';
         <h1 class="page-header">Update Price Info</h1>
     </div>
     <?php include_once 'includes/flash_messages.php'; ?>
-    <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-        <?php include_once './forms/price_form.php'; ?>
-    </form>
+    <div class="form-container-responsive">
+        <form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+            <?php include_once '../forms/price_form.php'; ?>
+        </form>
+    </div>
 </div>
-
-
-
-
 <?php include_once '../includes/footer.php'; ?>

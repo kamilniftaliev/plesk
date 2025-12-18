@@ -56,12 +56,10 @@ require_once '../includes/header.php';
 		<h1 class="page-header">Update Servers Info</h1>
 	</div>
 	<?php include_once 'includes/flash_messages.php'; ?>
-	<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
-		<?php include_once '../forms/edit_penjualan_form.php'; ?>
-	</form>
+	<div class="form-container-responsive">
+		<form class="well form-horizontal" action="" method="post" id="contact_form" enctype="multipart/form-data">
+			<?php include_once './forms/edit_penjualan_form.php'; ?>
+		</form>
+	</div>
 </div>
-
-
-
-
 <?php include_once '../includes/footer.php'; ?>

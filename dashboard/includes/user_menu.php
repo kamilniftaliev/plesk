@@ -1,12 +1,12 @@
 <?php
-include('../includes/konak.php');
+include('/includes/konak.php');
 date_default_timezone_set('asia/jakarta');
 $now = date("Y-m-d ");
 $db = getDbInstance();
 $numuser = $db->getValue("user", "count(*)");
-$db->where("status", "reseller");
+$db->where("status", "authid");
 
-$numTotalreseller = $db->getValue("user", "count(*)");
+$numTotalauthid = $db->getValue("user", "count(*)");
 $name = $_SESSION['name'];
 
 

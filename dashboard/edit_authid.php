@@ -3,18 +3,15 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('edit_reseller');
+
 //User ID for which we are performing operation
 $admin_user_id = filter_input(INPUT_GET, 'admin_user_id');
 $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS);
 ($operation == 'edit') ? $edit = true : $edit = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	// If non-admin user accesses this script via url. Stop the exexution
-	if (getCurrentUserType() !== 'admin') {
-
-		echo 'Permission Denied';
-		exit();
-	}
 
 
 	$user_name = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_SPECIAL_CHARS);

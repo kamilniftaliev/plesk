@@ -2,8 +2,8 @@
 require_once '/includes/konak.php';
 session_start();
 $typeadmin = getCurrentUserType();
-if (!$typeadmin == "super") {
-	echo "<h1><center>You Are Not Admin Super</h1><center>";
+if (!$typeadmin == "admin") {
+	echo "<h1><center>You Are Not Admin</h1><center>";
 	die();
 }
 
