@@ -4,6 +4,9 @@ session_start();
 require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('price');
+
 // Costumers class
 require_once BASE_PATH . '/lib/servers/servers.php';
 $servers = new servers();

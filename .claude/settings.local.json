@@ -29,7 +29,10 @@
       "Bash(\" 2>/dev/null || echo \"Need to check database credentials \")",
       "Bash(for file in /home/user/Desktop/plesk/dashboard/{edit_device,add_device,delete_paid_credit,edit_userinfo,add_server,edit_customer,delete_server}.php)",
       "Bash(do)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(while read file)",
+      "Bash(do if ! grep -q \"requirePermission\" \"$file\")",
+      "Bash(then basename \"$file\")"
     ],
     "deny": [],
     "ask": []

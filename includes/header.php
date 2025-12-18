@@ -865,6 +865,20 @@
                     </a>
                 <?php endif; ?>
 
+                <!-- Refill Credit -->
+                <?php if (isMenuVisible('transfer_credit', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/transfer_credit.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Refill Credit</span>
+                    </a>
+                <?php endif; ?>
+
+
                 <!-- Reporting (with submenu) - Show if user has access to any reporting page -->
                 <?php
                 $has_reporting_access = isMenuVisible('job', $current_user_type) ||
@@ -910,48 +924,9 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- Refill Credit -->
-                <?php if (isMenuVisible('transfer_credit', $current_user_type)): ?>
-                    <a href="<?php echo $url_prefix ?>/dashboard/transfer_credit.php"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
-                        </svg>
-                        <span class="font-medium">Refill Credit</span>
-                    </a>
-                <?php endif; ?>
-
-                <!-- Search Users -->
-                <?php if (isMenuVisible('customers', $current_user_type)): ?>
-                    <a href="<?php echo $url_prefix ?>/dashboard/customers.php"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                        <span class="font-medium">Search Users</span>
-                    </a>
-                <?php endif; ?>
-
-                <!-- Resellers -->
-                <?php if (isMenuVisible('reseller', $current_user_type)): ?>
-                    <a href="<?php echo $url_prefix ?>/dashboard/reseller.php"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
-                        <span class="font-medium">Resellers</span>
-                    </a>
-                <?php endif; ?>
-
                 <!-- User Management Section - Admin Only -->
                 <?php
-                $has_user_management = isMenuVisible('add_customer', $current_user_type) ||
-                    isMenuVisible('add_reseller', $current_user_type);
+                $has_user_management = isMenuVisible('add_reseller', $current_user_type) || isMenuVisible('customers', $current_user_type) || isMenuVisible('reseller', $current_user_type);
                 ?>
                 <?php if ($has_user_management): ?>
                     <div class="mb-1">
@@ -972,50 +947,31 @@
                             </svg>
                         </button>
                         <div id="user_management-submenu" class="ml-8 mt-1 space-y-1 hidden">
-                            <?php if (isMenuVisible('add_customer', $current_user_type)): ?>
-                                <a href="<?php echo $url_prefix ?>/dashboard/add_customer.php"
-                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Add
-                                    Customer</a>
-                            <?php endif; ?>
 
+                            <?php if (isMenuVisible('reseller', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/reseller.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Resellers</a>
+                            <?php endif; ?>
                             <?php if (isMenuVisible('add_reseller', $current_user_type)): ?>
                                 <a href="<?php echo $url_prefix ?>/dashboard/add_reseller.php"
                                     class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Add
                                     Reseller</a>
                             <?php endif; ?>
+                            <?php if (isMenuVisible('customers', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/customers.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Search
+                                    Users</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <!-- Device Management Section - Admin Only -->
-                <?php if (isMenuVisible('add_device', $current_user_type)): ?>
-                    <a href="<?php echo $url_prefix ?>/dashboard/add_device.php"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 4v16m8-8H4"></path>
-                        </svg>
-                        <span class="font-medium">Add Device</span>
-                    </a>
-                <?php endif; ?>
-
-                <!-- Servers - Admin Only -->
-                <?php if (isMenuVisible('serverstatus', $current_user_type)): ?>
-                    <a href="<?php echo $url_prefix ?>/dashboard/serverstatus.php"
-                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
-                            </path>
-                        </svg>
-                        <span class="font-medium">Servers</span>
-                    </a>
-                <?php endif; ?>
 
                 <!-- Server Management Section - Admin Only -->
                 <?php
-                $has_server_management = isMenuVisible('setserver', $current_user_type) ||
-                    isMenuVisible('edit_serverstatus', $current_user_type) ||
+                $has_server_management = isMenuVisible('serverstatus', $current_user_type) ||
+                    isMenuVisible('add_server', $current_user_type) ||
+                    isMenuVisible('servers', $current_user_type) ||
                     isMenuVisible('setpatch', $current_user_type);
                 ?>
                 <?php if ($has_server_management): ?>
@@ -1037,16 +993,22 @@
                             </svg>
                         </button>
                         <div id="server_management-submenu" class="ml-8 mt-1 space-y-1 hidden">
-                            <?php if (isMenuVisible('setserver', $current_user_type)): ?>
-                                <a href="<?php echo $url_prefix ?>/dashboard/setserver.php"
-                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Set
+                            <?php if (isMenuVisible('add_server', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/add_server.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Add
                                     Server</a>
                             <?php endif; ?>
 
-                            <?php if (isMenuVisible('edit_serverstatus', $current_user_type)): ?>
-                                <a href="<?php echo $url_prefix ?>/dashboard/edit_serverstatus.php"
-                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Edit
-                                    Server Status</a>
+                            <?php if (isMenuVisible('servers', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/servers.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Servers
+                                    List</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('serverstatus', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/serverstatus.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Server
+                                    Status</a>
                             <?php endif; ?>
 
                             <?php if (isMenuVisible('setpatch', $current_user_type)): ?>
@@ -1054,46 +1016,11 @@
                                     class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Set
                                     Patch</a>
                             <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
 
-                <!-- Settings Section - Admin Only -->
-                <?php
-                $has_settings = isMenuVisible('edit_price', $current_user_type) ||
-                    isMenuVisible('soldrs_DHRU', $current_user_type);
-                ?>
-                <?php if ($has_settings): ?>
-                    <div class="mb-1">
-                        <button
-                            class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
-                            onclick="toggleSubmenu('settings')">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                    </path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <span class="font-medium">Settings</span>
-                            </div>
-                            <svg class="w-4 h-4 transition-transform" id="settings-icon" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div id="settings-submenu" class="ml-8 mt-1 space-y-1 hidden">
-                            <?php if (isMenuVisible('edit_price', $current_user_type)): ?>
-                                <a href="<?php echo $url_prefix ?>/dashboard/edit_price.php"
-                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Edit
-                                    Price</a>
-                            <?php endif; ?>
-
-                            <?php if (isMenuVisible('soldrs_DHRU', $current_user_type)): ?>
-                                <a href="<?php echo $url_prefix ?>/dashboard/soldrs_DHRU.php"
-                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">DHRU
-                                    Integration</a>
+                            <?php if (isMenuVisible('price', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/price.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Price
+                                    List</a>
                             <?php endif; ?>
                         </div>
                     </div>

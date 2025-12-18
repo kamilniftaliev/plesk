@@ -4,14 +4,12 @@ session_start();
 require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('customers');
+
 // Costumers class
 require_once BASE_PATH . '/lib/Costumers/Costumers.php';
 $costumers = new Costumers();
-if (getCurrentUserType() !== 'admin') {
-    $url_prefix = URL_PREFIX ?: '';
-    header('Location:' . $url_prefix . '/dashboard/login.php');
-    exit();
-}
 
 
 $search_string = filter_input(INPUT_GET, 'search_string');
