@@ -96,7 +96,7 @@ require_once '../includes/header.php';
 	<div class="row">
 		<h1 class="page-header">Add a new activation</h1>
 	</div>
-	<div class="form-container-responsive">
+	<div class="form-container-responsive w-full md:w-1/2 lg:w-1/3">
 		<form class="form" action="" method="post" id="customer_form" enctype="multipart/form-data">
 			<?php include_once('../forms/device_form.php'); ?>
 		</form>

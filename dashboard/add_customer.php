@@ -36,7 +36,7 @@ require_once '../includes/header.php';
     <div class="row">
         <h1 class="page-header">Add Customers</h1>
     </div>
-    <div class="form-container-responsive">
+    <div class="form-container-responsive w-full md:w-1/2 mx-auto">
         <form class="form" action="" method="post" id="customer_form" enctype="multipart/form-data">
             <?php include_once('../forms/customer_form.php'); ?>
         </form>
@@ -61,5 +61,5 @@ require_once '../includes/header.php';
     });
 </script>
 
-    </div>
+</div>
 <?php include_once '../includes/footer.php'; ?>

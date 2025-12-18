@@ -17,7 +17,7 @@ if ($conn->connect_errno) {
 //Get DB instance. function is defined in config.php
 $db = getDbInstance();
 
-if ($_SESSION['user_logged_in'] === TRUE) {
+if ($_SESSION['dashboard_user_logged_in'] === TRUE) {
 	$s = 'SELECT * FROM spdevices';
 
 

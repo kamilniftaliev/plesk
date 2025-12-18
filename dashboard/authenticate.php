@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Verify OTP code
 		if ($otp_code === $_SESSION['otp_code']) {
 			// OTP verified successfully - complete login
-			$_SESSION['user_logged_in'] = TRUE;
+			$_SESSION['dashboard_user_logged_in'] = TRUE;
 			$_SESSION['name'] = $_SESSION['otp_username'];
 			$_SESSION['admin_id'] = $_SESSION['otp_user_id'];
 			$_SESSION['admin_type'] = $_SESSION['otp_admin_type'];

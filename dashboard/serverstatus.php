@@ -121,9 +121,10 @@ include '../includes/header.php';
 
     <!-- Filters -->
     <div class="well text-center filter-form">
-        <form class="form form-inline" action="">
+        <form class="form form-inline w-full md:w-1/2 lg:w-1/3 flex gap-6 items-center justify-center mx-auto"
+            action="">
             <label for="input_search">Search</label>
-            <input type="text" class="form-control" id="input_search" name="search_string"
+            <input type="text" class="form-control w-1/2" id="input_search" name="search_string"
                 value="<?php echo htmlspecialchars($search_string, ENT_QUOTES, 'UTF-8'); ?>">
 
             <input type="submit" value="Go" class="btn btn-primary">
