@@ -9,7 +9,7 @@ require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
 
 // Only super admin is allowed to access this page
-if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'super') {
+if (getCurrentUserType() !== 'super') {
     $url_prefix = URL_PREFIX ?: '';
     // Show permission denied message
     header('Location:' . $url_prefix . '/authid/login.php');

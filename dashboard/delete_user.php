@@ -2,11 +2,10 @@
 session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
-require_once '../config/config.php';
 $del_id = filter_input(INPUT_POST, 'del_id');
 $db = getDbInstance();
 
-if ($_SESSION['admin_type'] != 'admin') {
+if (getCurrentUserType() != 'admin') {
     $url_prefix = URL_PREFIX ?: '';
     header('Location:' . $url_prefix . '/dashboard/login.php');
     exit();

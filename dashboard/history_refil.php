@@ -2,9 +2,10 @@
 // include "../include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once BASE_PATH . '/includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('history_refil');
 
 require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
@@ -56,17 +57,7 @@ $rows = $db->arraybuilder()->paginate('penjualancredit', $page, $select);
 $total_pages = $db->totalPages;
 
 
-if ($_SESSION['admin_type'] == 'user') {
-    require_once 'includes/user_header.php';
-}
-if ($_SESSION['admin_type'] == 'admin') {
-    require_once '../includes/header.php';
-}
-if ($_SESSION['admin_type'] == 'reseller') {
-    require_once 'includes/reseller_header.php';
-}
-
-
+require_once '../includes/header.php';
 
 ?>
 <!-- Main container -->

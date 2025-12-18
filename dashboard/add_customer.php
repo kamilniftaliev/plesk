@@ -3,7 +3,7 @@ session_name('DASHBOARD_SESSION');
 session_start();
 require_once '../config/config.php';
 require_once './includes/auth_validate.php';
-if ($_SESSION['admin_type'] !== 'super') {
+if (getCurrentUserType() !== 'super') {
     $url_prefix = URL_PREFIX ?: '';
     // Show permission denied message
     header('Location:' . $url_prefix . '/dashboard/login.php');

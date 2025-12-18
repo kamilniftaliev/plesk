@@ -5,7 +5,6 @@
 
 session_name('AUTHID_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 require("auth.php");
 
@@ -19,18 +18,6 @@ if ($name == "abang") {
 $url_prefix = URL_PREFIX ?: '';
 
 if (isset($_SESSION['admin_type'])) {
-    // if ($_SESSION['admin_type'] == 'admin') {
-    //     include_once('../includes/header.php');
-    //     include_once('includes/admin_menu.php');
-    // } else if ($_SESSION['admin_type'] == 'authid') {
-    //     include_once('includes/authid_header.php');
-    //     include_once('includes/authid_menu.php');
-    // } else if ($_SESSION['admin_type'] == 'user') {
-    //     include_once('includes/user_header.php');
-    //     include_once('includes/user_menu.php');
-    // } else {
-    //     header("Location:" . $url_prefix . "/authid/servers.php");
-    // }
     header("Location:" . $url_prefix . "/authid/servers.php");
 }
 

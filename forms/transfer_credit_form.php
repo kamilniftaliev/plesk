@@ -130,6 +130,50 @@
         padding-top: 1rem;
     }
 
+    /* Payment Status Toggle Styles */
+    .payment-status-option {
+        flex: 1;
+        cursor: pointer;
+    }
+
+    .payment-status-option input[type="radio"] {
+        display: none;
+    }
+
+    .payment-status-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.875rem 1.25rem;
+        border: 2px solid #D1D5DB;
+        border-radius: 0.5rem;
+        background-color: #F9FAFB;
+        transition: all 0.2s;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #6B7280;
+    }
+
+    .payment-status-option input[type="radio"]:checked + .payment-status-label.paid-label {
+        background-color: #10b981;
+        border-color: #059669;
+        color: #ffffff;
+    }
+
+    .payment-status-option input[type="radio"]:checked + .payment-status-label.unpaid-label {
+        background-color: #f59e0b;
+        border-color: #d97706;
+        color: #ffffff;
+    }
+
+    .payment-status-label:hover {
+        border-color: #3B82F6;
+    }
+
+    .payment-status-option input[type="radio"]:checked + .payment-status-label svg {
+        stroke: #ffffff;
+    }
+
     /* Dark mode support */
     @media (prefers-color-scheme: dark) {
         .modern-card {
@@ -170,6 +214,24 @@
 
         .modern-input-icon svg {
             color: #9ca3af;
+        }
+
+        .payment-status-label {
+            background-color: #0f172a;
+            border-color: #374151;
+            color: #9ca3af;
+        }
+
+        .payment-status-option input[type="radio"]:checked + .payment-status-label.paid-label {
+            background-color: #059669;
+            border-color: #047857;
+            color: #ffffff;
+        }
+
+        .payment-status-option input[type="radio"]:checked + .payment-status-label.unpaid-label {
+            background-color: #d97706;
+            border-color: #b45309;
+            color: #ffffff;
         }
     }
 </style>
@@ -213,6 +275,31 @@
                 </div>
                 <input type="number" id="amount" name="jumlah" autocomplete="off" class="modern-input"
                     placeholder="Enter payment amount" min="0" step="0.01" required />
+            </div>
+        </div>
+
+        <!-- Payment Status Toggle -->
+        <div class="modern-form-group">
+            <label class="modern-label">Payment Status</label>
+            <div style="display: flex; gap: 12px; margin-top: 0.5rem;">
+                <label class="payment-status-option">
+                    <input type="radio" name="ispay" value="1" checked>
+                    <span class="payment-status-label paid-label">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px; margin-right: 8px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Paid
+                    </span>
+                </label>
+                <label class="payment-status-option">
+                    <input type="radio" name="ispay" value="0">
+                    <span class="payment-status-label unpaid-label">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px; margin-right: 8px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Unpaid
+                    </span>
+                </label>
             </div>
         </div>
 

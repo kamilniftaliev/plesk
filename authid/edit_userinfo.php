@@ -1,7 +1,6 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 
 $admin_user_id = filter_input(INPUT_GET, 'admin_user_id');
@@ -10,7 +9,7 @@ $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
+	if (getCurrentUserType() !== 'admin') {
 
 		echo 'Permission Denied';
 		exit();

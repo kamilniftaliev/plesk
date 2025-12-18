@@ -2,9 +2,11 @@
 
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 require("auth.php");
+
+// Check permission for this page
+requirePermission('index');
 
 error_reporting(E_ERROR | E_PARSE);
 $name = $_SESSION['name'];
@@ -15,19 +17,6 @@ if ($name == "abang") {
 
 include_once('../includes/header.php');
 
-if ($_SESSION['admin_type'] == 'admin') {
-    include_once('../includes/admin_menu.php');
-}
+include_once('../includes/footer.php');
 
-if ($_SESSION['admin_type'] == 'reseller') {
-    include_once('../includes/reseller_header.php');
-    include_once('../includes/reseller_menu.php');
-}
-
-if ($_SESSION['admin_type'] == 'user') {
-    include_once('../includes/user_header.php');
-    include_once('../includes/user_menu.php');
-}
-
-
-include_once('../includes/footer.php'); ?>
+?>

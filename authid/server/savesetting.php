@@ -8,7 +8,7 @@ session_start();
 //   frp: frp,
 //  fdl: fdl,
 
-$typeadmin = $_SESSION['admin_type'];
+$typeadmin = getCurrentUserType();
 if (!$typeadmin == "super") {
   echo "<h1><center>You Are Not Admin Super</h1><center>";
   die();

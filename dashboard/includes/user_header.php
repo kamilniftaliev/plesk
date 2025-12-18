@@ -2,7 +2,7 @@
 
 $url_prefix = URL_PREFIX ?: '';
 
-if ($_SESSION['admin_type'] !== 'user') {
+if (getCurrentUserType() !== 'user') {
     header('Location:' . $url_prefix . '/dashboard/login.php');
     exit();
 

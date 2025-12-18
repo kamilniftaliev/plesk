@@ -10,10 +10,12 @@
 
     <title>AH Admin Panel</title>
 
+    <?php
+    $url_prefix = URL_PREFIX ?: '';
+    ?>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <?php $url_prefix = URL_PREFIX ?: ''; ?>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="<?php echo $url_prefix ?>/assets/css/bootstrap.min.css" />
@@ -680,6 +682,8 @@
             text-decoration: none !important;
         }
     </style>
+
+
 </head>
 
 <body>
@@ -703,93 +707,118 @@
 
             <!-- Navigation -->
             <nav class="px-4 py-4 flex-1 overflow-y-auto">
+                <?php
+                $current_user_type = getCurrentUserType();
+                ?>
+
                 <!-- Dashboard -->
-                <a href="<?php echo $url_prefix ?>/dashboard/index.php"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                        </path>
-                    </svg>
-                    <span class="font-medium">Dashboard</span>
-                </a>
-
-                <!-- Search Users -->
-                <a href="<?php echo $url_prefix ?>/dashboard/customers.php"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    <span class="font-medium">Search Users</span>
-                </a>
-
-                <!-- Reporting (with submenu) -->
-                <div class="mb-1">
-                    <button
-                        class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
-                        onclick="toggleSubmenu('reporting')">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                                </path>
-                            </svg>
-                            <span class="font-medium">Reporting</span>
-                        </div>
-                        <svg class="w-4 h-4 transition-transform" id="reporting-icon" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                <?php if (isMenuVisible('index', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/index.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
                         </svg>
-                    </button>
-                    <div id="reporting-submenu" class="ml-8 mt-1 space-y-1 hidden">
-                        <a href="<?php echo $url_prefix ?>/dashboard/job.php?id=1"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Check
-                            History</a>
-                        <a href="<?php echo $url_prefix ?>/dashboard/penjualan.php"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Unpaid
-                            Credit</a>
-                        <a href="<?php echo $url_prefix ?>/dashboard/bayar.php"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Paid
-                            Credit</a>
-                        <a href="<?php echo $url_prefix ?>/dashboard/individual_job.php"
-                            class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">History
-                            Job</a>
-                    </div>
-                </div>
-
-                <!-- Refill Credit (Active) -->
-                <a href="<?php echo $url_prefix ?>/dashboard/transfer_credit.php"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                        </path>
-                    </svg>
-                    <span class="font-medium">Refill Credit</span>
-                </a>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                <?php endif; ?>
 
                 <!-- IMEI Checker -->
-                <a href="<?php echo $url_prefix ?>/dashboard/imei_checker.php"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
-                        </path>
-                    </svg>
-                    <span class="font-medium">IMEI Checker</span>
-                </a>
+                <?php if (isMenuVisible('imei_checker', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/imei_checker.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">IMEI Checker</span>
+                    </a>
+                <?php endif; ?>
+
+                <!-- Reporting (with submenu) - Show if user has access to any reporting page -->
+                <?php
+                $has_reporting_access = isMenuVisible('job', $current_user_type) ||
+                    isMenuVisible('penjualan', $current_user_type) ||
+                    isMenuVisible('individual_job', $current_user_type);
+                ?>
+                <?php if ($has_reporting_access): ?>
+                    <div class="mb-1">
+                        <button
+                            class="flex items-center justify-between text-primary w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors"
+                            onclick="toggleSubmenu('reporting')">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">Reporting</span>
+                            </div>
+                            <svg class="w-4 h-4 transition-transform" id="reporting-icon" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="reporting-submenu" class="ml-8 mt-1 space-y-1 hidden">
+                            <?php if (isMenuVisible('job', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/job.php?id=1"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Check
+                                    History</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('penjualan', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/penjualan.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Transactions</a>
+                            <?php endif; ?>
+
+                            <?php if (isMenuVisible('individual_job', $current_user_type)): ?>
+                                <a href="<?php echo $url_prefix ?>/dashboard/individual_job.php"
+                                    class="block px-4 py-3 text-2xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors">Job
+                                    History</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Refill Credit -->
+                <?php if (isMenuVisible('transfer_credit', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/transfer_credit.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Refill Credit</span>
+                    </a>
+                <?php endif; ?>
+
+                <!-- Search Users -->
+                <?php if (isMenuVisible('customers', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/customers.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <span class="font-medium">Search Users</span>
+                    </a>
+                <?php endif; ?>
 
                 <!-- Resellers -->
-                <a href="<?php echo $url_prefix ?>/dashboard/reseller.php"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                        </path>
-                    </svg>
-                    <span class="font-medium">Resellers</span>
-                </a>
+                <?php if (isMenuVisible('reseller', $current_user_type)): ?>
+                    <a href="<?php echo $url_prefix ?>/dashboard/reseller.php"
+                        class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors mb-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Resellers</span>
+                    </a>
+                <?php endif; ?>
             </nav>
 
             <!-- User Profile (Bottom - Sticky) -->

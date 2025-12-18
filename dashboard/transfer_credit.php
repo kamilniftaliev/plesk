@@ -2,27 +2,18 @@
 session_name('DASHBOARD_SESSION');
 session_start();
 include '/includes/konak.php';
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
-if ($_SESSION['admin_type'] !== 'admin') {
-    if ($_SESSION['admin_type'] !== 'reseller') {
-        $url_prefix = URL_PREFIX ?: '';
-        header('Location:' . $url_prefix . '/dashboard/login.php');
-        exit();
-
-
-    }
-
-}
+// Check permission for this page
+requirePermission('transfer_credit');
 
 
 
 
 
-$statusUser = $_SESSION['admin_type'];
+$statusUser = getCurrentUserType();
 $admin_user_id = $_SESSION['admin_id'];
 $name = isset($_SESSION['name']) ? $_SESSION['name'] : '';
 $db = getDbInstance();
@@ -37,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $jumlah = filter_input(INPUT_POST, 'jumlah', FILTER_SANITIZE_SPECIAL_CHARS);
     $uname = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ispay = filter_input(INPUT_POST, 'ispay', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ispay = ($ispay === '1' || $ispay === 1) ? 1 : 0; // Normalize to 0 or 1
+
     if ($statusUser == 'reseller') {
         if ($cre < $jumlah) {
             $message = "Reseller Name " . $name . "\n";
@@ -88,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stat = $db->update('user', $data_to_update);
             if ($stat) {
                 $_SESSION['success'] = "Refil Credit successfully";
-                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername,ispay) VALUES ('$jumlah','$uname','$admin_user_id','$name',1)";
+                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername,ispay) VALUES ('$jumlah','$uname','$admin_user_id','$name','$ispay')";
 
 
                 if (mysqli_query($koneksi, $sqls)) {
@@ -183,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($stat) {
                 $_SESSION['success'] = "Refil Credit successfully";
-                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername,ispay) VALUES ('$jumlah','$uname','$admin_user_id','$name',1)";
+                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername,ispay) VALUES ('$jumlah','$uname','$admin_user_id','$name','$ispay')";
                 if (mysqli_query($koneksi, $sqls)) {
                     $creres = $cre - $jumlah;
                     $data_to_update = ['credit' => $creres];
@@ -309,7 +303,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stat = $db->update('user', $data_to_update);
             if ($stat) {
                 $_SESSION['success'] = "Refil Credit successfully";
-                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername) VALUES ('$jumlah','$uname','$admin_user_id','$name')";
+                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername,ispay) VALUES ('$jumlah','$uname','$admin_user_id','$name','$ispay')";
                 if (mysqli_query($koneksi, $sqls)) {
 
                     $db = getDbInstance();
@@ -387,7 +381,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($stat) {
                 $_SESSION['success'] = "Refil Credit successfully";
-                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername) VALUES ('$jumlah','$uname','$admin_user_id','$name')";
+                $sqls = "INSERT INTO penjualancredit (jumlah,email,resellerid,resellername,ispay) VALUES ('$jumlah','$uname','$admin_user_id','$name','$ispay')";
                 if (mysqli_query($koneksi, $sqls)) {
                     $db->where("email", $uname);
                     $row = $db->get('user');
@@ -452,15 +446,7 @@ $db->where('id', $admin_user_id);
 
 $admin_account = $db->getOne("user");
 
-if ($_SESSION['admin_type'] == 'user') {
-    require_once 'includes/user_header.php';
-}
-if ($_SESSION['admin_type'] == 'admin') {
-    require_once '../includes/header.php';
-}
-if ($_SESSION['admin_type'] == 'reseller') {
-    require_once 'includes/reseller_header.php';
-}
+require_once '../includes/header.php';
 
 ?>
 <div id="page-wrapper">

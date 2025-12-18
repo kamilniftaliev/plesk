@@ -2,11 +2,10 @@
 session_name('AUTHID_SESSION');
 session_start();
 require_once '../includes/auth_validate.php';
-require_once '../config/config.php';
 $del_id = filter_input(INPUT_POST, 'del_id');
 if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] != 'authid') {
+    if (getCurrentUserType() != 'authid') {
         $_SESSION['failure'] = "You don't have permission to perform this action";
         header('location: paid_refil.php');
         exit;

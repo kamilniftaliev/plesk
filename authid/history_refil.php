@@ -56,13 +56,10 @@ $rows = $db->arraybuilder()->paginate('penjualancredit', $page, $select);
 $total_pages = $db->totalPages;
 
 
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'user') {
-    require_once 'includes/user_header.php';
-}
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'admin') {
+if (getCurrentUserType() == 'admin') {
     require_once '../includes/header.php';
 }
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'authid') {
+if (getCurrentUserType() == 'authid') {
     require_once 'includes/authid_header.php';
 }
 

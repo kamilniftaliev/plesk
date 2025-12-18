@@ -9,7 +9,7 @@ require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
 
 //echo $_SESSION['admin_type'];
-if ($_SESSION['admin_type'] !== 'admin') {
+if (getCurrentUserType() !== 'admin') {
     $url_prefix = URL_PREFIX ?: '';
     header('Location:' . $url_prefix . '/dashboard/login.php');
     exit();

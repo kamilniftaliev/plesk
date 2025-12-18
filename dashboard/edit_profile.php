@@ -1,8 +1,10 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
+
+// Check permission for this page
+requirePermission('edit_profile');
 
 $admin_user_id = $_SESSION['admin_id'];
 
@@ -109,15 +111,8 @@ $db->where('id', $admin_user_id);
 $admin_account = $db->getOne("user");
 
 // Load appropriate header based on user type
-if ($_SESSION['admin_type'] == 'user') {
-    require_once 'includes/user_header.php';
-}
-if ($_SESSION['admin_type'] == 'admin') {
-    require_once '../includes/header.php';
-}
-if ($_SESSION['admin_type'] == 'reseller') {
-    require_once 'includes/reseller_header.php';
-}
+
+require_once '../includes/header.php';
 
 ?>
 <div id="page-wrapper">

@@ -2,7 +2,7 @@
 
 $url_prefix = URL_PREFIX ?: '';
 
-if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'user') {
+if (getCurrentUserType() !== 'user') {
     header('Location:' . $url_prefix . '/authid/login.php');
     exit();
 }

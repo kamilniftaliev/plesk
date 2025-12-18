@@ -1,7 +1,6 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 
 //User ID for which we are performing operation
@@ -11,7 +10,7 @@ $operation = filter_input(INPUT_GET, 'operation', FILTER_SANITIZE_SPECIAL_CHARS)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// If non-super user accesses this script via url. Stop the exexution
-	if ($_SESSION['admin_type'] !== 'admin') {
+	if (getCurrentUserType() !== 'admin') {
 
 		echo 'Permission Denied';
 		exit();

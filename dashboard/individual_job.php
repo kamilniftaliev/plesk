@@ -1,13 +1,16 @@
 <?php
-include "../include/header.php";
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once '../config/config.php';
-require_once BASE_PATH . '/includes/auth_validate.php';
+require_once '../includes/auth_validate.php';
 
+// Check permission for this page
+requirePermission('individual_job');
 
 require_once BASE_PATH . '/lib/Users/Users.php';
 $users = new Users();
+
+// Include header after session and permissions
+include_once('../includes/header.php');
 
 $admin_user_id = $_SESSION['admin_id'];
 $search_string = filter_input(INPUT_GET, 'search_string');
@@ -69,16 +72,6 @@ $db->orderBy("id", "desc");
 // Get all rows for DataTables client-side processing
 $rows = $db->get('data', null, implode(',', $select));
 
-
-if ($_SESSION['admin_type'] == 'user') {
-    require_once '../includes/user_header.php';
-}
-if ($_SESSION['admin_type'] == 'admin') {
-    require_once '../includes/header.php';
-}
-if ($_SESSION['admin_type'] == 'reseller') {
-    require_once '../includes/reseller_header.php';
-}
 
 
 

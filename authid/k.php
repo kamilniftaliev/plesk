@@ -2,7 +2,6 @@
 session_name('AUTHID_SESSION');
 session_start();
 include '/includes/konak.php';
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 
 

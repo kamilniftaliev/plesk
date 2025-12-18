@@ -2,7 +2,7 @@
 require_once '/includes/konak.php';
 session_name('DASHBOARD_SESSION');
 session_start();
-$typeadmin = $_SESSION['admin_type'];
+$typeadmin = getCurrentUserType();
 if (!$typeadmin == "super") {
 	echo "<h1><center>You Are Not Admin Super</h1><center>";
 	die();

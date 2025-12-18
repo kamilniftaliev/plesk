@@ -1,7 +1,6 @@
 <?php
 session_name('AUTHID_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 
 $admin_user_id = $_SESSION['admin_id'];
@@ -59,13 +58,10 @@ $db->where('id', $admin_user_id);
 
 $admin_account = $db->getOne("user");
 
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'user') {
-    require_once 'includes/user_header.php';
-}
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'admin') {
+if (getCurrentUserType() == 'admin') {
     require_once '../includes/header.php';
 }
-if (isset($_SESSION['admin_type']) && $_SESSION['admin_type'] == 'authid') {
+if (getCurrentUserType() == 'authid') {
     require_once 'includes/authid_header.php';
 }
 

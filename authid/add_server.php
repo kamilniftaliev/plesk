@@ -2,9 +2,8 @@
 session_name('AUTHID_SESSION');
 session_start();
 include('../includes/konak.php');
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
-if (!isset($_SESSION['admin_type']) || $_SESSION['admin_type'] !== 'admin') {
+if (getCurrentUserType() !== 'admin') {
     // Show permission denied message
     $url_prefix = URL_PREFIX ?: '';
     header('Location:' . $url_prefix . '/authid/login.php');

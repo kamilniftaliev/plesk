@@ -1,14 +1,13 @@
 <?php
 session_name('DASHBOARD_SESSION');
 session_start();
-require_once '../config/config.php';
 require_once '../includes/auth_validate.php';
 require("auth.php");
 //Used to hide any error or warning messages on the responce page (If any text other than json appear in responce it crash the app)
 error_reporting(E_ERROR | E_PARSE);
 
 //Only super admin is allowed to access this page
-if ($_SESSION['admin_type'] !== 'admin') {
+if (getCurrentUserType() !== 'admin') {
 	// show permission denied message
 	echo 'Permission Denied';
 	exit();
